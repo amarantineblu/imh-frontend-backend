@@ -1,0 +1,16 @@
+export { default as BusinessView } from './BusinessView';
+export { default as ContactView } from './ContactView';
+export { default as CustomLabelsView } from './CustomLabelsView';
+export { default as DashboardView } from './DashboardView';
+export { default as EmailSettingsView } from './EmailSettingsView';
+export { default as ModulesView } from './ModulesView';
+export { default as PaymentView } from './PaymentView';
+export { default as POSView } from './POSView';
+export { default as PrefixesView } from './PrefixesView';
+export { default as ProductView } from './ProductView';
+export { default as PurchasesView } from './PurchasesView';
+export { default as RewardPointSettingsView } from './RewardPointSettingsView';
+export { default as SaleView } from './SaleView';
+export { default as SMSSettingsView } from './SMSSettingsView';
+export { default as SystemView } from './SystemView';
+export { default as TaxView } from './TaxView';

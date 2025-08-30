@@ -1,0 +1,81 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    // Products routes
+    Route::prefix('products')->group(function () {
+        Route::get('/', function () {
+            return Inertia::render('products/index', [
+                'activeTab' => 'list'
+            ]);
+        })->name('products.index');
+
+        Route::get('/list', function () {
+            return Inertia::render('products/index', [
+                'activeTab' => 'list'
+            ]);
+        })->name('products.list');
+
+        Route::get('/add', function () {
+            return Inertia::render('products/index', [
+                'activeTab' => 'add'
+            ]);
+        })->name('products.add');
+
+        Route::get('/print-labels', function () {
+            return Inertia::render('products/index', [
+                'activeTab' => 'print-labels'
+            ]);
+        })->name('products.print-labels');
+
+        Route::get('/variations', function () {
+            return Inertia::render('products/index', [
+                'activeTab' => 'variations'
+            ]);
+        })->name('products.variations');
+
+        Route::get('/import', function () {
+            return Inertia::render('products/index', [
+                'activeTab' => 'import'
+            ]);
+        })->name('products.import');
+
+        Route::get('/import-opening-stock', function () {
+            return Inertia::render('products/index', [
+                'activeTab' => 'import-opening-stock'
+            ]);
+        })->name('products.import-opening-stock');
+
+        Route::get('/selling-price-groups', function () {
+            return Inertia::render('products/index', [
+                'activeTab' => 'selling-price-group'
+            ]);
+        })->name('products.selling-price-groups');
+
+        Route::get('/units', function () {
+            return Inertia::render('products/index', [
+                'activeTab' => 'units'
+            ]);
+        })->name('products.units');
+
+        Route::get('/categories', function () {
+            return Inertia::render('products/index', [
+                'activeTab' => 'categories'
+            ]);
+        })->name('products.categories');
+
+        Route::get('/brands', function () {
+            return Inertia::render('products/index', [
+                'activeTab' => 'brands'
+            ]);
+        })->name('products.brands');
+
+        Route::get('/warranties', function () {
+            return Inertia::render('products/index', [
+                'activeTab' => 'warranties'
+            ]);
+        })->name('products.warranties');
+    });
+});
