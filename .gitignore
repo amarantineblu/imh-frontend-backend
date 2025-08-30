@@ -8,6 +8,8 @@
 /storage/pail
 /database
 /node_modules
+/app
+/resources
 /vendor
 .env
 .env.backup
