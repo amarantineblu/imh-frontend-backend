@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Transaction;
+use App\Transaction as AppTransaction;
 use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
@@ -12,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Transaction::where('is_recurring', 1)
+        AppTransaction::where('is_recurring', 1)
                 ->whereNull('recur_interval')
                 ->update(['recur_interval' => 1]);
     }

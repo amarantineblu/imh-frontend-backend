@@ -3,6 +3,7 @@
 use App\Models\Business;
 use App\Models\NotificationTemplate;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -13,12 +14,12 @@ return new class extends Migration
      */
     public function up()
     {
-        $businesses = Business::get();
+        $businesses = DB::table('business')->get();
 
         $notification_template_data = [];
         foreach ($businesses as $business) {
-            $notification_templates = NotificationTemplate::defaultNotificationTemplates($business->id);
-            NotificationTemplate::insert($notification_templates);
+            $notification_templates = DB::table('notification_templates')->defaultNotificationTemplates($business->id);
+            DB::table('notification_templates')->insert($notification_templates);
         }
     }
 

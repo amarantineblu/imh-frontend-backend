@@ -1,5 +1,6 @@
 <?php
 
+use App\CashRegister as AppCashRegister;
 use App\Models\CashRegister;
 use Illuminate\Database\Migrations\Migration;
 use Carbon\Carbon;
@@ -13,7 +14,7 @@ return new class extends Migration
      */
     public function up()
     {
-        CashRegister::where('status', 'open')
+        AppCashRegister::where('status', 'open')
                 ->whereNull('location_id')
                 ->update([
                     'closed_at' => Carbon::now()->format('Y-m-d H:i:s'),

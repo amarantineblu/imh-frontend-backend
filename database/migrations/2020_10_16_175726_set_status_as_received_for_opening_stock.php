@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Transaction;
+use App\Transaction as AppTransaction;
 use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
@@ -12,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Transaction::where('type', 'opening_stock')
+        AppTransaction::where('type', 'opening_stock')
                     ->where('status', '!=', 'received')
                     ->update(['status' => 'received']);
     }

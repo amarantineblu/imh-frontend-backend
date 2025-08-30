@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Transaction;
+use App\Transaction as AppTransaction;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
 
@@ -15,10 +16,10 @@ return new class extends Migration
     {
         DB::statement('ALTER TABLE transactions MODIFY COLUMN `status` VARCHAR(191) NOT NULL;');
 
-        Transaction::where('type', 'sell_transfer')
+        AppTransaction::where('type', 'sell_transfer')
                 ->update(['status' => 'final']);
 
-        Transaction::where('type', 'purchase_transfer')
+        AppTransaction::where('type', 'purchase_transfer')
                 ->update(['status' => 'received']);
     }
 
