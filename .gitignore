@@ -9,6 +9,8 @@
 /database
 /node_modules
 /app
+/OLD_CODE_BASE
+/public
 /resources
 /vendor
 .env
