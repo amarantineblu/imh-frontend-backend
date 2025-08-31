@@ -10,7 +10,7 @@ import { useState } from 'react';
 interface PosTransaction extends Record<string, unknown> {
   id: string;
   date: string;
-  invoiceNo: string;
+  tallyNo: string;
   customerName: string;
   contactNumber: string;
   location: string;
@@ -31,7 +31,7 @@ const mockPosTransactions: PosTransaction[] = [
   {
     id: 'TXN-001',
     date: '2024-01-15',
-    invoiceNo: 'T001',
+    tallyNo: 'T001',
     customerName: 'John Smith',
     contactNumber: '+1-555-0123',
     location: 'New York Store',
@@ -51,7 +51,7 @@ const mockPosTransactions: PosTransaction[] = [
   {
     id: 'TXN-002',
     date: '2024-01-15',
-    invoiceNo: 'T002',
+    tallyNo: 'T002',
     customerName: 'Sarah Johnson',
     contactNumber: '+1-555-0456',
     location: 'Downtown Store',
@@ -71,7 +71,7 @@ const mockPosTransactions: PosTransaction[] = [
   {
     id: 'TXN-003',
     date: '2024-01-15',
-    invoiceNo: 'T003',
+    tallyNo: 'T003',
     customerName: 'Walk-in Customer',
     contactNumber: 'N/A',
     location: 'Main Store',
@@ -91,7 +91,7 @@ const mockPosTransactions: PosTransaction[] = [
   {
     id: 'TXN-004',
     date: '2024-01-15',
-    invoiceNo: 'T004',
+    tallyNo: 'T004',
     customerName: 'Mike Wilson',
     contactNumber: '+1-555-0789',
     location: 'West Side Store',
@@ -287,8 +287,8 @@ export default function ListPosTab() {
       ),
     },
     {
-      accessorKey: "invoiceNo",
-      header: "Invoice No.",
+      accessorKey: "tallyNo",
+      header: "Tally No.",
       sortable: true,
       filterable: true,
       cell: (value) => (
