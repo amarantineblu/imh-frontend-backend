@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Currency;
+use App\Currency;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class CurrenciesTableSeeder extends Seeder
 {
@@ -284,8 +285,9 @@ class CurrenciesTableSeeder extends Seeder
             ['id' => '134', 'country' => 'Bangladesh', 'currency' => 'Taka', 'code' => 'BDT', 'symbol' => '৳', 'thousand_separator' => ',', 'decimal_separator' => '.', 'created_at' => null, 'updated_at' => null],
         ];
 
-        Currency::insert($data);
-
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('currencies')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         Currency::insert([
             ['country' => 'Algerie', 'currency' => 'Algerian dinar', 'code' => 'DZD', 'symbol' => 'د.ج', 'thousand_separator' => ' ', 'decimal_separator' => '.', 'created_at' => null, 'updated_at' => null],
             ['country' => 'United Arab Emirates', 'currency' => 'United Arab Emirates dirham', 'code' => 'AED', 'symbol' => 'د.إ', 'thousand_separator' => ',', 'decimal_separator' => '.', 'created_at' => null, 'updated_at' => null],

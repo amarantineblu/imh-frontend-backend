@@ -1,17 +1,27 @@
 <?php
 
+use App\PosTransaction;
+use App\Transaction;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('sales')->group(function () {
-        
+      Route::get( 'api/transactions', function () {
+          $transactions = PosTransaction::all();
+          return response()->json($transactions);
+      })->name('sales.api-transactions');
+
         Route::get('/', function () {
+            $transactions = PosTransaction::all();
+            // \Log::info('Transactions from DB:', $transactions->toArray());
             return Inertia::render('sales/index', [
-                'activeTab' => 'all-sales'
+                'activeTab' => 'all-sales',
+                'transactions' => $transactions,
+
             ]);
         })->name('sales.all-sales');
-        
+
         // All Sales
         Route::get('/all', function () {
             return Inertia::render('sales/index', [
@@ -29,7 +39,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // List POS
         Route::get('/pos-list', function () {
             return Inertia::render('sales/index', [
-                'activeTab' => 'list-pos'
+                'activeTab' => 'list-pos',
             ]);
         })->name('sales.list-pos');
 

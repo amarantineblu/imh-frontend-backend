@@ -91,6 +91,7 @@ class PermissionsTableSeeder extends Seeder
             $d['created_at'] = $time_stamp;
             $insert_data[] = $d;
         }
+        // Permission::truncate();
         Permission::insert($insert_data);
     }
 }

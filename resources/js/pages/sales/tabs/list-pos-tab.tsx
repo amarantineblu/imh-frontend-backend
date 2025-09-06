@@ -4,7 +4,7 @@ import { DynamicTable, type TableColumn } from '@/components/ui/dynamic-table';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useTableActions } from '@/hooks/use-table-actions';
 import { Calendar, CreditCard, DollarSign, Eye, TrendingUp, Users, Edit, Trash2, Truck, Printer, Package, FileText, Plus, Receipt, Undo2, Link, Bell } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 // Mock data for POS transactions
 interface PosTransaction extends Record<string, unknown> {
@@ -27,88 +27,93 @@ interface PosTransaction extends Record<string, unknown> {
   staffNote: string;
   shippingDetails: string;
 }
-const mockPosTransactions: PosTransaction[] = [
-  {
-    id: 'TXN-001',
-    date: '2024-01-15',
-    tallyNo: 'T001',
-    customerName: 'John Smith',
-    contactNumber: '+1-555-0123',
-    location: 'New York Store',
-    paymentStatus: 'Paid',
-    paymentMethod: 'Cash',
-    totalAmount: 125.50,
-    totalPaid: 125.50,
-    sellDue: 0,
-    sellReturnDue: 0,
-    shippingStatus: 'Delivered',
-    totalItems: 5,
-    addedBy: 'Jane Doe',
-    sellNote: 'Regular customer',
-    staffNote: 'No special instructions',
-    shippingDetails: 'Express delivery',
-  },
-  {
-    id: 'TXN-002',
-    date: '2024-01-15',
-    tallyNo: 'T002',
-    customerName: 'Sarah Johnson',
-    contactNumber: '+1-555-0456',
-    location: 'Downtown Store',
-    paymentStatus: 'Partial',
-    paymentMethod: 'Card',
-    totalAmount: 89.99,
-    totalPaid: 50.00,
-    sellDue: 39.99,
-    sellReturnDue: 0,
-    shippingStatus: 'Pending',
-    totalItems: 3,
-    addedBy: 'Mike Wilson',
-    sellNote: 'Bulk order discount applied',
-    staffNote: 'Customer requested delayed payment',
-    shippingDetails: 'Standard shipping',
-  },
-  {
-    id: 'TXN-003',
-    date: '2024-01-15',
-    tallyNo: 'T003',
-    customerName: 'Walk-in Customer',
-    contactNumber: 'N/A',
-    location: 'Main Store',
-    paymentStatus: 'Paid',
-    paymentMethod: 'Cash',
-    totalAmount: 45.00,
-    totalPaid: 45.00,
-    sellDue: 0,
-    sellReturnDue: 0,
-    shippingStatus: 'Not Applicable',
-    totalItems: 2,
-    addedBy: 'John Smith',
-    sellNote: 'Cash sale',
-    staffNote: '',
-    shippingDetails: 'In-store pickup',
-  },
-  {
-    id: 'TXN-004',
-    date: '2024-01-15',
-    tallyNo: 'T004',
-    customerName: 'Mike Wilson',
-    contactNumber: '+1-555-0789',
-    location: 'West Side Store',
-    paymentStatus: 'Refunded',
-    paymentMethod: 'Card',
-    totalAmount: 234.75,
-    totalPaid: 234.75,
-    sellDue: 0,
-    sellReturnDue: 234.75,
-    shippingStatus: 'Returned',
-    totalItems: 7,
-    addedBy: 'Jane Doe',
-    sellNote: 'Customer not satisfied',
-    staffNote: 'Process refund immediately',
-    shippingDetails: 'Return shipping',
-  },
-];
+// const mockPosTransactions: PosTransaction[] = [
+//   {
+//     id: 'TXN-001',
+//     date: '2024-01-15',
+//     tallyNo: 'T001',
+//     customerName: 'John Smith',
+//     contactNumber: '+1-555-0123',
+//     location: 'New York Store',
+//     paymentStatus: 'Paid',
+//     paymentMethod: 'Cash',
+//     totalAmount: 125.50,
+//     totalPaid: 125.50,
+//     sellDue: 0,
+//     sellReturnDue: 0,
+//     shippingStatus: 'Delivered',
+//     totalItems: 5,
+//     addedBy: 'Jane Doe',
+//     sellNote: 'Regular customer',
+//     staffNote: 'No special instructions',
+//     shippingDetails: 'Express delivery',
+//   },
+//   {
+//     id: 'TXN-002',
+//     date: '2024-01-15',
+//     tallyNo: 'T002',
+//     customerName: 'Sarah Johnson',
+//     contactNumber: '+1-555-0456',
+//     location: 'Downtown Store',
+//     paymentStatus: 'Partial',
+//     paymentMethod: 'Card',
+//     totalAmount: 89.99,
+//     totalPaid: 50.00,
+//     sellDue: 39.99,
+//     sellReturnDue: 0,
+//     shippingStatus: 'Pending',
+//     totalItems: 3,
+//     addedBy: 'Mike Wilson',
+//     sellNote: 'Bulk order discount applied',
+//     staffNote: 'Customer requested delayed payment',
+//     shippingDetails: 'Standard shipping',
+//   },
+//   {
+//     id: 'TXN-003',
+//     date: '2024-01-15',
+//     tallyNo: 'T003',
+//     customerName: 'Walk-in Customer',
+//     contactNumber: 'N/A',
+//     location: 'Main Store',
+//     paymentStatus: 'Paid',
+//     paymentMethod: 'Cash',
+//     totalAmount: 45.00,
+//     totalPaid: 45.00,
+//     sellDue: 0,
+//     sellReturnDue: 0,
+//     shippingStatus: 'Not Applicable',
+//     totalItems: 2,
+//     addedBy: 'John Smith',
+//     sellNote: 'Cash sale',
+//     staffNote: '',
+//     shippingDetails: 'In-store pickup',
+//   },
+//   {
+//     id: 'TXN-004',
+//     date: '2024-01-15',
+//     tallyNo: 'T004',
+//     customerName: 'Mike Wilson',
+//     contactNumber: '+1-555-0789',
+//     location: 'West Side Store',
+//     paymentStatus: 'Refunded',
+//     paymentMethod: 'Card',
+//     totalAmount: 234.75,
+//     totalPaid: 234.75,
+//     sellDue: 0,
+//     sellReturnDue: 234.75,
+//     shippingStatus: 'Returned',
+//     totalItems: 7,
+//     addedBy: 'Jane Doe',
+//     sellNote: 'Customer not satisfied',
+//     staffNote: 'Process refund immediately',
+//     shippingDetails: 'Return shipping',
+//   },
+// ];
+
+interface Props {
+  transactions: PosTransaction[];
+}
+// console.log(transactions:PosTransaction[]);
 
 const getStatusColor = (status: string) => {
   switch (status) {
@@ -156,17 +161,31 @@ const getStatusColor = (status: string) => {
 // };
 
 export default function ListPosTab() {
+ const [transactions, setTransactions] = useState<PosTransaction[]>([]);
+   const [loading, setLoading] = useState(true);
+ 
+   useEffect(() => {
+     fetch('/sales/api/transactions')
+       .then(res => res.json())
+       .then(data => {
+         setTransactions(data);
+         setLoading(false);
+       })
+       .catch(() => setLoading(false));
+   }, []);
+  // console.log(transactions);
+  
   const [statusFilter, setStatusFilter] = useState('all');
   const [paymentFilter, setPaymentFilter] = useState('all');
 
-  const filteredTransactions = mockPosTransactions.filter((transaction) => {
+  const filteredTransactions = transactions.filter((transaction) => {
     const matchesStatus = statusFilter === 'all' || transaction.paymentStatus.toLowerCase() === statusFilter;
     const matchesPayment = paymentFilter === 'all' || transaction.paymentMethod.toLowerCase() === paymentFilter;
     return matchesStatus && matchesPayment;
   });
 
-  const totalSales = mockPosTransactions.reduce((sum, transaction) => (transaction.paymentStatus === 'Paid' ? sum + transaction.totalAmount : sum), 0);
-  const paidTransactions = mockPosTransactions.filter((t) => t.paymentStatus === 'Paid').length;
+  const totalSales = transactions.reduce((sum, transaction) => (transaction.paymentStatus === 'Paid' ? sum + Number(transaction.totalAmount) : sum), 0);
+  const paidTransactions = transactions.filter((t) => t.paymentStatus === 'Paid').length;
   const averageTransaction = totalSales / paidTransactions;
 
   // Setup table actions
@@ -353,12 +372,6 @@ export default function ListPosTab() {
       cell: (value) => String(value),
     },
     {
-      accessorKey: "totalItems",
-      header: "Dumorrage",
-      sortable: true,
-      cell: (value) => String(value),
-    },
-    {
       accessorKey: "addedBy",
       header: "Added By",
       sortable: true,
@@ -384,6 +397,7 @@ export default function ListPosTab() {
       ),
     },
     {
+      accessorKey: 'actions',
       type: "actions",
       header: "Actions",
       buttons: rowActions,
@@ -411,7 +425,7 @@ export default function ListPosTab() {
             <div className="flex items-center">
               <div>
                 <p className="text-muted-foreground text-sm font-medium">Transactions</p>
-                <p className="text-2xl font-bold">{mockPosTransactions.length}</p>
+                <p className="text-2xl font-bold">{transactions.length}</p>
               </div>
               <CreditCard className="ml-auto h-8 w-8 text-blue-600" />
             </div>
@@ -435,7 +449,7 @@ export default function ListPosTab() {
             <div className="flex items-center">
               <div>
                 <p className="text-muted-foreground text-sm font-medium">Customers</p>
-                <p className="text-2xl font-bold">{new Set(mockPosTransactions.map((t) => t.customerName)).size}</p>
+                <p className="text-2xl font-bold">{new Set(transactions.map((t) => t.customerName)).size}</p>
               </div>
               <Users className="ml-auto h-8 w-8 text-orange-600" />
             </div>

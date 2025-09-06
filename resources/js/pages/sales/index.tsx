@@ -16,18 +16,49 @@ import ListQuotationsTab from './tabs/list-quotations-tab';
 import ListSellReturnTab from './tabs/list-sell-return-tab';
 import PosTab from './tabs/pos-tab';
 import ShipmentsTab from './tabs/shipments-tab';
+import { usePage } from '@inertiajs/react';
+import React, { useEffect, useState } from 'react';
+
+
 const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Sales',
-        href: '/sales',
-    },
+  {
+      title: 'Sales',
+      href: '/sales',
+  },
 ];
 
-interface SalesPageProps {
-    activeTab?: string;
+
+
+interface PosTransaction {
+  id: string;
+  date: string;
+  tallyNo: string;
+  customerName: string;
+  contactNumber: string;
+  location: string;
+  paymentStatus: string;
+  paymentMethod: string;
+  totalAmount: number;
+  totalPaid: number;
+  sellDue: number;
+  sellReturnDue: number;
+  shippingStatus: string;
+  totalItems: number;
+  addedBy: string;
+  sellNote: string;
+  staffNote: string;
+  shippingDetails: string;
 }
 
-export default function Sales({ activeTab = 'all-sales' }: SalesPageProps) {
+interface SalesPageProps {
+  transactions: PosTransaction[];
+  activeTab?: string;
+}
+
+export default function Sales({ activeTab = 'all-sales' }: SalesPageProps ) {
+   
+
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Sales Management" />
@@ -109,7 +140,7 @@ const salesTabs = [
     title: 'POS Transactions',
     icon: <FaListPOS className="h-5 w-5" />,
     description: 'View all Point of Sale transactions.',
-    component: <ListPosTab />,
+    component: <ListPosTab  />,
 },
 {
     value: 'pos',

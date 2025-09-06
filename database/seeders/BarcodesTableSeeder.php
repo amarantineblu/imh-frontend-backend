@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Barcode;
+use App\Barcode;
 use Illuminate\Database\Seeder;
 
 class BarcodesTableSeeder extends Seeder
@@ -14,6 +14,7 @@ class BarcodesTableSeeder extends Seeder
      */
     public function run()
     {
+        Barcode::truncate();
         Barcode::create([
             'id' => 1,
             'name' => '20 Labels per Sheet',
