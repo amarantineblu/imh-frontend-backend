@@ -7,18 +7,19 @@ use Inertia\Inertia;
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('sales')->group(function () {
-      Route::get( 'api/transactions', function () {
+      Route::get( 'apis', function () {
           $transactions = PosTransaction::all();
-          return response()->json($transactions);
+           $data = [
+              'transactions' => $transactions,
+            ];
+          Log::info('Transactions API:', $data);
+          return response()->json($data);
       })->name('sales.api-transactions');
 
         Route::get('/', function () {
-            $transactions = PosTransaction::all();
             // \Log::info('Transactions from DB:', $transactions->toArray());
             return Inertia::render('sales/index', [
-                'activeTab' => 'all-sales',
-                'transactions' => $transactions,
-
+              'activeTab' => 'all-sales',
             ]);
         })->name('sales.all-sales');
 

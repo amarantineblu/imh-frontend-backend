@@ -165,11 +165,13 @@ export default function ListPosTab() {
    const [loading, setLoading] = useState(true);
  
    useEffect(() => {
-     fetch('/sales/api/transactions')
+     fetch('/sales/apis')
        .then(res => res.json())
        .then(data => {
-         setTransactions(data);
+         setTransactions(data["transactions"]);
          setLoading(false);
+        //  console.log('this is the data', data);
+         
        })
        .catch(() => setLoading(false));
    }, []);
