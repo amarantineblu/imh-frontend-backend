@@ -13,10 +13,7 @@ interface Unit extends Record<string, unknown> {
 }
 
 export default function UnitsTab() {
-  const [units] = useState<Unit[]>([
-    { id: 1, name: 'KILOGRAM', shortName: 'KG', allowDecimal: true },
-    { id: 2, name: 'Pieces', shortName: 'Pc(s)', allowDecimal: false },
-  ]);
+  const [units] = useState<Unit[]>([]);
 
   // Setup table actions
   const { rowActions } = useTableActions<Unit>({

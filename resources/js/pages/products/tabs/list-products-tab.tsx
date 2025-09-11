@@ -17,7 +17,7 @@ import {
   Trash2, 
   UserX 
 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 // All Products Interface
 interface Product extends Record<string, unknown> {
@@ -152,10 +152,28 @@ const mockStockReports: StockReport[] = [
 ];
 
 export default function ListProductsTab() {
-  const [products] = useState<Product[]>(mockProducts);
-  const [stockReports] = useState<StockReport[]>(mockStockReports);
+  const [loading, setLoading] = useState(true);
+
+  const [products, setProducts] = useState<Product[]>(mockProducts);
+  const [stockReports, setStockReports] = useState<StockReport[]>(mockStockReports);
   const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
   const [selectedStockReports, setSelectedStockReports] = useState<StockReport[]>([]);
+
+  
+       useEffect(() => {
+         fetch('/apis/products-and-stockreports')
+           .then(res => res.json())
+           .then(data => {
+             setSelectedProducts(data["selectedProducts"]);
+             setSelectedStockReports(data["selectedStockReports"]);
+             setProducts(data["products"]);
+             setStockReports(data["stockReports"]);
+             setLoading(false);
+            //  console.log('this is the data', data);
+  
+           })
+           .catch(() => setLoading(false));
+       }, []);
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-US', {

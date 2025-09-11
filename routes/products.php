@@ -1,11 +1,38 @@
 <?php
 
+use App\Brands;
+use App\Category;
+use App\Product;
+use App\Unit;
+use App\Variation;
+use App\Warranty;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::middleware(['auth', 'verified'])->group(function () {
     // Products routes
     Route::prefix('products')->group(function () {
+      Route::get('/apis/{data_key}', function($data_key){
+        $data = [
+        'warranties' => Warranty::all()->toArray(),
+        'brands' => Brands::all()->toArray(),
+        'categories' => Category::all()->toArray(),
+        'units' => Unit::all()->toArray(),
+        'products' =>  Product::all()->toArray(),
+        'variations' =>  Variation::all()->toArray(),
+      ];
+        if (Auth::user()){
+          if (! array_key_exists($data_key, $data)) {
+            # code...
+            return response()->json(['error' => 'Invalid Data'], 400);
+          }
+          return response()->json(
+            $data[$data_key]
+          );
+        }
+      });
+
         Route::get('/', function () {
             return Inertia::render('products/index', [
                 'activeTab' => 'list'

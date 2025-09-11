@@ -18,6 +18,17 @@ class DatabaseSeeder extends Seeder
             PermissionsTableSeeder::class,
             CurrenciesTableSeeder::class,
             PosTransactionTableSeeder::class,
+            SalesPaymentTableSeeder::class,
+            ProductStockAlertTableSeeder::class,
+            PurchasePaymentTableSeeder::class,
+            SalesOrderTableSeeder::class,
+            PendingShipmentTableSeeder::class,
+            WarrantiesTableSeeder::class,
+            BrandsTableSeeder::class,
+            CategoriesTableSeeder::class,
+            UnitsTableSeeder::class,
+            ProductsTableSeeder::class,
+            VariationsTableSeeder::class,
         ]);
     }
 }
