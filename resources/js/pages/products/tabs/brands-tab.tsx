@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { DynamicTable, type TableColumn } from '@/components/ui/dynamic-table';
 import { useTableActions } from '@/hooks/use-table-actions';
 import { Edit, Plus, Trash2 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface Brand extends Record<string, unknown> {
   id: number;
@@ -11,9 +11,31 @@ interface Brand extends Record<string, unknown> {
   note: string;
 }
 
-export default function BrandsTab() {
-  const [brands] = useState<Brand[]>([]);
+interface Props {
+  brands : Brand[];
+}
 
+export default function BrandsTab() {
+  // const [brands] = useState<Brand[]>([]);
+
+  const [brands, setBrands] = useState<Brand[]>([]);
+    const [loading, setLoading] = useState(true);
+    const data_key = "brands";
+    useEffect(() => {
+       fetch(`/products/apis/${data_key}`)
+         .then(res => res.json())
+         .then(data => {
+            const transformed = data.map((b: any) => ({
+              id: b.id,
+              brands: b.name, // 🔁 Map name → brands
+              note: b.description,
+            }));
+           setBrands(transformed);
+           setLoading(false);
+          //  console.log('this is the data', data);
+         })
+         .catch(() => setLoading(false));
+     }, []);
   // Setup table actions
   const { rowActions } = useTableActions<Brand>({
     customActions: [

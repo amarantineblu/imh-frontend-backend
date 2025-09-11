@@ -15,8 +15,8 @@ class UnitsTableSeeder extends Seeder
     {
         //
       $data = [
-        [ 'id' =>  1, 'name' =>  'KILOGRAM', 'short_name' =>  'KG', 'allow_decimal' =>  true ],
-        [ 'id' =>  2, 'name' =>  'Pieces', 'short_name' =>  'Pc(s)', 'allow_decimal' =>  false ],
+        [ 'id' =>  1, 'actual_name' =>  'KILOGRAM', 'short_name' =>  'KG', 'allow_decimal' =>  true ],
+        [ 'id' =>  2, 'actual_name' =>  'Pieces', 'short_name' =>  'Pc(s)', 'allow_decimal' =>  false ],
       ];
       DB::table('units')->truncate();
       DB::table('units')->insert($data);

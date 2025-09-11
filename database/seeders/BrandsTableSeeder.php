@@ -22,7 +22,7 @@ class BrandsTableSeeder extends Seeder
      'created_by' => 1,
      'deleted_at' => null,
      'created_at' => null,
-     'business_id' => 2
+     'business_id' => 1
     ],
     [ 
      'id' => 2, 
@@ -31,7 +31,7 @@ class BrandsTableSeeder extends Seeder
      'created_by' => 1,
      'deleted_at' => null,
      'created_at' => null,
-     'business_id' => 2
+     'business_id' => 1
     ],
     [ 
      'id' => 3, 
@@ -40,7 +40,7 @@ class BrandsTableSeeder extends Seeder
      'created_by' => 1,
      'deleted_at' => null,
      'created_at' => null,
-     'business_id' => 2
+     'business_id' => 1
     ],
     [ 
      'id' => 4, 
@@ -49,7 +49,7 @@ class BrandsTableSeeder extends Seeder
      'created_by' => 1,
      'deleted_at' => null,
      'created_at' => null,
-     'business_id' => 2
+     'business_id' => 1
     ],
     [ 
      'id' => 5, 
@@ -58,7 +58,7 @@ class BrandsTableSeeder extends Seeder
      'created_by' => 1,
      'deleted_at' => null,
      'created_at' => null,
-     'business_id' => 2
+     'business_id' => 1
     ],
     [ 
      'id' => 6, 
@@ -67,7 +67,7 @@ class BrandsTableSeeder extends Seeder
      'created_by' => 1,
      'deleted_at' => null,
      'created_at' => null,
-     'business_id' => 2
+     'business_id' => 1
     ],
     [ 
      'id' => 7, 
@@ -76,7 +76,7 @@ class BrandsTableSeeder extends Seeder
      'created_by' => 1,
      'deleted_at' => null,
      'created_at' => null,
-     'business_id' => 2
+     'business_id' => 1
     ],
     [ 
      'id' => 8, 
@@ -85,7 +85,7 @@ class BrandsTableSeeder extends Seeder
      'created_by' => 1,
      'deleted_at' => null,
      'created_at' => null,
-     'business_id' => 2
+     'business_id' => 1
     ],
     [ 
      'id' => 9, 
@@ -94,7 +94,7 @@ class BrandsTableSeeder extends Seeder
      'created_by' => 1,
      'deleted_at' => null,
      'created_at' => null,
-     'business_id' => 2
+     'business_id' => 1
     ],
     [ 
      'id' => 10, 
@@ -103,7 +103,7 @@ class BrandsTableSeeder extends Seeder
      'created_by' => 1,
      'deleted_at' => null,
      'created_at' => null,
-     'business_id' => 2
+     'business_id' => 1
     ],
     [ 
      'id' => 11, 
@@ -112,7 +112,7 @@ class BrandsTableSeeder extends Seeder
      'created_by' => 1,
      'deleted_at' => null,
      'created_at' => null,
-     'business_id' => 2
+     'business_id' => 1
     ],
     [ 
      'id' => 12, 
@@ -121,12 +121,12 @@ class BrandsTableSeeder extends Seeder
      'created_by' => 1,
      'deleted_at' => null,
      'created_at' => null,
-     'business_id' => 2
+     'business_id' => 1
     ],
   ];
     DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        DB::table('brands')->truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-  DB::table('brands')->insert($data);
+    DB::table('brands')->truncate();
+    DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+    DB::table('brands')->insert($data);
   }
 }

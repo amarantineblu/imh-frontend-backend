@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { DynamicTable, type TableColumn } from '@/components/ui/dynamic-table';
 import { useTableActions } from '@/hooks/use-table-actions';
 import { Edit, Plus, Trash2, Eye, Copy, Settings } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface Category extends Record<string, unknown> {
   id: number;
@@ -12,8 +12,30 @@ interface Category extends Record<string, unknown> {
   description: string;
 }
 
+interface Props {
+  categories: Category[],
+}
+
 export default function CategoriesTab() {
-  const [categories] = useState<Category[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+      const [loading, setLoading] = useState(true);
+      const data_key = "categories";
+      useEffect(() => {
+         fetch(`/products/apis/${data_key}`)
+           .then(res => res.json())
+           .then(data => {
+              const transformed = data.map((b: any) => ({
+                id: b.id,
+                category: b.name, // 🔁 Map name → brands
+                categoryCode: b.short_code,
+                description: b.description
+              }));
+             setCategories(transformed);
+             setLoading(false);
+            //  console.log('this is the data', data);
+           })
+           .catch(() => setLoading(false));
+       }, []);
 
   // Setup table actions
   const { rowActions } = useTableActions<Category>({
