@@ -3,12 +3,15 @@
 use App\Brands;
 use App\Category;
 use App\Product;
+use App\Template;
 use App\Unit;
 use App\Variation;
 use App\Warranty;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\ProductController;
+
 
 Route::middleware(['auth', 'verified'])->group(function () {
     // Products routes
@@ -21,6 +24,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         'units' => Unit::all()->toArray(),
         'products' =>  Product::all()->toArray(),
         'variations' =>  Variation::all()->toArray(),
+        'templates' => Template::all()->toArray(),
+        // 'stock_reports' => StockReport::all()->toArray(),
       ];
         if (Auth::user()){
           if (! array_key_exists($data_key, $data)) {
@@ -33,11 +38,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         }
       });
 
-        Route::get('/', function () {
-            return Inertia::render('products/index', [
-                'activeTab' => 'list'
-            ]);
-        })->name('products.index');
+        // Route::get('/', function () {
+        //     return Inertia::render('products/index', [
+        //         'activeTab' => 'list'
+        //     ]);
+        // })->name('products.index');
+
+        Route::get('/', [ProductController::class, 'index'])->name('products.index');
+
 
         Route::get('/list', function () {
             return Inertia::render('products/index', [

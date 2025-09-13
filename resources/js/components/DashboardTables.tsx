@@ -113,7 +113,7 @@ export default function DashboardTables() {
            setSalesOrder(data["salesOrders"]);
            setPendingShipments(data["pendingShipments"]);
            setLoading(false);
-          //  console.log('this is the data', data);
+          console.log('this is the data', data);
 
          })
          .catch(() => setLoading(false));

@@ -159,9 +159,10 @@ export default function ListProductsTab() {
   const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
   const [selectedStockReports, setSelectedStockReports] = useState<StockReport[]>([]);
 
+        const data_key = "products";
   
        useEffect(() => {
-         fetch('/apis/products-and-stockreports')
+         fetch(`/apis/${data_key}`)
            .then(res => res.json())
            .then(data => {
              setSelectedProducts(data["selectedProducts"]);

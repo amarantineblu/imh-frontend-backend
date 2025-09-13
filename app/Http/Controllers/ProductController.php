@@ -60,9 +60,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        if (! auth()->user()->can('product.view') && ! auth()->user()->can('product.create')) {
-            abort(403, 'Unauthorized action.');
-        }
+        // if (! auth()->user()->can('product.view') && ! auth()->user()->can('product.create')) {
+        //     abort(403, 'Unauthorized action.');
+        // }
         $business_id = request()->session()->get('user.business_id');
         $selling_price_group_count = SellingPriceGroup::countSellingPriceGroups($business_id);
         $is_woocommerce = $this->moduleUtil->isModuleInstalled('Woocommerce');
@@ -309,6 +309,7 @@ class ProductController extends Controller
         $rack_enabled = (request()->session()->get('business.enable_racks') || request()->session()->get('business.enable_row') || request()->session()->get('business.enable_position'));
 
         $categories = Category::forDropdown($business_id, 'product');
+        dd($categories);
 
         $brands = Brands::forDropdown($business_id);
 
@@ -331,7 +332,7 @@ class ProductController extends Controller
 
         $is_admin = $this->productUtil->is_admin(auth()->user());
 
-        return view('product.index')
+        return view('products/index')
             ->with(compact(
                 'rack_enabled',
                 'categories',
