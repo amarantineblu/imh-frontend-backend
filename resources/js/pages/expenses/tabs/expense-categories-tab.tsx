@@ -36,7 +36,7 @@ const colorOptions = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#0
 
 export default function ExpenseCategoriesTab(props:Props) {
    const { categories } = props;  // <-- add this line
-  
+
     useEffect(() => {
       if (categories) {
         console.log('Categories:', categories);
@@ -44,7 +44,8 @@ export default function ExpenseCategoriesTab(props:Props) {
         console.warn('Categories data is missing!');
       }
     }, [categories]);
-  const [changedCategories ,setChangedCategories ] = useState(categories);
+  const [changedCategories, setChangedCategories] = useState(categories);
+  
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [editingCategory, setEditingCategory] = useState<ExpenseCategory | null>(null);
   const [newCategory, setNewCategory] = useState({

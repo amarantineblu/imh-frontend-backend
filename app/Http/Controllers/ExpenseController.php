@@ -170,7 +170,7 @@ class ExpenseController extends Controller
                 ->addColumn(
                     'action',
                     '<div class="btn-group">
-                        <button type="button" class="btn btn-info dropdown-toggle btn-xs" 
+                        <button type="button" class="btn btn-info dropdown-toggle btn-xs"
                             data-toggle="dropdown" aria-expanded="false"> @lang("messages.actions")<span class="caret"></span><span class="sr-only">Toggle Dropdown
                                 </span>
                         </button>
@@ -179,7 +179,7 @@ class ExpenseController extends Controller
                         <li><a href="{{action(\'App\Http\Controllers\ExpenseController@edit\', [$id])}}"><i class="glyphicon glyphicon-edit"></i> @lang("messages.edit")</a></li>
                     @endif
                     @if($document)
-                        <li><a href="{{ url(\'uploads/documents/\' . $document)}}" 
+                        <li><a href="{{ url(\'uploads/documents/\' . $document)}}"
                         download=""><i class="fa fa-download" aria-hidden="true"></i> @lang("purchase.download_document")</a></li>
                         @if(isFileImage($document))
                             <li><a href="#" data-href="{{ url(\'uploads/documents/\' . $document)}}" class="view_uploaded_document"><i class="fas fa-file-image" aria-hidden="true"></i>@lang("lang_v1.view_document")</a></li>
@@ -189,7 +189,7 @@ class ExpenseController extends Controller
                         <li>
                         <a href="#" data-href="{{action(\'App\Http\Controllers\ExpenseController@destroy\', [$id])}}" class="delete_expense"><i class="glyphicon glyphicon-trash"></i> @lang("messages.delete")</a></li>
                     @endif
-                    <li class="divider"></li> 
+                    <li class="divider"></li>
                     @if($payment_status != "paid")
                         <li><a href="{{action([\App\Http\Controllers\TransactionPaymentController::class, \'addPayment\'], [$id])}}" class="add_payment_modal"><i class="fas fa-money-bill-alt" aria-hidden="true"></i> @lang("purchase.add_payment")</a></li>
                     @endif
@@ -291,7 +291,7 @@ class ExpenseController extends Controller
         $business_id = request()->session()->get('user.business_id');
 
         //Check if subscribed or not
-        if (! $this->moduleUtil->isSubscribed($business_id)) {
+        if (!$this->moduleUtil->isSubscribed($business_id)) {
             return $this->moduleUtil->expiredResponse(action([\App\Http\Controllers\ExpenseController::class, 'index']));
         }
 
@@ -523,7 +523,7 @@ class ExpenseController extends Controller
                 //Delete account transactions
                 AccountTransaction::where('transaction_id', $expense->id)->delete();
 
-                
+
 
                 $output = ['success' => true,
                     'msg' => __('expense.expense_delete_success'),
