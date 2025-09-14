@@ -2,11 +2,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { Head } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
 import { FolderTree, Plus, Receipt } from 'lucide-react';
 import AddExpenseTab from './tabs/add-expense-tab';
 import ExpenseCategoriesTab from './tabs/expense-categories-tab';
 import ListExpensesTab from './tabs/list-expenses-tab';
+// import { usePage } from '@inertiajs/react';
+
 
 const breadcrumbs: BreadcrumbItem[] = [
   {
@@ -19,7 +21,13 @@ interface ExpensesPageProps {
   activeTab?: string;
 }
 
+interface InertiaPageProps extends ExpensesPageProps{
+  [key: string]: unknown;   // This is important
+  categories:any[]; business_locations:any[]; users:any[]; contacts:any[]; sub_categories:any[];
+}
+
 export default function Expenses({ activeTab = 'list' }: ExpensesPageProps) {
+  const { categories, business_locations, users, contacts, sub_categories} = usePage<InertiaPageProps>().props;
   return (
     <AppLayout breadcrumbs={breadcrumbs}>
       <Head title="Expenses Management" />
@@ -87,7 +95,7 @@ export default function Expenses({ activeTab = 'list' }: ExpensesPageProps) {
                   <CardDescription>Manage expense categories and subcategories.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <ExpenseCategoriesTab />
+                  <ExpenseCategoriesTab categories={categories ?? []} />
                 </CardContent>
               </Card>
             </TabsContent>

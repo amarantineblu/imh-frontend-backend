@@ -3,7 +3,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { DynamicTable, type TableColumn } from '@/components/ui/dynamic-table';
 import { useTableActions } from '@/hooks/use-table-actions';
 import { Edit, Plus, Trash2, Eye, Copy, Settings } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { usePage } from '@inertiajs/react';
+
 
 interface Category extends Record<string, unknown> {
   id: number;
@@ -12,69 +14,21 @@ interface Category extends Record<string, unknown> {
   description: string;
 }
 
-export default function CategoriesTab() {
-  const [categories] = useState<Category[]>([
-    { 
-      id: 1, 
-      category: 'Electronics', 
-      categoryCode: 'ELEC001', 
-      description: 'Electronic devices and gadgets including smartphones, laptops, and accessories'
-    },
-    { 
-      id: 2, 
-      category: 'Clothing & Apparel', 
-      categoryCode: 'CLTH002', 
-      description: 'Fashion items including men\'s, women\'s, and children\'s clothing'
-    },
-    { 
-      id: 3, 
-      category: 'Home & Garden', 
-      categoryCode: 'HOME003', 
-      description: 'Home improvement items, furniture, and garden supplies'
-    },
-    { 
-      id: 4, 
-      category: 'Sports & Outdoor', 
-      categoryCode: 'SPRT004', 
-      description: 'Sports equipment, outdoor gear, and fitness accessories'
-    },
-    { 
-      id: 5, 
-      category: 'Books & Media', 
-      categoryCode: 'BOOK005', 
-      description: 'Books, magazines, DVDs, and digital media content'
-    },
-    { 
-      id: 6, 
-      category: 'Health & Beauty', 
-      categoryCode: 'HLTH006', 
-      description: 'Personal care products, cosmetics, and health supplements'
-    },
-    { 
-      id: 7, 
-      category: 'Automotive', 
-      categoryCode: 'AUTO007', 
-      description: 'Car parts, accessories, and automotive maintenance products'
-    },
-    { 
-      id: 8, 
-      category: 'Toys & Games', 
-      categoryCode: 'TOYS008', 
-      description: 'Children\'s toys, board games, and educational materials'
-    },
-    { 
-      id: 9, 
-      category: 'Food & Beverages', 
-      categoryCode: 'FOOD009', 
-      description: 'Grocery items, snacks, beverages, and specialty food products'
-    },
-    { 
-      id: 10, 
-      category: 'Office Supplies', 
-      categoryCode: 'OFFC010', 
-      description: 'Stationery, office equipment, and business supplies'
+interface Props {
+  categories: Category[],
+}
+
+export default function CategoriesTab(props:Props) {
+  const { categories } = props;  // <-- add this line
+
+  useEffect(() => {
+    if (categories) {
+      console.log('Categories:', categories);
+    } else {
+      console.warn('Categories data is missing!');
     }
-  ]);
+  }, [categories]);
+
 
   // Setup table actions
   const { rowActions } = useTableActions<Category>({
@@ -179,7 +133,7 @@ export default function CategoriesTab() {
         </CardHeader>
         <CardContent>
           <DynamicTable
-            data={categories}
+            data={categories ?? []}
             columns={columns}
             pageSize={100}
             searchPlaceholder="Search ..."

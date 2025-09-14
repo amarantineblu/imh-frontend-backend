@@ -26,6 +26,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
+use Inertia\Inertia;
 
 class ProductController extends Controller
 {
@@ -309,6 +310,7 @@ class ProductController extends Controller
         $rack_enabled = (request()->session()->get('business.enable_racks') || request()->session()->get('business.enable_row') || request()->session()->get('business.enable_position'));
 
         $categories = Category::forDropdown($business_id, 'product');
+        // dd($categories);
 
         $brands = Brands::forDropdown($business_id);
 
@@ -331,19 +333,19 @@ class ProductController extends Controller
 
         $is_admin = $this->productUtil->is_admin(auth()->user());
 
-        return view('product.index')
-            ->with(compact(
-                'rack_enabled',
-                'categories',
-                'brands',
-                'units',
-                'taxes',
-                'business_locations',
-                'show_manufacturing_data',
-                'pos_module_data',
-                'is_woocommerce',
-                'is_admin'
-            ));
+        return Inertia::render('products/index', [
+          'rack_enabled' => $rack_enabled,
+          'categories' => $categories,
+          'brands' => $brands,
+          'units' => $units,
+          'taxes' => $taxes,
+          'business_locations' => $business_locations,
+          'show_manufacturing_data' => $show_manufacturing_data,
+          'pos_module_data' => $pos_module_data,
+          'is_woocommerce' => $is_woocommerce,
+          'is_admin' => $is_admin,
+      ]);
+
     }
 
     /**

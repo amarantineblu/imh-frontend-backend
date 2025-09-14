@@ -4,6 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useTableActions } from '@/hooks/use-table-actions';
 import { Card } from './ui/card';
 import { Eye, MapPin, DollarSign, Calendar, Package, Truck } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 // Types
 interface SalesPaymentDue extends Record<string, unknown> {
@@ -49,38 +50,74 @@ interface PendingShipment extends Record<string, unknown> {
   paymentStatus: string;
 }
 
+
+
 // Mock data matching your screenshots
-const salesPaymentDue: SalesPaymentDue[] = [
-  { customer: 'Aisha Doe', date: '13/01/2025', invoice: '37364784', amount: '306,678.00' },
-  { customer: 'Chukwuemeka', date: '13/01/2025', invoice: '465374846', amount: '100,900.00' },
-  { customer: 'Suleiman', date: '13/01/2025', invoice: '45243637', amount: '2,004,598.00' },
-];
+// const salesPaymentDue: SalesPaymentDue[] = [
+//   // { customer: 'Aisha Doe', date: '13/01/2025', invoice: '37364784', amount: '306,678.00' },
+//   // { customer: 'Chukwuemeka', date: '13/01/2025', invoice: '465374846', amount: '100,900.00' },
+//   // { customer: 'Suleiman', date: '13/01/2025', invoice: '45243637', amount: '2,004,598.00' },
+// ];
 
-const purchasePaymentDue: PurchasePaymentDue[] = [
-  { supplier: 'Suleiman', date: '13/01/2025', ref: '45243637', amount: '2,004,598.00' },
-  { supplier: 'Aisha Doe', date: '13/01/2025', ref: '37364784', amount: '306,678.00' },
-  { supplier: 'Chukwuemeka', date: '13/01/2025', ref: '465374846', amount: '100,900.00' },
-];
+// const purchasePaymentDue: PurchasePaymentDue[] = [
+//   { supplier: 'Suleiman', date: '13/01/2025', ref: '45243637', amount: '2,004,598.00' },
+//   { supplier: 'Aisha Doe', date: '13/01/2025', ref: '37364784', amount: '306,678.00' },
+//   { supplier: 'Chukwuemeka', date: '13/01/2025', ref: '465374846', amount: '100,900.00' },
+// ];
 
-const productStockAlert: ProductStockAlert[] = [
-  { product: 'Cow Leg', location: 'Calabar', img: '/img/avatar1.png', stock: '-' },
-  { product: 'Goat Meat', location: 'Enugu', img: '/img/avatar2.png', stock: '-' },
-  { product: 'Turkey', location: 'Lagos', img: '/img/avatar3.png', stock: '-' },
-];
+// const productStockAlert: ProductStockAlert[] = [
+//   { product: 'Cow Leg', location: 'Calabar', img: '/img/avatar1.png', stock: '-' },
+//   { product: 'Goat Meat', location: 'Enugu', img: '/img/avatar2.png', stock: '-' },
+//   { product: 'Turkey', location: 'Lagos', img: '/img/avatar3.png', stock: '-' },
+// ];
 
-const salesOrder: SalesOrder[] = [
-  { customer: 'Suleiman', date: '13/01/2025', order: '45243637', contact: '45535566...', location: '-', status: '-', shippingStatus: '-', qtyRemaining: '-', addedBy: '-' },
-  { customer: 'Aisha Doe', date: '13/01/2025', order: '37364784', contact: '306,678.00', location: '-', status: '-', shippingStatus: '-', qtyRemaining: '-', addedBy: '-' },
-  { customer: 'Chukwuemeka', date: '13/01/2025', order: '465374846', contact: '100,900.00', location: '-', status: '-', shippingStatus: '-', qtyRemaining: '-', addedBy: '-' },
-];
+// const salesOrder: SalesOrder[] = [
+//   { customer: 'Suleiman', date: '13/01/2025', order: '45243637', contact: '45535566...', location: '-', status: '-', shippingStatus: '-', qtyRemaining: '-', addedBy: '-' },
+//   { customer: 'Aisha Doe', date: '13/01/2025', order: '37364784', contact: '306,678.00', location: '-', status: '-', shippingStatus: '-', qtyRemaining: '-', addedBy: '-' },
+//   { customer: 'Chukwuemeka', date: '13/01/2025', order: '465374846', contact: '100,900.00', location: '-', status: '-', shippingStatus: '-', qtyRemaining: '-', addedBy: '-' },
+// ];
 
-const pendingShipments: PendingShipment[] = [
-  { customer: 'Suleiman', date: '13/01/2025', invoice: '45243637', contact: '45535566...', location: '-', shippingStatus: '-', paymentStatus: '-' },
-  { customer: 'Aisha Doe', date: '13/01/2025', invoice: '37364784', contact: '306,678.00', location: '-', shippingStatus: '-', paymentStatus: '-' },
-  { customer: 'Chukwuemeka', date: '13/01/2025', invoice: '465374846', contact: '100,900.00', location: '-', shippingStatus: '-', paymentStatus: '-' },
-];
+// const pendingShipments: PendingShipment[] = [
+//   { customer: 'Suleiman', date: '13/01/2025', invoice: '45243637', contact: '45535566...', location: '-', shippingStatus: '-', paymentStatus: '-' },
+//   { customer: 'Aisha Doe', date: '13/01/2025', invoice: '37364784', contact: '306,678.00', location: '-', shippingStatus: '-', paymentStatus: '-' },
+//   { customer: 'Chukwuemeka', date: '13/01/2025', invoice: '465374846', contact: '100,900.00', location: '-', shippingStatus: '-', paymentStatus: '-' },
+// ];
+
+interface Props {
+  salesPaymentDue: SalesPaymentDue,
+  purchasePaymentDue: PurchasePaymentDue,
+  productStockAlert: ProductStockAlert,
+  salesOrder: SalesOrder,
+  pendingShipments: PendingShipment
+}
 
 export default function DashboardTables() {
+  const [salesPaymentDue, setSalesPaymentDue] = useState<SalesPaymentDue[]>([]);
+  const [purchasePaymentDue, setPurchasePaymentDue] = useState<PurchasePaymentDue[]>([]);
+  const [productStockAlert, setProductStockAlert] = useState<ProductStockAlert[]>([]);
+  const [salesOrder, setSalesOrder] = useState<SalesOrder[]>([]);
+  const [pendingShipments, setPendingShipments] = useState<PendingShipment[]>([]);
+
+
+
+
+     const [loading, setLoading] = useState(true);
+
+     useEffect(() => {
+       fetch('/apis/dashboard')
+         .then(res => res.json())
+         .then(data => {
+           setSalesPaymentDue(data["salesPayments"]);
+           setPurchasePaymentDue(data["purchasePayments"]);
+           setProductStockAlert(data["productStockAlerts"]);
+           setSalesOrder(data["salesOrders"]);
+           setPendingShipments(data["pendingShipments"]);
+           setLoading(false);
+          console.log('this is the data', data);
+
+         })
+         .catch(() => setLoading(false));
+     }, []);
   // Table actions for sales payment due
   const salesPaymentActions = useTableActions<SalesPaymentDue>({
     customActions: [

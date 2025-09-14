@@ -9,8 +9,10 @@ import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
 import { useTableActions } from '@/hooks/use-table-actions';
 import { DollarSign, Edit, Eye, FolderTree, Plus, Tag, Trash2, TrendingUp } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
+import { usePage } from '@inertiajs/react';
+
 
 interface ExpenseCategory extends Record<string, unknown> {
   id: string;
@@ -24,79 +26,26 @@ interface ExpenseCategory extends Record<string, unknown> {
   createdAt: Date;
 }
 
-const mockCategories: ExpenseCategory[] = [
-  {
-    id: '1',
-    name: 'Office Supplies',
-    code: 'OFF-SUP',
-    description: 'Stationery, paper, pens, and other office materials',
-    color: '#3B82F6',
-    isActive: true,
-    expenseCount: 15,
-    totalAmount: 2450.0,
-    createdAt: new Date(2024, 11, 1),
-  },
-  {
-    id: '2',
-    name: 'Equipment',
-    code: 'EQUIP',
-    description: 'Computers, software, tools, and hardware purchases',
-    color: '#10B981',
-    isActive: true,
-    expenseCount: 8,
-    totalAmount: 12300.0,
-    createdAt: new Date(2024, 11, 1),
-  },
-  {
-    id: '3',
-    name: 'Travel',
-    code: 'TRAVEL',
-    description: 'Business trips, accommodation, and transportation',
-    color: '#F59E0B',
-    isActive: true,
-    expenseCount: 12,
-    totalAmount: 5600.0,
-    createdAt: new Date(2024, 11, 1),
-  },
-  {
-    id: '4',
-    name: 'Utilities',
-    code: 'UTIL',
-    description: 'Electricity, water, internet, and phone bills',
-    color: '#EF4444',
-    isActive: true,
-    expenseCount: 24,
-    totalAmount: 3200.0,
-    createdAt: new Date(2024, 11, 1),
-  },
-  {
-    id: '5',
-    name: 'Marketing',
-    code: 'MARKET',
-    description: 'Advertising, promotions, and marketing materials',
-    color: '#8B5CF6',
-    isActive: true,
-    expenseCount: 6,
-    totalAmount: 1800.0,
-    createdAt: new Date(2024, 11, 1),
-  },
-  {
-    id: '6',
-    name: 'Legal & Professional',
-    code: 'LEGAL',
-    description: 'Legal fees, accounting, and professional services',
-    color: '#06B6D4',
-    isActive: false,
-    expenseCount: 3,
-    totalAmount: 2500.0,
-    createdAt: new Date(2024, 10, 15),
-  },
-];
+
+
+interface Props {
+  categories: ExpenseCategory[],
+}
 
 const colorOptions = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#06B6D4', '#EC4899', '#84CC16', '#F97316', '#6366F1'];
 
-export default function ExpenseCategoriesTab() {
-  const [categories, setCategories] = useState<ExpenseCategory[]>(mockCategories);
+export default function ExpenseCategoriesTab(props:Props) {
+   const { categories } = props;  // <-- add this line
+
+    useEffect(() => {
+      if (categories) {
+        console.log('Categories:', categories);
+      } else {
+        console.warn('Categories data is missing!');
+      }
+    }, [categories]);
+  const [changedCategories, setChangedCategories] = useState(categories);
+  
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [editingCategory, setEditingCategory] = useState<ExpenseCategory | null>(null);
   const [newCategory, setNewCategory] = useState({
@@ -137,7 +86,7 @@ export default function ExpenseCategoriesTab() {
       code: newCategory.name.split(' ').slice(0, 3).join('-').toUpperCase(),
     };
 
-    setCategories([...categories, category]);
+    setChangedCategories([...categories, category]);
     setNewCategory({
       name: '',
       description: '',
@@ -166,7 +115,7 @@ export default function ExpenseCategoriesTab() {
     }
 
     if (editingCategory) {
-      setCategories(categories.map((cat) => (cat.id === editingCategory.id ? { ...cat, ...newCategory } : cat)));
+      setChangedCategories(categories.map((cat) => (cat.id === editingCategory.id ? { ...cat, ...newCategory } : cat)));
       setEditingCategory(null);
       setNewCategory({
         name: '',
@@ -186,12 +135,12 @@ export default function ExpenseCategoriesTab() {
       return;
     }
 
-    setCategories(categories.filter((cat) => cat.id !== categoryId));
+    setChangedCategories(categories.filter((cat) => cat.id !== categoryId));
     toast.success('Category deleted successfully!');
   };
 
   const toggleCategoryStatus = (categoryId: string) => {
-    setCategories(categories.map((cat) => (cat.id === categoryId ? { ...cat, isActive: !cat.isActive } : cat)));
+    setChangedCategories(categories.map((cat) => (cat.id === categoryId ? { ...cat, isActive: !cat.isActive } : cat)));
     toast.success('Category status updated!');
   };
 

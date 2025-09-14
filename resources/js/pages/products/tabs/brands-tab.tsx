@@ -3,7 +3,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { DynamicTable, type TableColumn } from '@/components/ui/dynamic-table';
 import { useTableActions } from '@/hooks/use-table-actions';
 import { Edit, Plus, Trash2 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { usePage } from '@inertiajs/react';
+
 
 interface Brand extends Record<string, unknown> {
   id: number;
@@ -11,69 +13,22 @@ interface Brand extends Record<string, unknown> {
   note: string;
 }
 
-export default function BrandsTab() {
-  const [brands] = useState<Brand[]>([
-    { 
-      id: 1, 
-      brands: 'COW MEAT', 
-      note: 'LAP'
-    },
-    { 
-      id: 2, 
-      brands: 'APPLE', 
-      note: 'Premium electronics and devices brand'
-    },
-    { 
-      id: 3, 
-      brands: 'SAMSUNG', 
-      note: 'South Korean technology conglomerate'
-    },
-    { 
-      id: 4, 
-      brands: 'NIKE', 
-      note: 'American athletic footwear and apparel'
-    },
-    { 
-      id: 5, 
-      brands: 'ADIDAS', 
-      note: 'German multinational sports corporation'
-    },
-    { 
-      id: 6, 
-      brands: 'SONY', 
-      note: 'Japanese electronics and entertainment'
-    },
-    { 
-      id: 7, 
-      brands: 'COCA-COLA', 
-      note: 'Global beverage company'
-    },
-    { 
-      id: 8, 
-      brands: 'TOYOTA', 
-      note: 'Japanese automotive manufacturer'
-    },
-    { 
-      id: 9, 
-      brands: 'MICROSOFT', 
-      note: 'American technology corporation'
-    },
-    { 
-      id: 10, 
-      brands: 'GOOGLE', 
-      note: 'American search engine and technology'
-    },
-    { 
-      id: 11, 
-      brands: 'AMAZON', 
-      note: 'American e-commerce and cloud computing'
-    },
-    { 
-      id: 12, 
-      brands: 'FACEBOOK', 
-      note: 'Social media and technology company'
-    }
-  ]);
+interface Props {
+  brands : Brand[];
+}
+
+export default function BrandsTab(props:Props) {
+  // const [brands] = useState<Brand[]>([]);
+
+  const { brands } = props;  // <-- add this line
+
+  useEffect(() => {
+  if (brands) {
+    console.log('Brands:', brands);
+  } else {
+    console.warn('Brands data is missing!');
+  }
+  }, [brands]);
 
   // Setup table actions
   const { rowActions } = useTableActions<Brand>({

@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { DynamicTable, type TableColumn } from '@/components/ui/dynamic-table';
 import { useTableActions } from '@/hooks/use-table-actions';
 import { Edit, Plus, Trash2 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface Unit extends Record<string, unknown> {
   id: number;
@@ -12,11 +12,31 @@ interface Unit extends Record<string, unknown> {
   allowDecimal: boolean;
 }
 
+interface Props {
+  units: Unit[],
+}
+
 export default function UnitsTab() {
-  const [units] = useState<Unit[]>([
-    { id: 1, name: 'KILOGRAM', shortName: 'KG', allowDecimal: true },
-    { id: 2, name: 'Pieces', shortName: 'Pc(s)', allowDecimal: false },
-  ]);
+  // const [units] = useState<Unit[]>([]);
+  const [units, setUnits] = useState<Unit[]>([]);
+      const [loading, setLoading] = useState(true);
+      const data_key = "units";
+      useEffect(() => {
+         fetch(`/products/apis/${data_key}`)
+           .then(res => res.json())
+           .then(data => {
+              const transformed = data.map((b: any) => ({
+                id: b.id,
+                name: b.actual_name, // 🔁 Map name → brands
+                shortName: b.short_name,
+                allowDecimal: b.all_decimal,
+              }));
+             setUnits(transformed);
+             setLoading(false);
+            //  console.log('this is the data', data);
+           })
+           .catch(() => setLoading(false));
+       }, []);
 
   // Setup table actions
   const { rowActions } = useTableActions<Unit>({

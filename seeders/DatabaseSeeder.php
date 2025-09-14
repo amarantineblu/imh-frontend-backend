@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        
+
 
         $this->call([
           User::factory()->create([
@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
           ]),
           // TransactionSeeder::class,
           PosTransactionTableSeeder::class,
+          SalesPaymentTableSeeder::class,
+
         ]);
     }
 }

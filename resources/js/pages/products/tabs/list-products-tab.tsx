@@ -17,7 +17,7 @@ import {
   Trash2, 
   UserX 
 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 // All Products Interface
 interface Product extends Record<string, unknown> {
@@ -53,51 +53,51 @@ interface StockReport extends Record<string, unknown> {
   totalUnitAdjusted: number;
 }
 
-// Mock data for All Products
-const mockProducts: Product[] = [
-  {
-    id: 1,
-    image: '/placeholder-product.jpg',
-    name: 'Wireless Bluetooth Headphones',
-    businessLocation: 'Main Store',
-    unitPurchasePrice: 75.00,
-    sellingPrice: 99.99,
-    currentStock: 50,
-    productType: 'Simple',
-    category: 'Electronics',
-    brand: 'TechBrand',
-    tax: 10,
-    sku: 'WBH-001',
-  },
-  {
-    id: 2,
-    image: '/placeholder-product.jpg',
-    name: 'Organic Coffee Beans 1kg',
-    businessLocation: 'Branch Store',
-    unitPurchasePrice: 18.00,
-    sellingPrice: 24.99,
-    currentStock: 120,
-    productType: 'Simple',
-    category: 'Food & Beverages',
-    brand: 'CoffeeMaster',
-    tax: 5,
-    sku: 'OCB-1KG',
-  },
-  {
-    id: 3,
-    image: '/placeholder-product.jpg',
-    name: 'Gaming Mouse RGB',
-    businessLocation: 'Online Store',
-    unitPurchasePrice: 55.00,
-    sellingPrice: 79.99,
-    currentStock: 0,
-    productType: 'Variable',
-    category: 'Electronics',
-    brand: 'GameTech',
-    tax: 10,
-    sku: 'GM-RGB-001',
-  },
-];
+// // Mock data for All Products
+// const mockProducts: Product[] = [
+//   {
+//     id: 1,
+//     image: '/placeholder-product.jpg',
+//     name: 'Wireless Bluetooth Headphones',
+//     businessLocation: 'Main Store',
+//     unitPurchasePrice: 75.00,
+//     sellingPrice: 99.99,
+//     currentStock: 50,
+//     productType: 'Simple',
+//     category: 'Electronics',
+//     brand: 'TechBrand',
+//     tax: 10,
+//     sku: 'WBH-001',
+//   },
+//   {
+//     id: 2,
+//     image: '/placeholder-product.jpg',
+//     name: 'Organic Coffee Beans 1kg',
+//     businessLocation: 'Branch Store',
+//     unitPurchasePrice: 18.00,
+//     sellingPrice: 24.99,
+//     currentStock: 120,
+//     productType: 'Simple',
+//     category: 'Food & Beverages',
+//     brand: 'CoffeeMaster',
+//     tax: 5,
+//     sku: 'OCB-1KG',
+//   },
+//   {
+//     id: 3,
+//     image: '/placeholder-product.jpg',
+//     name: 'Gaming Mouse RGB',
+//     businessLocation: 'Online Store',
+//     unitPurchasePrice: 55.00,
+//     sellingPrice: 79.99,
+//     currentStock: 0,
+//     productType: 'Variable',
+//     category: 'Electronics',
+//     brand: 'GameTech',
+//     tax: 10,
+//     sku: 'GM-RGB-001',
+//   },
+// ];
 
 // Mock data for Stock Report
 const mockStockReports: StockReport[] = [
@@ -151,11 +151,19 @@ const mockStockReports: StockReport[] = [
   },
 ];
 
-export default function ListProductsTab() {
-  const [products] = useState<Product[]>(mockProducts);
-  const [stockReports] = useState<StockReport[]>(mockStockReports);
-  const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
-  const [selectedStockReports, setSelectedStockReports] = useState<StockReport[]>([]);
+interface Props{
+  mockProducts: Product[]
+}
+export default function ListProductsTab(props: Props) {
+   const { mockProducts } = props;  // <-- add this line
+
+    useEffect(() => {
+    if (mockProducts) {
+      console.log('Mock Products:', mockProducts);
+    } else {
+      console.warn('Mock Products data is missing!');
+    }
+    }, [mockProducts]);
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-US', {

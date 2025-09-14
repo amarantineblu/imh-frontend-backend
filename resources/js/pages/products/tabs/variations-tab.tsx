@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useTableActions } from '@/hooks/use-table-actions';
 import { Edit, Layers, Package, Plus, Settings, Trash2 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface Variation extends Record<string, unknown> {
   id: number;
@@ -27,32 +27,32 @@ interface Template extends Record<string, unknown> {
 export default function VariationsTab() {
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
-  const variations: Variation[] = [
-    {
-      id: 1,
-      product: 'T-Shirt',
-      template: 'Size & Color',
-      combinations: 12,
-      status: 'Active',
-      attributes: ['Size: S, M, L, XL', 'Color: Red, Blue, Green'],
-    },
-    {
-      id: 2,
-      product: 'Smartphone',
-      template: 'Storage & Color',
-      combinations: 6,
-      status: 'Active',
-      attributes: ['Storage: 128GB, 256GB', 'Color: Black, White, Gold'],
-    },
-    {
-      id: 3,
-      product: 'Laptop',
-      template: 'RAM & Storage',
-      combinations: 8,
-      status: 'Draft',
-      attributes: ['RAM: 8GB, 16GB', 'Storage: 256GB, 512GB, 1TB'],
-    },
-  ];
+  // const variations: Variation[] = [
+  //   {
+  //     id: 1,
+  //     product: 'T-Shirt',
+  //     template: 'Size & Color',
+  //     combinations: 12,
+  //     status: 'Active',
+  //     attributes: ['Size: S, M, L, XL', 'Color: Red, Blue, Green'],
+  //   },
+  //   {
+  //     id: 2,
+  //     product: 'Smartphone',
+  //     template: 'Storage & Color',
+  //     combinations: 6,
+  //     status: 'Active',
+  //     attributes: ['Storage: 128GB, 256GB', 'Color: Black, White, Gold'],
+  //   },
+  //   {
+  //     id: 3,
+  //     product: 'Laptop',
+  //     template: 'RAM & Storage',
+  //     combinations: 8,
+  //     status: 'Draft',
+  //     attributes: ['RAM: 8GB, 16GB', 'Storage: 256GB, 512GB, 1TB'],
+  //   },
+  // ];
 
   const templates: Template[] = [
     { id: 1, name: 'Size & Color', attributes: 2, products: 15 },
@@ -61,6 +61,26 @@ export default function VariationsTab() {
     { id: 4, name: 'Material & Finish', attributes: 2, products: 5 },
   ];
 
+   const [variations, setVariations] = useState<Variation[]>([]);
+        const [loading, setLoading] = useState(true);
+        const data_key = "variations";
+        useEffect(() => {
+           fetch(`/products/apis/${data_key}`)
+             .then(res => res.json())
+             .then(data => {
+                const transformed = data.map((b: any) => ({
+                  id: b.id,
+                  name: b.actual_name, // 🔁 Map name → brands
+                  shortName: b.short_name,
+                  allowDecimal: b.all_decimal,
+                }));
+               setVariations(transformed);
+               setLoading(false);
+              //  console.log('this is the data', data);
+             })
+             .catch(() => setLoading(false));
+        }, []);
+  
   // Setup table actions for variations
   const { rowActions: variationActions } = useTableActions<Variation>({
     customActions: [

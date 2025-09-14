@@ -1,5 +1,10 @@
 <?php
 
+use App\PendingShipment;
+use App\ProductStockAlert;
+use App\PurchasePayment;
+use App\SalesOrder;
+use App\SalesPayment;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -8,6 +13,23 @@ Route::get('/', function () {
 })->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/apis/dashboard', function() {
+      $salesPayment = SalesPayment::all()->toArray();
+      $purchasePayment = PurchasePayment::all()->toArray();
+      $productStockAlert = ProductStockAlert::all()->toArray();
+      $salesOrder = SalesOrder::all()->toArray();
+      $pendingShipment = PendingShipment::all()->toArray();
+
+      $data = [
+        'salesPayments' => $salesPayment,
+        'puchasePayments' => $purchasePayment,
+        'productStockAlerts' => $productStockAlert,
+        'salesOrders' => $salesOrder,
+        'pendingShipments' => $pendingShipment,
+      ];
+      // Log::info('Transactions API:', $data);
+      return response()->json($data);
+    });
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
     })->name('dashboard');

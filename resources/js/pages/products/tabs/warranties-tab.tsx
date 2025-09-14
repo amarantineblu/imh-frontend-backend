@@ -3,7 +3,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { DynamicTable, type TableColumn } from '@/components/ui/dynamic-table';
 import { useTableActions } from '@/hooks/use-table-actions';
 import { Edit, Plus, Trash2 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { usePage } from '@inertiajs/react';
+
 
 interface Warranty extends Record<string, unknown> {
   id: number;
@@ -12,70 +14,34 @@ interface Warranty extends Record<string, unknown> {
   duration: string;
 }
 
-export default function WarrantiesTab() {
-  const [warranties] = useState<Warranty[]>([
-    { 
-      id: 1, 
-      name: '1 Year Standard', 
-      description: 'Standard warranty coverage for electronics and appliances', 
-      duration: '12 months'
-    },
-    { 
-      id: 2, 
-      name: '2 Year Extended', 
-      description: 'Extended warranty for premium products and devices', 
-      duration: '24 months'
-    },
-    { 
-      id: 3, 
-      name: '6 Month Basic', 
-      description: 'Basic warranty for accessories and consumables', 
-      duration: '6 months'
-    },
-    { 
-      id: 4, 
-      name: '3 Year Premium', 
-      description: 'Premium warranty with comprehensive coverage', 
-      duration: '36 months'
-    },
-    { 
-      id: 5, 
-      name: '90 Day Limited', 
-      description: 'Limited warranty for trial and sample products', 
-      duration: '3 months'
-    },
-    { 
-      id: 6, 
-      name: '5 Year Extended Plus', 
-      description: 'Extended plus warranty for high-value items', 
-      duration: '60 months'
-    },
-    { 
-      id: 7, 
-      name: 'Lifetime Warranty', 
-      description: 'Lifetime warranty for select premium products', 
-      duration: 'Lifetime'
-    },
-    { 
-      id: 8, 
-      name: '30 Day Return', 
-      description: 'Return policy warranty for new customer purchases', 
-      duration: '1 month'
-    },
-    { 
-      id: 9, 
-      name: 'International Warranty', 
-      description: 'Global warranty coverage for international products', 
-      duration: '18 months'
-    },
-    { 
-      id: 10, 
-      name: 'Professional Service', 
-      description: 'Professional service warranty for business equipment', 
-      duration: '24 months'
-    }
-  ]);
+interface Props{
+  warranties: Warranty[];
+}
 
+export default function WarrantiesTab(props:Props) {
+   const { warranties } = props;  // <-- add this line
+
+  useEffect(() => {
+    if (warranties) {
+      console.log('Warranties:', warranties);
+    } else {
+      console.warn('Warranties data is missing!');
+    }
+  }, [warranties]);
+
+  // const [warranties, setWarranties] = useState<Warranty[]>([]);
+  // const [loading, setLoading] = useState(true);
+  // const data_key = "warranties";
+  // useEffect(() => {
+  //    fetch(`/products/apis/${data_key}`)
+  //      .then(res => res.json())
+  //      .then(data => {
+  //        setWarranties(data);
+  //        setLoading(false);
+  //       //  console.log('this is the data', data);
+  //      })
+  //      .catch(() => setLoading(false));
+  //  }, []);
   // Setup table actions
   const { rowActions } = useTableActions<Warranty>({
     customActions: [
