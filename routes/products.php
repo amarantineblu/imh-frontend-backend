@@ -18,11 +18,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('products')->group(function () {
       Route::get('/apis/{data_key}', function($data_key){
         $data = [
-        'warranties' => Warranty::all()->toArray(),
-        'brands' => Brands::all()->toArray(),
-        'categories' => Category::all()->toArray(),
-        'units' => Unit::all()->toArray(),
-        'products' =>  Product::all()->toArray(),
         'variations' =>  Variation::all()->toArray(),
         'templates' => Template::all()->toArray(),
         // 'stock_reports' => StockReport::all()->toArray(),
@@ -48,8 +43,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
         Route::get('/list', function () {
+        $products =  Product::all()->toArray();
+
             return Inertia::render('products/index', [
-                'activeTab' => 'list'
+                'activeTab' => 'list',
+                'products' => $products,
             ]);
         })->name('products.list');
 
@@ -108,8 +106,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         })->name('products.brands');
 
         Route::get('/warranties', function () {
+        $warranties =  Warranty::all()->toArray();
             return Inertia::render('products/index', [
-                'activeTab' => 'warranties'
+                'activeTab' => 'warranties',
+              'warranties' => $warranties
             ]);
         })->name('products.warranties');
     });

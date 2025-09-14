@@ -19,8 +19,10 @@ import ListProductsTab from './tabs/list-products-tab';
 import PrintLabelsTab from './tabs/print-labels-tab';
 import SellingPriceGroupsTab from './tabs/selling-price-groups-tab';
 import UnitsTab from './tabs/units-tab';
-import VariationsTab from './tabs/variations-tab';
+import  VariationsTab from './tabs/variations-tab';
 import WarrantiesTab from './tabs/warranties-tab';
+import { usePage } from '@inertiajs/react';
+// import type { PageProps as InertiaPageProps } from '@inertiajs/inertia';
 const breadcrumbs: BreadcrumbItem[] = [
   {
     title: 'Products Management',
@@ -32,7 +34,36 @@ interface ProductsPageProps {
   activeTab?: string;
 }
 
+interface InertiaPageProps extends ProductsPageProps {
+  [key: string]: unknown;   // This is important
+  rack_enabled: boolean;
+  categories: any[];
+  brands: any[]; // You can replace `any` with actual types
+  units: any[];
+  taxes: any[];
+  business_locations: any[];
+  show_manufacturing_data: boolean;
+  pos_module_data: any;
+  is_woocommerce: boolean;
+  is_admin: boolean;
+}
+
 export default function Products({ activeTab = 'list' }: ProductsPageProps) {
+  const {
+    rack_enabled,
+    categories,
+    brands,
+    units,
+    taxes,
+    business_locations,
+    show_manufacturing_data,
+    pos_module_data,
+    is_woocommerce,
+    is_admin,
+  } = usePage<InertiaPageProps>().props;
+
+  console.log('Categories:', categories ?? []);
+
   return (
     <AppLayout breadcrumbs={breadcrumbs}>
       <Head title="Products Management" />
@@ -120,7 +151,7 @@ export default function Products({ activeTab = 'list' }: ProductsPageProps) {
                   <CardDescription>View and manage all products in your inventory system.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <ListProductsTab />
+                  <ListProductsTab  />
                 </CardContent>
               </Card>
             </TabsContent>
@@ -240,7 +271,7 @@ export default function Products({ activeTab = 'list' }: ProductsPageProps) {
                   <CardDescription>Organize products into categories and subcategories.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <CategoriesTab />
+                  <CategoriesTab categories={categories ?? []} />
                 </CardContent>
               </Card>
             </TabsContent>
@@ -255,7 +286,7 @@ export default function Products({ activeTab = 'list' }: ProductsPageProps) {
                   <CardDescription>Manage brand information for your products.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <BrandsTab />
+                  <BrandsTab brands={brands ?? []} />
                 </CardContent>
               </Card>
             </TabsContent>

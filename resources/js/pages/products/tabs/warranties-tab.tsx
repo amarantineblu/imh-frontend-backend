@@ -4,6 +4,8 @@ import { DynamicTable, type TableColumn } from '@/components/ui/dynamic-table';
 import { useTableActions } from '@/hooks/use-table-actions';
 import { Edit, Plus, Trash2 } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { usePage } from '@inertiajs/react';
+
 
 interface Warranty extends Record<string, unknown> {
   id: number;
@@ -16,20 +18,30 @@ interface Props{
   warranties: Warranty[];
 }
 
-export default function WarrantiesTab() {
-  const [warranties, setWarranties] = useState<Warranty[]>([]);
-  const [loading, setLoading] = useState(true);
-  const data_key = "warranties";
+export default function WarrantiesTab(props:Props) {
+   const { warranties } = props;  // <-- add this line
+
   useEffect(() => {
-     fetch(`/products/apis/${data_key}`)
-       .then(res => res.json())
-       .then(data => {
-         setWarranties(data);
-         setLoading(false);
-        //  console.log('this is the data', data);
-       })
-       .catch(() => setLoading(false));
-   }, []);
+    if (warranties) {
+      console.log('Warranties:', warranties);
+    } else {
+      console.warn('Warranties data is missing!');
+    }
+  }, [warranties]);
+
+  // const [warranties, setWarranties] = useState<Warranty[]>([]);
+  // const [loading, setLoading] = useState(true);
+  // const data_key = "warranties";
+  // useEffect(() => {
+  //    fetch(`/products/apis/${data_key}`)
+  //      .then(res => res.json())
+  //      .then(data => {
+  //        setWarranties(data);
+  //        setLoading(false);
+  //       //  console.log('this is the data', data);
+  //      })
+  //      .catch(() => setLoading(false));
+  //  }, []);
   // Setup table actions
   const { rowActions } = useTableActions<Warranty>({
     customActions: [

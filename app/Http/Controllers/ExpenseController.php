@@ -16,6 +16,7 @@ use App\Utils\TransactionUtil;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Inertia\Inertia;
 use Yajra\DataTables\Facades\DataTables;
 
 class ExpenseController extends Controller
@@ -42,9 +43,9 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        if (! auth()->user()->can('all_expense.access') && ! auth()->user()->can('view_own_expense')) {
-            abort(403, 'Unauthorized action.');
-        }
+        // if (! auth()->user()->can('all_expense.access') && ! auth()->user()->can('view_own_expense')) {
+        //     abort(403, 'Unauthorized action.');
+        // }
 
         if (request()->ajax()) {
             $business_id = request()->session()->get('user.business_id');
@@ -273,8 +274,7 @@ class ExpenseController extends Controller
                         ->pluck('name', 'id')
                         ->toArray();
 
-        return view('expense.index')
-            ->with(compact('categories', 'business_locations', 'users', 'contacts', 'sub_categories'));
+        return Inertia::render('expenses/index',['categories', 'business_locations', 'users', 'contacts', 'sub_categories']);
     }
 
     /**
