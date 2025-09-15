@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
 const formSchema = z.object({
-  viewStockExpiryAlertFor: z.number().min(1, 'Must be at least 1 day').default(30),
+  viewStockExpiryAlertFor: z.number().min(1, 'Must be at least 1 day'),
 });
 
 const DashboardView = () => {

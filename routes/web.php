@@ -14,24 +14,26 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/apis/dashboard', function() {
-      $salesPayment = SalesPayment::all()->toArray();
+    
+      $data = [
+        
+      ];
+      Log::info('Transactions API:', $data);
+      return response()->json($data);
+    });
+    Route::get('dashboard', function () {
+    $salesPayment = SalesPayment::all()->toArray();
       $purchasePayment = PurchasePayment::all()->toArray();
       $productStockAlert = ProductStockAlert::all()->toArray();
       $salesOrder = SalesOrder::all()->toArray();
       $pendingShipment = PendingShipment::all()->toArray();
-
-      $data = [
-        'salesPayments' => $salesPayment,
-        'puchasePayments' => $purchasePayment,
-        'productStockAlerts' => $productStockAlert,
-        'salesOrders' => $salesOrder,
-        'pendingShipments' => $pendingShipment,
-      ];
-      // Log::info('Transactions API:', $data);
-      return response()->json($data);
-    });
-    Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
+        return Inertia::render('dashboard',[
+          'sales_payments' => $salesPayment,
+          'purchase_payments' => $purchasePayment,
+          'product_stock_alerts' => $productStockAlert,
+          'sales_orders' => $salesOrder,
+          'pending_shipments' => $pendingShipment,
+        ]);
     })->name('dashboard');
 
     Route::get('/modules', function () {

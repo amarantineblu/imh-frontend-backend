@@ -151,7 +151,7 @@ export default function Products({ activeTab = 'list' }: ProductsPageProps) {
                   <CardDescription>View and manage all products in your inventory system.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <ListProductsTab  />
+                  <ListProductsTab mockProducts={[]} />
                 </CardContent>
               </Card>
             </TabsContent>
@@ -301,7 +301,7 @@ export default function Products({ activeTab = 'list' }: ProductsPageProps) {
                   <CardDescription>Define warranty terms and conditions for your products.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <WarrantiesTab />
+                  <WarrantiesTab warranties={[]} />
                 </CardContent>
               </Card>
             </TabsContent>

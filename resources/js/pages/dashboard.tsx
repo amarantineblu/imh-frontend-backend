@@ -6,7 +6,7 @@ import MetricCard from '@/components/stat-card';
 import AppLayout from '@/layouts/app-layout';
 import type { IMetricCard } from '@/types';
 import { type BreadcrumbItem } from '@/types';
-import { Head } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
 import {
   AlertCircle,
   Check,
@@ -109,7 +109,18 @@ const metricsData: IMetricCard[] = [
   },
 ];
 
-export default function Dashboard() {
+interface DashboardProps {
+  sales_payments: any[];
+  purchase_payments: any[];
+  product_stock_alerts: any[];
+  sales_orders: any[];
+  pending_shipments: any[];
+}
+
+export default function Dashboard(props: DashboardProps) {
+  console.log('Dashboard Props:', props);
+  const {pending_shipments, sales_payments, purchase_payments, product_stock_alerts, sales_orders} = usePage().props as unknown as DashboardProps;
+  
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState("Today")
 
@@ -186,7 +197,7 @@ export default function Dashboard() {
 
           <SalesAreaChart />
           {/* Dashboard Tables Section */}
-          <DashboardTables />
+          <DashboardTables pendingShipments={pending_shipments} salesOrders={sales_orders} salesPayments={sales_payments} purchasePayments={purchase_payments} productStockAlerts={product_stock_alerts} />
         </div>
       </div>
     </AppLayout>

@@ -44,7 +44,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::get('/list', function () {
         $products =  Product::all()->toArray();
-
             return Inertia::render('products/index', [
                 'activeTab' => 'list',
                 'products' => $products,

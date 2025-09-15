@@ -5,6 +5,8 @@ import { useTableActions } from '@/hooks/use-table-actions';
 import { Card } from './ui/card';
 import { Eye, MapPin, DollarSign, Calendar, Package, Truck } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { usePage } from '@inertiajs/react';
+
 
 // Types
 interface SalesPaymentDue extends Record<string, unknown> {
@@ -91,32 +93,25 @@ interface Props {
   pendingShipments: PendingShipment
 }
 
-export default function DashboardTables() {
+export default function DashboardTables(props:Props) {
   const [salesPaymentDue, setSalesPaymentDue] = useState<SalesPaymentDue[]>([]);
   const [purchasePaymentDue, setPurchasePaymentDue] = useState<PurchasePaymentDue[]>([]);
   const [productStockAlert, setProductStockAlert] = useState<ProductStockAlert[]>([]);
   const [salesOrder, setSalesOrder] = useState<SalesOrder[]>([]);
   const [pendingShipments, setPendingShipments] = useState<PendingShipment[]>([]);
-
-
-
-
-     const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const { salesPaymentDue: salesPayments, purchasePaymentDue: purchasePayments, productStockAlert: productStockAlerts, salesOrder: salesOrders, pendingShipments: pendingShipmentsProp } = usePage().props;
 
      useEffect(() => {
-       fetch('/apis/dashboard')
-         .then(res => res.json())
-         .then(data => {
-           setSalesPaymentDue(data["salesPayments"]);
-           setPurchasePaymentDue(data["purchasePayments"]);
-           setProductStockAlert(data["productStockAlerts"]);
-           setSalesOrder(data["salesOrders"]);
-           setPendingShipments(data["pendingShipments"]);
+        
+           setSalesPaymentDue(salesPayments as SalesPaymentDue[]);
+           setPurchasePaymentDue(purchasePayments as PurchasePaymentDue[]);
+           setProductStockAlert(productStockAlerts as ProductStockAlert[]);
+           setSalesOrder(salesOrders as SalesOrder[]);
+           setPendingShipments(pendingShipments as PendingShipment[]);
            setLoading(false);
-          console.log('this is the data', data);
+          // console.log('this is the data', data);
 
-         })
-         .catch(() => setLoading(false));
      }, []);
   // Table actions for sales payment due
   const salesPaymentActions = useTableActions<SalesPaymentDue>({

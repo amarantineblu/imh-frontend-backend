@@ -100,62 +100,40 @@ interface StockReport extends Record<string, unknown> {
 // ];
 
 // Mock data for Stock Report
-const mockStockReports: StockReport[] = [
-  {
-    id: 1,
-    sku: 'WBH-001',
-    product: 'Wireless Bluetooth Headphones',
-    variation: 'Black - Large',
-    category: 'Electronics',
-    location: 'Main Store',
-    unitSellingPrice: 99.99,
-    currentStock: 50,
-    currentStockValuePurchase: 3750.00,
-    currentStockValueSale: 4999.50,
-    potentialProfit: 1249.50,
-    totalUnitSold: 125,
-    totalUnitTransferred: 10,
-    totalUnitAdjusted: 2,
-  },
-  {
-    id: 2,
-    sku: 'OCB-1KG',
-    product: 'Organic Coffee Beans 1kg',
-    variation: 'Medium Roast',
-    category: 'Food & Beverages',
-    location: 'Branch Store',
-    unitSellingPrice: 24.99,
-    currentStock: 120,
-    currentStockValuePurchase: 2160.00,
-    currentStockValueSale: 2998.80,
-    potentialProfit: 838.80,
-    totalUnitSold: 89,
-    totalUnitTransferred: 5,
-    totalUnitAdjusted: 1,
-  },
-  {
-    id: 3,
-    sku: 'GM-RGB-001',
-    product: 'Gaming Mouse RGB',
-    variation: 'Red LED',
-    category: 'Electronics',
-    location: 'Online Store',
-    unitSellingPrice: 79.99,
-    currentStock: 0,
-    currentStockValuePurchase: 0.00,
-    currentStockValueSale: 0.00,
-    potentialProfit: 0.00,
-    totalUnitSold: 45,
-    totalUnitTransferred: 0,
-    totalUnitAdjusted: -3,
-  },
-];
+
 
 interface Props{
   mockProducts: Product[]
 }
 export default function ListProductsTab(props: Props) {
    const { mockProducts } = props;  // <-- add this line
+   const mockStockReports: StockReport[] = mockProducts.map((product) => {
+    const currentStockValuePurchase = product.unitPurchasePrice * product.currentStock;
+    const currentStockValueSale = product.sellingPrice * product.currentStock;
+    const potentialProfit = currentStockValueSale - currentStockValuePurchase;
+  
+    return {
+      id: product.id,
+      sku: product.sku,
+      product: product.name,
+      variation: 'Default Variation', // You can customize this if needed
+      category: product.category,
+      location: product.businessLocation,
+      unitSellingPrice: product.sellingPrice,
+      currentStock: product.currentStock,
+      currentStockValuePurchase,
+      currentStockValueSale,
+      potentialProfit,
+      totalUnitSold: 0, // Placeholder
+      totalUnitTransferred: 0, // Placeholder
+      totalUnitAdjusted: 0, // Placeholder
+    };
+  });
+
+    // State for selected products in All Products tab
+    const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
+    // State for selected stock reports in Stock Report tab
+    const [selectedStockReports, setSelectedStockReports] = useState<StockReport[]>([]);
 
     useEffect(() => {
     if (mockProducts) {
@@ -564,7 +542,7 @@ export default function ListProductsTab(props: Props) {
               )}
 
               <DynamicTable
-                data={products}
+                data={mockProducts}
                 columns={productColumns}
                 enableRowSelection={true}
                 enableSorting={true}
@@ -612,7 +590,7 @@ export default function ListProductsTab(props: Props) {
               )}
 
               <DynamicTable
-                data={stockReports}
+                data={mockStockReports}
                 columns={stockColumns}
                 enableRowSelection={true}
                 enableSorting={true}
