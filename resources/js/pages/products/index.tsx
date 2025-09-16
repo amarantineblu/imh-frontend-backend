@@ -181,7 +181,7 @@ export default function Products({ activeTab = 'list' }: ProductsPageProps) {
                   <CardDescription>Generate and print barcode labels for your products.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <PrintLabelsTab />
+                  <PrintLabelsTab products={[]}/>
                 </CardContent>
               </Card>
             </TabsContent>
@@ -196,7 +196,7 @@ export default function Products({ activeTab = 'list' }: ProductsPageProps) {
                   <CardDescription>Manage product variations like size, color, and other attributes.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <VariationsTab />
+                  <VariationsTab variations={[]} templates={[]} />
                 </CardContent>
               </Card>
             </TabsContent>

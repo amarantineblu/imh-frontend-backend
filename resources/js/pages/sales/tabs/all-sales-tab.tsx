@@ -47,93 +47,11 @@ interface Sale extends Record<string, unknown> {
     shipping_details: string;
 }
 
-export default function AllSalesTab() {
-    const [sales] = useState<Sale[]>([
-        {
-            id: '1',
-            date: '2024-01-15',
-            invoice_no: 'T001',
-            customer_name: 'John Doe',
-            contact_number: '+1-555-0123',
-            location: 'New York, NY',
-            payment_status: 'Paid',
-            payment_method: 'Credit Card',
-            total_amount: 1299.0,
-            total_paid: 1299.0,
-            sell_due: 0.0,
-            sell_return_due: 0.0,
-            shipping_status: 'Delivered',
-            total_items: 3,
-            tally_number: 'T001',
-            added_by: 'Admin User',
-            sell_note: 'Customer requested express delivery',
-            staff_note: 'VIP customer',
-            shipping_details: 'Express shipping to downtown office',
-        },
-        {
-            id: '2',
-            date: '2024-01-15',
-            invoice_no: 'T002',
-            customer_name: 'Jane Smith',
-            contact_number: '+1-555-0124',
-            location: 'Los Angeles, CA',
-            payment_status: 'Partial',
-            payment_method: 'Cash',
-            total_amount: 899.0,
-            total_paid: 500.0,
-            sell_due: 399.0,
-            sell_return_due: 0.0,
-            shipping_status: 'Pending',
-            total_items: 1,
-            tally_number: 'T002',
-            added_by: 'Sales Rep 1',
-            sell_note: 'Partial payment received',
-            staff_note: 'Follow up for remaining payment',
-            shipping_details: 'Standard shipping',
-        },
-        {
-            id: '3',
-            date: '2024-01-14',
-            invoice_no: 'T003',
-            customer_name: 'Mike Johnson',
-            contact_number: '+1-555-0125',
-            location: 'Chicago, IL',
-            payment_status: 'Paid',
-            payment_method: 'Bank Transfer',
-            total_amount: 599.0,
-            total_paid: 599.0,
-            sell_due: 0.0,
-            sell_return_due: 50.0,
-            shipping_status: 'Shipped',
-            total_items: 2,
-            tally_number: 'T003',
-            added_by: 'Sales Rep 2',
-            sell_note: 'Bulk order discount applied',
-            staff_note: 'Return requested for damaged item',
-            shipping_details: 'Next day delivery',
-        },
-        {
-            id: '4',
-            date: '2024-01-14',
-            invoice_no: 'T004',
-            customer_name: 'Sarah Wilson',
-            contact_number: '+1-555-0126',
-            location: 'Miami, FL',
-            payment_status: 'Due',
-            payment_method: '-',
-            total_amount: 2150.0,
-            total_paid: 0.0,
-            sell_due: 2150.0,
-            sell_return_due: 0.0,
-            shipping_status: 'Not Shipped',
-            total_items: 5,
-            tally_number: 'T004',
-            added_by: 'Admin User',
-            sell_note: 'Large order - corporate client',
-            staff_note: 'Payment terms: Net 30',
-            shipping_details: 'Freight shipping required',
-        },
-    ]);
+interface Props {
+  sales: Sale[];
+}
+export default function AllSalesTab(props: Props) {
+    const [sales] = useState<Sale[]>([...props.sales]);
 
     // Setup table actions
     const { rowActions } = useTableActions<Sale>({

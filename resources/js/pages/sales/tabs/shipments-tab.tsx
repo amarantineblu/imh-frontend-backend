@@ -18,58 +18,58 @@ interface Shipment extends Record<string, unknown> {
   paymentStatus: string;
 }
 
-const mockShipments: Shipment[] = [
-  {
-    id: '1',
-    date: '07/01/2025',
-    invoiceNo: 'INV-001',
-    customerName: 'John Smith',
-    contactNumber: '+234 801 234 5678',
-    location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
-    shippingStatus: 'Delivered',
-    paymentStatus: 'Paid',
-  },
-  {
-    id: '2',
-    date: '07/02/2025',
-    invoiceNo: 'INV-002',
-    customerName: 'Sarah Johnson',
-    contactNumber: '+234 802 345 6789',
-    location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
-    shippingStatus: 'In Transit',
-    paymentStatus: 'Partial',
-  },
-  {
-    id: '3',
-    date: '07/03/2025',
-    invoiceNo: 'INV-003',
-    customerName: 'Walk-In Customer',
-    contactNumber: null,
-    location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
-    shippingStatus: 'Pending',
-    paymentStatus: 'Unpaid',
-  },
-  {
-    id: '4',
-    date: '07/04/2025',
-    invoiceNo: 'INV-004',
-    customerName: 'Mike Wilson',
-    contactNumber: '+234 803 456 7890',
-    location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
-    shippingStatus: 'Processing',
-    paymentStatus: 'Paid',
-  },
-  {
-    id: '5',
-    date: '07/05/2025',
-    invoiceNo: 'INV-005',
-    customerName: 'Emily Davis',
-    contactNumber: '+234 804 567 8901',
-    location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
-    shippingStatus: 'Delivered',
-    paymentStatus: 'Partial',
-  },
-];
+// const mockShipments: Shipment[] = [
+//   {
+//     id: '1',
+//     date: '07/01/2025',
+//     invoiceNo: 'INV-001',
+//     customerName: 'John Smith',
+//     contactNumber: '+234 801 234 5678',
+//     location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
+//     shippingStatus: 'Delivered',
+//     paymentStatus: 'Paid',
+//   },
+//   {
+//     id: '2',
+//     date: '07/02/2025',
+//     invoiceNo: 'INV-002',
+//     customerName: 'Sarah Johnson',
+//     contactNumber: '+234 802 345 6789',
+//     location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
+//     shippingStatus: 'In Transit',
+//     paymentStatus: 'Partial',
+//   },
+//   {
+//     id: '3',
+//     date: '07/03/2025',
+//     invoiceNo: 'INV-003',
+//     customerName: 'Walk-In Customer',
+//     contactNumber: null,
+//     location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
+//     shippingStatus: 'Pending',
+//     paymentStatus: 'Unpaid',
+//   },
+//   {
+//     id: '4',
+//     date: '07/04/2025',
+//     invoiceNo: 'INV-004',
+//     customerName: 'Mike Wilson',
+//     contactNumber: '+234 803 456 7890',
+//     location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
+//     shippingStatus: 'Processing',
+//     paymentStatus: 'Paid',
+//   },
+//   {
+//     id: '5',
+//     date: '07/05/2025',
+//     invoiceNo: 'INV-005',
+//     customerName: 'Emily Davis',
+//     contactNumber: '+234 804 567 8901',
+//     location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
+//     shippingStatus: 'Delivered',
+//     paymentStatus: 'Partial',
+//   },
+// ];
 
 const getShippingStatusColor = (status: string) => {
   switch (status) {
@@ -131,7 +131,12 @@ const getPaymentStatusIcon = (status: string) => {
   }
 };
 
-export default function ShipmentsTab() {
+interface Props {
+  shipments: Shipment[];
+}
+
+export default function ShipmentsTab(props: Props) {
+  const mockShipments = props.shipments || [];
   const [businessLocation, setBusinessLocation] = useState('all');
   const [customer, setCustomer] = useState('all');
   const [dateRange, setDateRange] = useState('01/01/2025 - 12/31/2025');

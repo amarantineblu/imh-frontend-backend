@@ -199,7 +199,7 @@ export default function Dashboard(props: DashboardProps) {
 
           <SalesAreaChart />
           {/* Dashboard Tables Section */}
-          <DashboardTables pendingShipments={pending_shipments} salesOrders={sales_orders} salesPayments={sales_payments} purchasePayments={purchase_payments} productStockAlerts={product_stock_alerts} />
+          <DashboardTables pendingShipments={pending_shipments} salesOrder={sales_orders} salesPaymentDue={sales_payments} purchasePaymentDue={purchase_payments} productStockAlert={product_stock_alerts} />
         </div>
       </div>
     </AppLayout>

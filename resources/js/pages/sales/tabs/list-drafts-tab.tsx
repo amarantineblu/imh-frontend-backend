@@ -18,60 +18,63 @@ interface Draft extends Record<string, unknown> {
   status: string;
 }
 
-const mockDrafts: Draft[] = [
-  {
-    id: '1',
-    referenceNo: 'DRAFT-001',
-    date: '07/01/2025',
-    customerName: 'John Smith',
-    contactNumber: '+234 801 234 5678',
-    location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
-    totalItems: 3,
-    addedBy: 'Jane Doe',
-    status: 'Active',
-  },
-  {
-    id: '2',
-    referenceNo: 'DRAFT-002',
-    date: '07/02/2025',
-    customerName: 'Sarah Johnson',
-    contactNumber: '+234 802 345 6789',
-    location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
-    totalItems: 5,
-    addedBy: 'John Smith',
-    status: 'Active',
-  },
-  {
-    id: '3',
-    referenceNo: 'DRAFT-003',
-    date: '07/03/2025',
-    customerName: 'Walk-In Customer',
-    contactNumber: null,
-    location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
-    totalItems: 2,
-    addedBy: 'Jane Doe',
-    status: 'Draft',
-  },
-  {
-    id: '4',
-    referenceNo: 'DRAFT-004',
-    date: '07/04/2025',
-    customerName: 'Mike Wilson',
-    contactNumber: '+234 803 456 7890',
-    location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
-    totalItems: 4,
-    addedBy: 'Alice Brown',
-    status: 'Converted',
-  },
-];
+// const mockDrafts: Draft[] = [
+//   {
+//     id: '1',
+//     referenceNo: 'DRAFT-001',
+//     date: '07/01/2025',
+//     customerName: 'John Smith',
+//     contactNumber: '+234 801 234 5678',
+//     location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
+//     totalItems: 3,
+//     addedBy: 'Jane Doe',
+//     status: 'Active',
+//   },
+//   {
+//     id: '2',
+//     referenceNo: 'DRAFT-002',
+//     date: '07/02/2025',
+//     customerName: 'Sarah Johnson',
+//     contactNumber: '+234 802 345 6789',
+//     location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
+//     totalItems: 5,
+//     addedBy: 'John Smith',
+//     status: 'Active',
+//   },
+//   {
+//     id: '3',
+//     referenceNo: 'DRAFT-003',
+//     date: '07/03/2025',
+//     customerName: 'Walk-In Customer',
+//     contactNumber: null,
+//     location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
+//     totalItems: 2,
+//     addedBy: 'Jane Doe',
+//     status: 'Draft',
+//   },
+//   {
+//     id: '4',
+//     referenceNo: 'DRAFT-004',
+//     date: '07/04/2025',
+//     customerName: 'Mike Wilson',
+//     contactNumber: '+234 803 456 7890',
+//     location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
+//     totalItems: 4,
+//     addedBy: 'Alice Brown',
+//     status: 'Converted',
+//   },
+// ];
 
-export default function ListDraftsTab() {
+interface Props {
+  drafts: Draft[];
+}
+export default function ListDraftsTab(props: Props) {
   const [businessLocation, setBusinessLocation] = useState('all');
   const [customerFilter, setCustomerFilter] = useState('all');
   const [dateRange, setDateRange] = useState('01/01/2025 - 12/31/2025');
   const [userFilter, setUserFilter] = useState('all');
   const [pageSize, setPageSize] = useState(100);
-
+const mockDrafts = props.drafts || [];
   const filteredDrafts = mockDrafts.filter((draft) => {
     const matchesLocation = businessLocation === 'all' || draft.location === businessLocation;
     const matchesCustomer = customerFilter === 'all' || draft.customerName?.toLowerCase().includes(customerFilter.toLowerCase());

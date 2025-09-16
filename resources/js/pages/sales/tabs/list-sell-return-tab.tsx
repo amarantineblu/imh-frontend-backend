@@ -20,68 +20,68 @@ interface SellReturn extends Record<string, unknown> {
   status: string;
 }
 
-const mockSellReturns: SellReturn[] = [
-  {
-    id: '1',
-    date: '07/01/2025',
-    invoiceNo: 'INV-RTN-001',
-    parentSale: 'SALE-001',
-    customerName: 'John Smith',
-    location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
-    paymentStatus: 'Paid',
-    totalAmount: 25000.00,
-    paymentDue: 0.00,
-    status: 'Completed',
-  },
-  {
-    id: '2',
-    date: '07/02/2025',
-    invoiceNo: 'INV-RTN-002',
-    parentSale: 'SALE-002',
-    customerName: 'Sarah Johnson',
-    location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
-    paymentStatus: 'Partial',
-    totalAmount: 15000.00,
-    paymentDue: 5000.00,
-    status: 'Processing',
-  },
-  {
-    id: '3',
-    date: '07/03/2025',
-    invoiceNo: 'INV-RTN-003',
-    parentSale: 'SALE-003',
-    customerName: 'Walk-In Customer',
-    location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
-    paymentStatus: 'Unpaid',
-    totalAmount: 8000.00,
-    paymentDue: 8000.00,
-    status: 'Pending',
-  },
-  {
-    id: '4',
-    date: '07/04/2025',
-    invoiceNo: 'INV-RTN-004',
-    parentSale: 'SALE-004',
-    customerName: 'Mike Wilson',
-    location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
-    paymentStatus: 'Paid',
-    totalAmount: 32000.00,
-    paymentDue: 0.00,
-    status: 'Completed',
-  },
-  {
-    id: '5',
-    date: '07/05/2025',
-    invoiceNo: 'INV-RTN-005',
-    parentSale: 'SALE-005',
-    customerName: 'Emily Davis',
-    location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
-    paymentStatus: 'Partial',
-    totalAmount: 18000.00,
-    paymentDue: 3000.00,
-    status: 'Processing',
-  },
-];
+// const mockSellReturns: SellReturn[] = [
+//   {
+//     id: '1',
+//     date: '07/01/2025',
+//     invoiceNo: 'INV-RTN-001',
+//     parentSale: 'SALE-001',
+//     customerName: 'John Smith',
+//     location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
+//     paymentStatus: 'Paid',
+//     totalAmount: 25000.00,
+//     paymentDue: 0.00,
+//     status: 'Completed',
+//   },
+//   {
+//     id: '2',
+//     date: '07/02/2025',
+//     invoiceNo: 'INV-RTN-002',
+//     parentSale: 'SALE-002',
+//     customerName: 'Sarah Johnson',
+//     location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
+//     paymentStatus: 'Partial',
+//     totalAmount: 15000.00,
+//     paymentDue: 5000.00,
+//     status: 'Processing',
+//   },
+//   {
+//     id: '3',
+//     date: '07/03/2025',
+//     invoiceNo: 'INV-RTN-003',
+//     parentSale: 'SALE-003',
+//     customerName: 'Walk-In Customer',
+//     location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
+//     paymentStatus: 'Unpaid',
+//     totalAmount: 8000.00,
+//     paymentDue: 8000.00,
+//     status: 'Pending',
+//   },
+//   {
+//     id: '4',
+//     date: '07/04/2025',
+//     invoiceNo: 'INV-RTN-004',
+//     parentSale: 'SALE-004',
+//     customerName: 'Mike Wilson',
+//     location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
+//     paymentStatus: 'Paid',
+//     totalAmount: 32000.00,
+//     paymentDue: 0.00,
+//     status: 'Completed',
+//   },
+//   {
+//     id: '5',
+//     date: '07/05/2025',
+//     invoiceNo: 'INV-RTN-005',
+//     parentSale: 'SALE-005',
+//     customerName: 'Emily Davis',
+//     location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
+//     paymentStatus: 'Partial',
+//     totalAmount: 18000.00,
+//     paymentDue: 3000.00,
+//     status: 'Processing',
+//   },
+// ];
 
 const getPaymentStatusColor = (status: string) => {
   switch (status) {
@@ -109,13 +109,16 @@ const getPaymentStatusIcon = (status: string) => {
   }
 };
 
-export default function ListSellReturnTab() {
+interface Props {
+  returns: SellReturn[];
+}
+export default function ListSellReturnTab(props: Props) {
   const [businessLocation, setBusinessLocation] = useState('all');
   const [customer, setCustomer] = useState('all');
   const [dateRange, setDateRange] = useState('01/01/2025 - 12/31/2025');
   const [user, setUser] = useState('all');
   const [pageSize, setPageSize] = useState(100);
-
+  const mockSellReturns = props.returns || [];
   const filteredReturns = mockSellReturns.filter((returnItem) => {
     const matchesLocation = businessLocation === 'all' || returnItem.location.includes(businessLocation);
     const matchesCustomer = customer === 'all' || returnItem.customerName.toLowerCase().includes(customer.toLowerCase());

@@ -25,8 +25,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // All Sales
         Route::get('/all', function () {
+            $sales =  App\Transaction::where('type', 'sell')->get()->toArray();
             return Inertia::render('sales/index', [
-                'activeTab' => 'all-sales'
+                'activeTab' => 'all-sales',
+                'sales' => $sales,
             ]);
         })->name('sales.all-sales');
 
@@ -53,8 +55,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Add Draft
         Route::get('/add-draft', function () {
+            $drafts =  App\Transaction::where('type', 'sales_order')->where('status', 'draft')->get()->toArray();
             return Inertia::render('sales/index', [
-                'activeTab' => 'add-draft'
+                'activeTab' => 'add-draft',
+                'drafts' => $drafts,
             ]);
         })->name('sales.add-draft');
 
@@ -74,29 +78,37 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // List Quotations
         Route::get('/quotations', function () {
+            $quotations =  App\Transaction::where('type', 'sales_order')->get()->toArray();
             return Inertia::render('sales/index', [
-                'activeTab' => 'list-quotations'
+                'activeTab' => 'list-quotations',
+                'quotations' => $quotations,
             ]);
         })->name('sales.list-quotations');
 
         // List Sell Return
         Route::get('/returns', function () {
+            $returns =  App\Transaction::where('type', 'sell_return')->get()->toArray();
             return Inertia::render('sales/index', [
-                'activeTab' => 'sell-return'
+                'activeTab' => 'sell-return',
+                'returns' => $returns,
             ]);
         })->name('sales.sell-return');
 
         // Shipments
         Route::get('/shipments', function () {
+            $shipments =  App\PendingShipment::all()->toArray();
             return Inertia::render('sales/index', [
-                'activeTab' => 'shipments'
+                'activeTab' => 'shipments',
+                'shipments' => $shipments,
             ]);
         })->name('sales.shipments');
 
         // Discounts
         Route::get('/discounts', function () {
+            $discounts =  App\Transaction::where('type', 'sell')->where('status', 'final')->get()->toArray();
             return Inertia::render('sales/index', [
-                'activeTab' => 'discounts'
+                'activeTab' => 'discounts',
+                'discounts' => $discounts,
             ]);
         })->name('sales.discounts');
 

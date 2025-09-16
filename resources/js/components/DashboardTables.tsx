@@ -86,11 +86,11 @@ interface PendingShipment extends Record<string, unknown> {
 // ];
 
 interface Props {
-  salesPaymentDue: SalesPaymentDue,
-  purchasePaymentDue: PurchasePaymentDue,
-  productStockAlert: ProductStockAlert,
-  salesOrder: SalesOrder,
-  pendingShipments: PendingShipment
+  salesPaymentDue: SalesPaymentDue[],
+  purchasePaymentDue: PurchasePaymentDue[],
+  productStockAlert: ProductStockAlert[],
+  salesOrder: SalesOrder[],
+  pendingShipments: PendingShipment[],
 }
 
 export default function DashboardTables(props:Props) {

@@ -30,67 +30,70 @@ interface Quotation extends Record<string, unknown> {
   status: string;
 }
 
-const mockQuotations: Quotation[] = [
-  {
-    id: '1',
-    referenceNo: 'QUO-001',
-    date: '07/01/2025',
-    customerName: 'John Smith',
-    contactNumber: '+234 801 234 5678',
-    location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
-    totalItems: 3,
-    addedBy: 'Jane Doe',
-    status: 'Pending',
-  },
-  {
-    id: '2',
-    referenceNo: 'QUO-002',
-    date: '07/02/2025',
-    customerName: 'Sarah Johnson',
-    contactNumber: '+234 802 345 6789',
-    location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
-    totalItems: 5,
-    addedBy: 'John Smith',
-    status: 'Accepted',
-  },
-  {
-    id: '3',
-    referenceNo: 'QUO-003',
-    date: '07/03/2025',
-    customerName: 'Walk-In Customer',
-    contactNumber: null,
-    location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
-    totalItems: 2,
-    addedBy: 'Jane Doe',
-    status: 'Expired',
-  },
-  {
-    id: '4',
-    referenceNo: 'QUO-004',
-    date: '07/04/2025',
-    customerName: 'Mike Wilson',
-    contactNumber: '+234 803 456 7890',
-    location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
-    totalItems: 4,
-    addedBy: 'Alice Brown',
-    status: 'Sent',
-  },
-  {
-    id: '5',
-    referenceNo: 'QUO-005',
-    date: '07/05/2025',
-    customerName: 'Emily Davis',
-    contactNumber: '+234 804 567 8901',
-    location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
-    totalItems: 7,
-    addedBy: 'John Smith',
-    status: 'Rejected',
-  },
-];
+// const mockQuotations: Quotation[] = [
+//   {
+//     id: '1',
+//     referenceNo: 'QUO-001',
+//     date: '07/01/2025',
+//     customerName: 'John Smith',
+//     contactNumber: '+234 801 234 5678',
+//     location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
+//     totalItems: 3,
+//     addedBy: 'Jane Doe',
+//     status: 'Pending',
+//   },
+//   {
+//     id: '2',
+//     referenceNo: 'QUO-002',
+//     date: '07/02/2025',
+//     customerName: 'Sarah Johnson',
+//     contactNumber: '+234 802 345 6789',
+//     location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
+//     totalItems: 5,
+//     addedBy: 'John Smith',
+//     status: 'Accepted',
+//   },
+//   {
+//     id: '3',
+//     referenceNo: 'QUO-003',
+//     date: '07/03/2025',
+//     customerName: 'Walk-In Customer',
+//     contactNumber: null,
+//     location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
+//     totalItems: 2,
+//     addedBy: 'Jane Doe',
+//     status: 'Expired',
+//   },
+//   {
+//     id: '4',
+//     referenceNo: 'QUO-004',
+//     date: '07/04/2025',
+//     customerName: 'Mike Wilson',
+//     contactNumber: '+234 803 456 7890',
+//     location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
+//     totalItems: 4,
+//     addedBy: 'Alice Brown',
+//     status: 'Sent',
+//   },
+//   {
+//     id: '5',
+//     referenceNo: 'QUO-005',
+//     date: '07/05/2025',
+//     customerName: 'Emily Davis',
+//     contactNumber: '+234 804 567 8901',
+//     location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
+//     totalItems: 7,
+//     addedBy: 'John Smith',
+//     status: 'Rejected',
+//   },
+// ];
 
-export default function ListQuotationsTab() {
+interface Props {
+  quotations: Quotation[];
+}
+export default function ListQuotationsTab(props: Props) {
   const [statusFilter, setStatusFilter] = useState('all');
-
+  const mockQuotations = props.quotations || [];
   const totalQuotations = mockQuotations.length;
   const pendingQuotations = mockQuotations.filter((q) => q.status === 'Pending').length;
   const acceptedQuotations = mockQuotations.filter((q) => q.status === 'Accepted').length;

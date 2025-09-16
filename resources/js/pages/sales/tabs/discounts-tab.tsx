@@ -22,70 +22,74 @@ interface Discount extends Record<string, unknown> {
   location: string;
 }
 
-const mockDiscounts: Discount[] = [
-  {
-    id: '1',
-    name: 'Summer Sale Discount',
-    startsAt: '07/01/2025',
-    endsAt: '07/31/2025',
-    discountAmount: '20%',
-    priority: 1,
-    brand: 'Premium Meat',
-    category: 'Fresh Meat',
-    products: 'Beef, Chicken',
-    location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
-  },
-  {
-    id: '2',
-    name: 'VIP Customer Discount',
-    startsAt: '01/01/2025',
-    endsAt: '12/31/2025',
-    discountAmount: '15%',
-    priority: 2,
-    brand: 'All Brands',
-    category: 'All Categories',
-    products: 'All Products',
-    location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
-  },
-  {
-    id: '3',
-    name: 'New Customer Welcome',
-    startsAt: '01/01/2025',
-    endsAt: '12/31/2025',
-    discountAmount: '₦1,000',
-    priority: 3,
-    brand: 'House Brand',
-    category: 'Frozen Items',
-    products: 'Frozen Fish, Ice Cream',
-    location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
-  },
-  {
-    id: '4',
-    name: 'Bulk Purchase Discount',
-    startsAt: '06/01/2025',
-    endsAt: '08/31/2025',
-    discountAmount: '25%',
-    priority: 1,
-    brand: 'Premium Meat',
-    category: 'Wholesale',
-    products: 'Bulk Orders',
-    location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
-  },
-  {
-    id: '5',
-    name: 'Weekend Special',
-    startsAt: '07/05/2025',
-    endsAt: '07/30/2025',
-    discountAmount: '10%',
-    priority: 4,
-    brand: 'Local Supplier',
-    category: 'Fresh Produce',
-    products: 'Vegetables, Fruits',
-    location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
-  },
-];
+// const mockDiscounts: Discount[] = [
+//   {
+//     id: '1',
+//     name: 'Summer Sale Discount',
+//     startsAt: '07/01/2025',
+//     endsAt: '07/31/2025',
+//     discountAmount: '20%',
+//     priority: 1,
+//     brand: 'Premium Meat',
+//     category: 'Fresh Meat',
+//     products: 'Beef, Chicken',
+//     location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
+//   },
+//   {
+//     id: '2',
+//     name: 'VIP Customer Discount',
+//     startsAt: '01/01/2025',
+//     endsAt: '12/31/2025',
+//     discountAmount: '15%',
+//     priority: 2,
+//     brand: 'All Brands',
+//     category: 'All Categories',
+//     products: 'All Products',
+//     location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
+//   },
+//   {
+//     id: '3',
+//     name: 'New Customer Welcome',
+//     startsAt: '01/01/2025',
+//     endsAt: '12/31/2025',
+//     discountAmount: '₦1,000',
+//     priority: 3,
+//     brand: 'House Brand',
+//     category: 'Frozen Items',
+//     products: 'Frozen Fish, Ice Cream',
+//     location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
+//   },
+//   {
+//     id: '4',
+//     name: 'Bulk Purchase Discount',
+//     startsAt: '06/01/2025',
+//     endsAt: '08/31/2025',
+//     discountAmount: '25%',
+//     priority: 1,
+//     brand: 'Premium Meat',
+//     category: 'Wholesale',
+//     products: 'Bulk Orders',
+//     location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
+//   },
+//   {
+//     id: '5',
+//     name: 'Weekend Special',
+//     startsAt: '07/05/2025',
+//     endsAt: '07/30/2025',
+//     discountAmount: '10%',
+//     priority: 4,
+//     brand: 'Local Supplier',
+//     category: 'Fresh Produce',
+//     products: 'Vegetables, Fruits',
+//     location: 'IBIYEOMIE MEAT HOUSE (BL0001)',
+//   },
+// ];
+interface Props {
+  discounts: Discount[];
+}
 
-export default function DiscountsTab() {
+export default function DiscountsTab(props: Props) {
+  const mockDiscounts = props.discounts || [];
   const [discounts, setDiscounts] = useState<Discount[]>(mockDiscounts);
   const [pageSize, setPageSize] = useState(100);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);

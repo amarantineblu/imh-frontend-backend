@@ -5,6 +5,7 @@ import { DynamicTable, type TableColumn } from '@/components/ui/dynamic-table';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useTableActions } from '@/hooks/use-table-actions';
+import { set } from 'date-fns';
 import { Edit, Layers, Package, Plus, Settings, Trash2 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
@@ -66,17 +67,22 @@ export default function VariationsTab(props:Props) {
   // ];
 
    const [variations, setVariations] = useState<Variation[]>([]);
+   const [templates, setTemplates] = useState<Template[]>([]);
         const [loading, setLoading] = useState(true);
         const data_key = "variations";
         useEffect(() => {
-          const data = props.variations;
-          const transformed = data.map((b: any) => ({
+          const variationData = props.variations;
+          // Map incoming data to match the Variation interface
+          const transformed: Variation[] = variationData.map((b: any) => ({
             id: b.id,
-            name: b.actual_name, // 🔁 Map name → brands
-            shortName: b.short_name,
-            allowDecimal: b.all_decimal,              //  console.log('this is the data', data);
+            product: b.product ?? b.actual_name ?? '', // fallback if needed
+            template: b.template ?? '',
+            combinations: b.combinations ?? 0,
+            status: b.status ?? 'Draft',
+            attributes: Array.isArray(b.attributes) ? b.attributes : [],
           }));
           setVariations(transformed);
+          setTemplates(props.templates);
           setLoading(false);
         }, []);
   
