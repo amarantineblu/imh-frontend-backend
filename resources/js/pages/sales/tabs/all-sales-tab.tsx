@@ -51,7 +51,7 @@ interface Props {
   sales: Sale[];
 }
 export default function AllSalesTab(props: Props) {
-    const [sales] = useState<Sale[]>([...props.sales]);
+    const [sales] = useState<Sale[]>(props.sales || []);
 
     // Setup table actions
     const { rowActions } = useTableActions<Sale>({

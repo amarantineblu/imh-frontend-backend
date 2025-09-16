@@ -103,8 +103,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         })->name('reports.sales-representative');
 
         Route::get('/activity-log', function () {
+            $activity_logs =  App\ActivityLog::all()->toArray();
             return Inertia::render('reports/index', [
-                'activeTab' => 'activity-log'
+                'activeTab' => 'activity-log',
+                'activity_logs' => $activity_logs,
             ]);
         })->name('reports.activity-log');
     });

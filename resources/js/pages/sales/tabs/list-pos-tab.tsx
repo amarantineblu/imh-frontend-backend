@@ -159,22 +159,20 @@ const getStatusColor = (status: string) => {
 //       return 'bg-gray-100 text-gray-800';
 //   }
 // };
-
-export default function ListPosTab() {
- const [transactions, setTransactions] = useState<PosTransaction[]>([]);
+interface PropsData {
+  transactions: PosTransaction[];
+}
+export default function ListPosTab(props: PropsData) {
+ const [transactions, setTransactions] = useState<PosTransaction[]>(props.transactions || []);
    const [loading, setLoading] = useState(true);
  
-   useEffect(() => {
-     fetch('/sales/apis')
-       .then(res => res.json())
-       .then(data => {
-         setTransactions(data["transactions"]);
-         setLoading(false);
-        //  console.log('this is the data', data);
+  //  useEffect(() => {
+    
+  //        setTransactions(data["transactions"]);
+  //        setLoading(false);
+  //       //  console.log('this is the data', data);
          
-       })
-       .catch(() => setLoading(false));
-   }, []);
+  //  }, []);
   // console.log(transactions);
   
   const [statusFilter, setStatusFilter] = useState('all');

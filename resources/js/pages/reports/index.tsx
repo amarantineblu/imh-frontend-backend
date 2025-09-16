@@ -88,7 +88,7 @@ export default function Reports({ activeTab = 'profit-loss' }: ReportsPageProps)
                     <div className="mt-6">
                         {reportTabs.map((tab) => (
                             <TabsContent key={tab.value} value={tab.value} className="space-y-4">
-                                <tab.component />
+                                <tab.component activity_logs={[]}/>
                             </TabsContent>
                         ))}
                     </div>

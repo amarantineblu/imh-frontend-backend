@@ -27,279 +27,283 @@ interface Filters {
 }
 
 // Mock data based on the provided content
-const mockActivityLogData: ActivityLogData[] = [
-	{
-		id: '1',
-		date: '2025-07-10T15:17:00',
-		subjectType: 'Sell',
-		action: 'Payment edited',
-		by: 'Mr GOODLUCK AMONI',
-		note: 'Invoice No.: 89476',
-		invoiceNo: '89476'
-	},
-	{
-		id: '2',
-		date: '2025-07-10T15:13:00',
-		subjectType: 'Sell',
-		action: 'Payment edited',
-		by: 'Mrs IBITEIN HERBERT',
-		note: 'Invoice No.: 90171\nPayment Status: Partial --> Paid',
-		invoiceNo: '90171',
-		paymentStatusChange: 'Partial --> Paid'
-	},
-	{
-		id: '3',
-		date: '2025-07-10T15:10:00',
-		subjectType: 'Sell',
-		action: 'Added',
-		by: 'Mr GOODLUCK AMONI',
-		note: 'Invoice No.: 91344\nStatus: Final\nTotal: ₦ 400.00\nPayment Status: Due',
-		invoiceNo: '91344',
-		status: 'Final',
-		total: 400.00,
-		paymentStatus: 'Due'
-	},
-	{
-		id: '4',
-		date: '2025-07-10T15:07:00',
-		subjectType: 'Sell',
-		action: 'Added',
-		by: 'Mrs IBITEIN HERBERT',
-		note: 'Invoice No.: 91343\nStatus: Final\nTotal: ₦ 400.00\nPayment Status: Due',
-		invoiceNo: '91343',
-		status: 'Final',
-		total: 400.00,
-		paymentStatus: 'Due'
-	},
-	{
-		id: '5',
-		date: '2025-07-10T15:06:00',
-		subjectType: 'Sell',
-		action: 'Added',
-		by: 'Mr GOODLUCK AMONI',
-		note: 'Invoice No.: 91342\nStatus: Final\nTotal: ₦ 2,300.00\nPayment Status: Due',
-		invoiceNo: '91342',
-		status: 'Final',
-		total: 2300.00,
-		paymentStatus: 'Due'
-	},
-	{
-		id: '6',
-		date: '2025-07-10T15:06:00',
-		subjectType: 'Sell',
-		action: 'Payment edited',
-		by: 'Mrs IBITEIN HERBERT',
-		note: 'Invoice No.: 90772\nPayment Status: Due --> Paid',
-		invoiceNo: '90772',
-		paymentStatusChange: 'Due --> Paid'
-	},
-	{
-		id: '7',
-		date: '2025-07-10T15:04:00',
-		subjectType: 'Sell',
-		action: 'Payment edited',
-		by: 'Mr GOODLUCK AMONI',
-		note: 'Invoice No.: 91252\nPayment Status: Due --> Paid',
-		invoiceNo: '91252',
-		paymentStatusChange: 'Due --> Paid'
-	},
-	{
-		id: '8',
-		date: '2025-07-10T15:02:00',
-		subjectType: 'Sell',
-		action: 'Payment edited',
-		by: 'Mr GOODLUCK AMONI',
-		note: 'Invoice No.: 90828\nPayment Status: Due --> Paid',
-		invoiceNo: '90828',
-		paymentStatusChange: 'Due --> Paid'
-	},
-	{
-		id: '9',
-		date: '2025-07-10T14:59:00',
-		subjectType: 'Sell',
-		action: 'Added',
-		by: 'Mr GOODLUCK AMONI',
-		note: 'Invoice No.: 91341\nStatus: Final\nTotal: ₦ 1,800.00\nPayment Status: Due',
-		invoiceNo: '91341',
-		status: 'Final',
-		total: 1800.00,
-		paymentStatus: 'Due'
-	},
-	{
-		id: '10',
-		date: '2025-07-10T14:58:00',
-		subjectType: 'Sell',
-		action: 'Added',
-		by: 'Mr GOODLUCK AMONI',
-		note: 'Invoice No.: 91340\nStatus: Final\nTotal: ₦ 400.00\nPayment Status: Due',
-		invoiceNo: '91340',
-		status: 'Final',
-		total: 400.00,
-		paymentStatus: 'Due'
-	},
-	{
-		id: '11',
-		date: '2025-07-10T14:54:00',
-		subjectType: 'Sell',
-		action: 'Added',
-		by: 'Mr GOODLUCK AMONI',
-		note: 'Invoice No.: 91339\nStatus: Final\nTotal: ₦ 250.00\nPayment Status: Due',
-		invoiceNo: '91339',
-		status: 'Final',
-		total: 250.00,
-		paymentStatus: 'Due'
-	},
-	{
-		id: '12',
-		date: '2025-07-10T14:50:00',
-		subjectType: 'Sell',
-		action: 'Added',
-		by: 'Mr GOODLUCK AMONI',
-		note: 'Invoice No.: 91338\nStatus: Final\nTotal: ₦ 3,400.00\nPayment Status: Due',
-		invoiceNo: '91338',
-		status: 'Final',
-		total: 3400.00,
-		paymentStatus: 'Due'
-	},
-	{
-		id: '13',
-		date: '2025-07-10T14:45:00',
-		subjectType: 'Sell',
-		action: 'Added',
-		by: 'Mr GOODLUCK AMONI',
-		note: 'Invoice No.: 91337\nStatus: Final\nTotal: ₦ 1,600.00\nPayment Status: Due',
-		invoiceNo: '91337',
-		status: 'Final',
-		total: 1600.00,
-		paymentStatus: 'Due'
-	},
-	{
-		id: '14',
-		date: '2025-07-10T14:42:00',
-		subjectType: 'Sell',
-		action: 'Payment edited',
-		by: 'Mr GOODLUCK AMONI',
-		note: 'Invoice No.: 91063\nPayment Status: Due --> Paid',
-		invoiceNo: '91063',
-		paymentStatusChange: 'Due --> Paid'
-	},
-	{
-		id: '15',
-		date: '2025-07-10T14:42:00',
-		subjectType: 'Sell',
-		action: 'Payment edited',
-		by: 'Mrs IBITEIN HERBERT',
-		note: 'Invoice No.: 89017\nPayment Status: Due --> Partial',
-		invoiceNo: '89017',
-		paymentStatusChange: 'Due --> Partial'
-	},
-	{
-		id: '16',
-		date: '2025-07-10T14:40:00',
-		subjectType: 'Sell',
-		action: 'Payment edited',
-		by: 'Mr GOODLUCK AMONI',
-		note: 'Invoice No.: 90908\nPayment Status: Due --> Paid',
-		invoiceNo: '90908',
-		paymentStatusChange: 'Due --> Paid'
-	},
-	{
-		id: '17',
-		date: '2025-07-10T14:33:00',
-		subjectType: 'Sell',
-		action: 'Payment edited',
-		by: 'Mrs IBITEIN HERBERT',
-		note: 'Invoice No.: 90974\nPayment Status: Due --> Paid',
-		invoiceNo: '90974',
-		paymentStatusChange: 'Due --> Paid'
-	},
-	{
-		id: '18',
-		date: '2025-07-10T14:31:00',
-		subjectType: 'Sell',
-		action: 'Payment edited',
-		by: 'Mrs IBITEIN HERBERT',
-		note: 'Invoice No.: 91187\nPayment Status: Due --> Paid',
-		invoiceNo: '91187',
-		paymentStatusChange: 'Due --> Paid'
-	},
-	{
-		id: '19',
-		date: '2025-07-10T14:30:00',
-		subjectType: 'Sell',
-		action: 'Added',
-		by: 'Mr GOODLUCK AMONI',
-		note: 'Invoice No.: 91336\nStatus: Final\nTotal: ₦ 1,400.00\nPayment Status: Due',
-		invoiceNo: '91336',
-		status: 'Final',
-		total: 1400.00,
-		paymentStatus: 'Due'
-	},
-	{
-		id: '20',
-		date: '2025-07-10T14:29:00',
-		subjectType: 'Sell',
-		action: 'Payment edited',
-		by: 'Mrs IBITEIN HERBERT',
-		note: 'Invoice No.: 91259\nPayment Status: Due --> Paid',
-		invoiceNo: '91259',
-		paymentStatusChange: 'Due --> Paid'
-	},
-	{
-		id: '21',
-		date: '2025-07-10T14:23:00',
-		subjectType: 'Sell',
-		action: 'Payment edited',
-		by: 'Mrs IBITEIN HERBERT',
-		note: 'Invoice No.: 91084\nPayment Status: Due --> Partial',
-		invoiceNo: '91084',
-		paymentStatusChange: 'Due --> Partial'
-	},
-	{
-		id: '22',
-		date: '2025-07-10T14:07:00',
-		subjectType: 'Sell',
-		action: 'Added',
-		by: 'Mr GOODLUCK AMONI',
-		note: 'Invoice No.: 91335\nStatus: Final\nTotal: ₦ 9,100.00\nPayment Status: Due',
-		invoiceNo: '91335',
-		status: 'Final',
-		total: 9100.00,
-		paymentStatus: 'Due'
-	},
-	{
-		id: '23',
-		date: '2025-07-10T14:06:00',
-		subjectType: 'Sell',
-		action: 'Payment edited',
-		by: 'Mrs IBITEIN HERBERT',
-		note: 'Invoice No.: 89852\nPayment Status: Due --> Paid',
-		invoiceNo: '89852',
-		paymentStatusChange: 'Due --> Paid'
-	},
-	{
-		id: '24',
-		date: '2025-07-10T14:05:00',
-		subjectType: 'Sell',
-		action: 'Payment edited',
-		by: 'Mrs IBITEIN HERBERT',
-		note: 'Invoice No.: 91071\nPayment Status: Due --> Paid',
-		invoiceNo: '91071',
-		paymentStatusChange: 'Due --> Paid'
-	},
-	{
-		id: '25',
-		date: '2025-07-10T14:04:00',
-		subjectType: 'Sell',
-		action: 'Payment edited',
-		by: 'Mrs IBITEIN HERBERT',
-		note: 'Invoice No.: 91286\nPayment Status: Due --> Partial',
-		invoiceNo: '91286',
-		paymentStatusChange: 'Due --> Partial'
-	}
-];
+// const mockActivityLogData: ActivityLogData[] = [
+// 	{
+// 		id: '1',
+// 		date: '2025-07-10T15:17:00',
+// 		subjectType: 'Sell',
+// 		action: 'Payment edited',
+// 		by: 'Mr GOODLUCK AMONI',
+// 		note: 'Invoice No.: 89476',
+// 		invoiceNo: '89476'
+// 	},
+// 	{
+// 		id: '2',
+// 		date: '2025-07-10T15:13:00',
+// 		subjectType: 'Sell',
+// 		action: 'Payment edited',
+// 		by: 'Mrs IBITEIN HERBERT',
+// 		note: 'Invoice No.: 90171\nPayment Status: Partial --> Paid',
+// 		invoiceNo: '90171',
+// 		paymentStatusChange: 'Partial --> Paid'
+// 	},
+// 	{
+// 		id: '3',
+// 		date: '2025-07-10T15:10:00',
+// 		subjectType: 'Sell',
+// 		action: 'Added',
+// 		by: 'Mr GOODLUCK AMONI',
+// 		note: 'Invoice No.: 91344\nStatus: Final\nTotal: ₦ 400.00\nPayment Status: Due',
+// 		invoiceNo: '91344',
+// 		status: 'Final',
+// 		total: 400.00,
+// 		paymentStatus: 'Due'
+// 	},
+// 	{
+// 		id: '4',
+// 		date: '2025-07-10T15:07:00',
+// 		subjectType: 'Sell',
+// 		action: 'Added',
+// 		by: 'Mrs IBITEIN HERBERT',
+// 		note: 'Invoice No.: 91343\nStatus: Final\nTotal: ₦ 400.00\nPayment Status: Due',
+// 		invoiceNo: '91343',
+// 		status: 'Final',
+// 		total: 400.00,
+// 		paymentStatus: 'Due'
+// 	},
+// 	{
+// 		id: '5',
+// 		date: '2025-07-10T15:06:00',
+// 		subjectType: 'Sell',
+// 		action: 'Added',
+// 		by: 'Mr GOODLUCK AMONI',
+// 		note: 'Invoice No.: 91342\nStatus: Final\nTotal: ₦ 2,300.00\nPayment Status: Due',
+// 		invoiceNo: '91342',
+// 		status: 'Final',
+// 		total: 2300.00,
+// 		paymentStatus: 'Due'
+// 	},
+// 	{
+// 		id: '6',
+// 		date: '2025-07-10T15:06:00',
+// 		subjectType: 'Sell',
+// 		action: 'Payment edited',
+// 		by: 'Mrs IBITEIN HERBERT',
+// 		note: 'Invoice No.: 90772\nPayment Status: Due --> Paid',
+// 		invoiceNo: '90772',
+// 		paymentStatusChange: 'Due --> Paid'
+// 	},
+// 	{
+// 		id: '7',
+// 		date: '2025-07-10T15:04:00',
+// 		subjectType: 'Sell',
+// 		action: 'Payment edited',
+// 		by: 'Mr GOODLUCK AMONI',
+// 		note: 'Invoice No.: 91252\nPayment Status: Due --> Paid',
+// 		invoiceNo: '91252',
+// 		paymentStatusChange: 'Due --> Paid'
+// 	},
+// 	{
+// 		id: '8',
+// 		date: '2025-07-10T15:02:00',
+// 		subjectType: 'Sell',
+// 		action: 'Payment edited',
+// 		by: 'Mr GOODLUCK AMONI',
+// 		note: 'Invoice No.: 90828\nPayment Status: Due --> Paid',
+// 		invoiceNo: '90828',
+// 		paymentStatusChange: 'Due --> Paid'
+// 	},
+// 	{
+// 		id: '9',
+// 		date: '2025-07-10T14:59:00',
+// 		subjectType: 'Sell',
+// 		action: 'Added',
+// 		by: 'Mr GOODLUCK AMONI',
+// 		note: 'Invoice No.: 91341\nStatus: Final\nTotal: ₦ 1,800.00\nPayment Status: Due',
+// 		invoiceNo: '91341',
+// 		status: 'Final',
+// 		total: 1800.00,
+// 		paymentStatus: 'Due'
+// 	},
+// 	{
+// 		id: '10',
+// 		date: '2025-07-10T14:58:00',
+// 		subjectType: 'Sell',
+// 		action: 'Added',
+// 		by: 'Mr GOODLUCK AMONI',
+// 		note: 'Invoice No.: 91340\nStatus: Final\nTotal: ₦ 400.00\nPayment Status: Due',
+// 		invoiceNo: '91340',
+// 		status: 'Final',
+// 		total: 400.00,
+// 		paymentStatus: 'Due'
+// 	},
+// 	{
+// 		id: '11',
+// 		date: '2025-07-10T14:54:00',
+// 		subjectType: 'Sell',
+// 		action: 'Added',
+// 		by: 'Mr GOODLUCK AMONI',
+// 		note: 'Invoice No.: 91339\nStatus: Final\nTotal: ₦ 250.00\nPayment Status: Due',
+// 		invoiceNo: '91339',
+// 		status: 'Final',
+// 		total: 250.00,
+// 		paymentStatus: 'Due'
+// 	},
+// 	{
+// 		id: '12',
+// 		date: '2025-07-10T14:50:00',
+// 		subjectType: 'Sell',
+// 		action: 'Added',
+// 		by: 'Mr GOODLUCK AMONI',
+// 		note: 'Invoice No.: 91338\nStatus: Final\nTotal: ₦ 3,400.00\nPayment Status: Due',
+// 		invoiceNo: '91338',
+// 		status: 'Final',
+// 		total: 3400.00,
+// 		paymentStatus: 'Due'
+// 	},
+// 	{
+// 		id: '13',
+// 		date: '2025-07-10T14:45:00',
+// 		subjectType: 'Sell',
+// 		action: 'Added',
+// 		by: 'Mr GOODLUCK AMONI',
+// 		note: 'Invoice No.: 91337\nStatus: Final\nTotal: ₦ 1,600.00\nPayment Status: Due',
+// 		invoiceNo: '91337',
+// 		status: 'Final',
+// 		total: 1600.00,
+// 		paymentStatus: 'Due'
+// 	},
+// 	{
+// 		id: '14',
+// 		date: '2025-07-10T14:42:00',
+// 		subjectType: 'Sell',
+// 		action: 'Payment edited',
+// 		by: 'Mr GOODLUCK AMONI',
+// 		note: 'Invoice No.: 91063\nPayment Status: Due --> Paid',
+// 		invoiceNo: '91063',
+// 		paymentStatusChange: 'Due --> Paid'
+// 	},
+// 	{
+// 		id: '15',
+// 		date: '2025-07-10T14:42:00',
+// 		subjectType: 'Sell',
+// 		action: 'Payment edited',
+// 		by: 'Mrs IBITEIN HERBERT',
+// 		note: 'Invoice No.: 89017\nPayment Status: Due --> Partial',
+// 		invoiceNo: '89017',
+// 		paymentStatusChange: 'Due --> Partial'
+// 	},
+// 	{
+// 		id: '16',
+// 		date: '2025-07-10T14:40:00',
+// 		subjectType: 'Sell',
+// 		action: 'Payment edited',
+// 		by: 'Mr GOODLUCK AMONI',
+// 		note: 'Invoice No.: 90908\nPayment Status: Due --> Paid',
+// 		invoiceNo: '90908',
+// 		paymentStatusChange: 'Due --> Paid'
+// 	},
+// 	{
+// 		id: '17',
+// 		date: '2025-07-10T14:33:00',
+// 		subjectType: 'Sell',
+// 		action: 'Payment edited',
+// 		by: 'Mrs IBITEIN HERBERT',
+// 		note: 'Invoice No.: 90974\nPayment Status: Due --> Paid',
+// 		invoiceNo: '90974',
+// 		paymentStatusChange: 'Due --> Paid'
+// 	},
+// 	{
+// 		id: '18',
+// 		date: '2025-07-10T14:31:00',
+// 		subjectType: 'Sell',
+// 		action: 'Payment edited',
+// 		by: 'Mrs IBITEIN HERBERT',
+// 		note: 'Invoice No.: 91187\nPayment Status: Due --> Paid',
+// 		invoiceNo: '91187',
+// 		paymentStatusChange: 'Due --> Paid'
+// 	},
+// 	{
+// 		id: '19',
+// 		date: '2025-07-10T14:30:00',
+// 		subjectType: 'Sell',
+// 		action: 'Added',
+// 		by: 'Mr GOODLUCK AMONI',
+// 		note: 'Invoice No.: 91336\nStatus: Final\nTotal: ₦ 1,400.00\nPayment Status: Due',
+// 		invoiceNo: '91336',
+// 		status: 'Final',
+// 		total: 1400.00,
+// 		paymentStatus: 'Due'
+// 	},
+// 	{
+// 		id: '20',
+// 		date: '2025-07-10T14:29:00',
+// 		subjectType: 'Sell',
+// 		action: 'Payment edited',
+// 		by: 'Mrs IBITEIN HERBERT',
+// 		note: 'Invoice No.: 91259\nPayment Status: Due --> Paid',
+// 		invoiceNo: '91259',
+// 		paymentStatusChange: 'Due --> Paid'
+// 	},
+// 	{
+// 		id: '21',
+// 		date: '2025-07-10T14:23:00',
+// 		subjectType: 'Sell',
+// 		action: 'Payment edited',
+// 		by: 'Mrs IBITEIN HERBERT',
+// 		note: 'Invoice No.: 91084\nPayment Status: Due --> Partial',
+// 		invoiceNo: '91084',
+// 		paymentStatusChange: 'Due --> Partial'
+// 	},
+// 	{
+// 		id: '22',
+// 		date: '2025-07-10T14:07:00',
+// 		subjectType: 'Sell',
+// 		action: 'Added',
+// 		by: 'Mr GOODLUCK AMONI',
+// 		note: 'Invoice No.: 91335\nStatus: Final\nTotal: ₦ 9,100.00\nPayment Status: Due',
+// 		invoiceNo: '91335',
+// 		status: 'Final',
+// 		total: 9100.00,
+// 		paymentStatus: 'Due'
+// 	},
+// 	{
+// 		id: '23',
+// 		date: '2025-07-10T14:06:00',
+// 		subjectType: 'Sell',
+// 		action: 'Payment edited',
+// 		by: 'Mrs IBITEIN HERBERT',
+// 		note: 'Invoice No.: 89852\nPayment Status: Due --> Paid',
+// 		invoiceNo: '89852',
+// 		paymentStatusChange: 'Due --> Paid'
+// 	},
+// 	{
+// 		id: '24',
+// 		date: '2025-07-10T14:05:00',
+// 		subjectType: 'Sell',
+// 		action: 'Payment edited',
+// 		by: 'Mrs IBITEIN HERBERT',
+// 		note: 'Invoice No.: 91071\nPayment Status: Due --> Paid',
+// 		invoiceNo: '91071',
+// 		paymentStatusChange: 'Due --> Paid'
+// 	},
+// 	{
+// 		id: '25',
+// 		date: '2025-07-10T14:04:00',
+// 		subjectType: 'Sell',
+// 		action: 'Payment edited',
+// 		by: 'Mrs IBITEIN HERBERT',
+// 		note: 'Invoice No.: 91286\nPayment Status: Due --> Partial',
+// 		invoiceNo: '91286',
+// 		paymentStatusChange: 'Due --> Partial'
+// 	}
+// ];
 
-export default function ActivityLogTab() {
+interface Props {
+	activity_logs: ActivityLogData[];
+}
+export default function ActivityLogTab(props: Props) {
+	const [mockActivityLogData] = useState<ActivityLogData[]>(props.activity_logs || []);
 	const [filters, setFilters] = useState<Filters>({
 		by: '',
 		subjectType: '',
