@@ -109,12 +109,14 @@ const metricsData: IMetricCard[] = [
   },
 ];
 
+type PendingShipment = any; // TODO: Replace 'any' with the actual type definition
+
 interface DashboardProps {
   sales_payments: any[];
   purchase_payments: any[];
   product_stock_alerts: any[];
   sales_orders: any[];
-  pending_shipments: any[];
+  pending_shipments: PendingShipment[];
 }
 
 export default function Dashboard(props: DashboardProps) {

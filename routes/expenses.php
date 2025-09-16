@@ -16,8 +16,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/', [ExpenseController::class, 'index'])->name('expenses.index');
 
         Route::get('/list', function () {
+            $expenses =  App\Expense::all()->toArray();
             return Inertia::render('expenses/index', [
-                'activeTab' => 'list'
+                'activeTab' => 'list',  
+                'expenses' => $expenses,
             ]);
         })->name('expenses.list-expenses');
 

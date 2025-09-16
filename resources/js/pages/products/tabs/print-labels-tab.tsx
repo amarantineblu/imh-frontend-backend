@@ -6,8 +6,28 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Package, Printer, Settings } from 'lucide-react';
+import { usePage } from '@inertiajs/react';
 
-export default function PrintLabelsTab() {
+interface Product extends Record<string, unknown> {
+  id: number;
+  image?: string;
+  name: string;
+  businessLocation: string;
+  unitPurchasePrice: number;
+  sellingPrice: number;
+  currentStock: number;
+  productType: string;
+  category: string;
+  brand: string;
+  tax: number;
+  sku: string;
+}
+
+interface Props{
+  products:Product[]
+}
+export default function PrintLabelsTab(props:Props) {
+  const {products} = props;
   return (
     <div className="space-y-6">
       {/* Statistics Cards */}
@@ -18,7 +38,7 @@ export default function PrintLabelsTab() {
             <Package className="text-muted-foreground h-4 w-4" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">2,547</div>
+            <div className="text-2xl font-bold">{products.length ?? 0}</div>
             <p className="text-muted-foreground text-xs">Available for labeling</p>
           </CardContent>
         </Card>

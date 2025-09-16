@@ -65,7 +65,7 @@ export default function Expenses({ activeTab = 'list' }: ExpensesPageProps) {
                   <CardDescription>View and manage all business expenses.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <ListExpensesTab />
+                  <ListExpensesTab expenses={[]} contacts={contacts } />
                 </CardContent>
               </Card>
             </TabsContent>

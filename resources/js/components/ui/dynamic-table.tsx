@@ -121,6 +121,7 @@ export interface DynamicTableProps<TData> {
   searchPlaceholder?: string;
   showSelectedActions?: boolean;
   selectedActions?: ActionButton<TData>[];
+  noDataText?: string; // <-- add this
 }
 
 export function DynamicTable<TData extends Record<string, unknown>>({

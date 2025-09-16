@@ -57,14 +57,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
         })->name('products.add');
 
         Route::get('/print-labels', function () {
+					$products = Product::all()->toArray();
             return Inertia::render('products/index', [
-                'activeTab' => 'print-labels'
+                'activeTab' => 'print-labels',
+								'products' => $products,
             ]);
         })->name('products.print-labels');
 
         Route::get('/variations', function () {
+						$variations = Variation::all()->toArray();
+						$templates = Template::all()->toArray();
             return Inertia::render('products/index', [
-                'activeTab' => 'variations'
+                'activeTab' => 'variations',
+								'variatons' => $variations,
+								'templates' => $templates
             ]);
         })->name('products.variations');
 
