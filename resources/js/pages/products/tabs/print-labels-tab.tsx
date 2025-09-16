@@ -21,6 +21,9 @@ interface Product extends Record<string, unknown> {
   brand: string;
   tax: number;
   sku: string;
+  priceGroup: string;
+  labels?: number | string;
+  packingDate?: number | string;
 }
 
 interface Props{
@@ -88,16 +91,12 @@ export default function PrintLabelsTab(props:Props) {
 
               {/* Sample Products Rows */}
               <div className="space-y-2">
-                {[
-                  { name: 'iPhone 14 Pro', labels: 5, packingDate: '2025-06-11', priceGroup: 'Premium' },
-                  { name: 'Samsung Galaxy S23', labels: 3, packingDate: '2025-06-11', priceGroup: 'Standard' },
-                  { name: 'Nike Air Max 270', labels: 2, packingDate: '2025-06-11', priceGroup: 'Standard' },
-                ].map((product, index) => (
+                {products.map((product, index) => (
                   <div key={index} className="grid grid-cols-4 gap-4 items-center py-2 border-b">
                     <div className="text-sm">{product.name}</div>
-                    <Input type="number" defaultValue={product.labels} min="1" className="h-8" />
-                    <Input type="date" defaultValue={product.packingDate} className="h-8" />
-                    <Select defaultValue={product.priceGroup.toLowerCase()}>
+                    <Input type="number" defaultValue={product.labels as number | string | undefined} min="1" className="h-8" />
+                    <Input type="date" defaultValue={product.packingDate as number | string | undefined} className="h-8" />
+                    <Select defaultValue={product.priceGroup.toLowerCase() }>
                       <SelectTrigger className="h-8">
                         <SelectValue />
                       </SelectTrigger>

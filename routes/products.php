@@ -81,8 +81,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         })->name('products.import');
 
         Route::get('/import-opening-stock', function () {
+            $opening_stock = Product::where('opening_stock', '>', 0)->get()->toArray(); 
             return Inertia::render('products/index', [
-                'activeTab' => 'import-opening-stock'
+                'activeTab' => 'import-opening-stock',
+                'opening_stock' => $opening_stock,
             ]);
         })->name('products.import-opening-stock');
 

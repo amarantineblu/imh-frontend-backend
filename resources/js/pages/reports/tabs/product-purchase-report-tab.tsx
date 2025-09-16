@@ -28,94 +28,98 @@ interface Filters {
 }
 
 // Mock data for demonstration
-const mockPurchaseData: ProductPurchaseData[] = [
-	{
-		id: '1',
-		product: 'Samsung Galaxy S24',
-		sku: 'SGS24-001',
-		supplier: 'Samsung Electronics',
-		referenceNo: 'PO-2025-001',
-		date: '2025-01-15',
-		quantity: 10,
-		totalUnitAdjusted: 10,
-		unitPurchasePrice: 450000,
-		subtotal: 4500000
-	},
-	{
-		id: '2',
-		product: 'iPhone 15 Pro',
-		sku: 'IP15P-001',
-		supplier: 'Apple Inc.',
-		referenceNo: 'PO-2025-002',
-		date: '2025-01-20',
-		quantity: 5,
-		totalUnitAdjusted: 5,
-		unitPurchasePrice: 800000,
-		subtotal: 4000000
-	},
-	{
-		id: '3',
-		product: 'MacBook Air M3',
-		sku: 'MBA-M3-001',
-		supplier: 'Apple Inc.',
-		referenceNo: 'PO-2025-003',
-		date: '2025-01-25',
-		quantity: 3,
-		totalUnitAdjusted: 3,
-		unitPurchasePrice: 900000,
-		subtotal: 2700000
-	},
-	{
-		id: '4',
-		product: 'Dell XPS 13',
-		sku: 'DX13-001',
-		supplier: 'Dell Technologies',
-		referenceNo: 'PO-2025-004',
-		date: '2025-02-01',
-		quantity: 8,
-		totalUnitAdjusted: 7,
-		unitPurchasePrice: 750000,
-		subtotal: 5250000
-	},
-	{
-		id: '5',
-		product: 'iPad Pro 12.9"',
-		sku: 'IPP129-001',
-		supplier: 'Apple Inc.',
-		referenceNo: 'PO-2025-005',
-		date: '2025-02-05',
-		quantity: 6,
-		totalUnitAdjusted: 6,
-		unitPurchasePrice: 600000,
-		subtotal: 3600000
-	},
-	{
-		id: '6',
-		product: 'Surface Laptop 5',
-		sku: 'SL5-001',
-		supplier: 'Microsoft Corp.',
-		referenceNo: 'PO-2025-006',
-		date: '2025-02-10',
-		quantity: 4,
-		totalUnitAdjusted: 4,
-		unitPurchasePrice: 850000,
-		subtotal: 3400000
-	},
-	{
-		id: '7',
-		product: 'Samsung Galaxy Tab S9',
-		sku: 'SGT-S9-001',
-		supplier: 'Samsung Electronics',
-		referenceNo: 'PO-2025-007',
-		date: '2025-02-15',
-		quantity: 12,
-		totalUnitAdjusted: 11,
-		unitPurchasePrice: 320000,
-		subtotal: 3520000
-	}
-];
+// const mockPurchaseData: ProductPurchaseData[] = [
+// 	{
+// 		id: '1',
+// 		product: 'Samsung Galaxy S24',
+// 		sku: 'SGS24-001',
+// 		supplier: 'Samsung Electronics',
+// 		referenceNo: 'PO-2025-001',
+// 		date: '2025-01-15',
+// 		quantity: 10,
+// 		totalUnitAdjusted: 10,
+// 		unitPurchasePrice: 450000,
+// 		subtotal: 4500000
+// 	},
+// 	{
+// 		id: '2',
+// 		product: 'iPhone 15 Pro',
+// 		sku: 'IP15P-001',
+// 		supplier: 'Apple Inc.',
+// 		referenceNo: 'PO-2025-002',
+// 		date: '2025-01-20',
+// 		quantity: 5,
+// 		totalUnitAdjusted: 5,
+// 		unitPurchasePrice: 800000,
+// 		subtotal: 4000000
+// 	},
+// 	{
+// 		id: '3',
+// 		product: 'MacBook Air M3',
+// 		sku: 'MBA-M3-001',
+// 		supplier: 'Apple Inc.',
+// 		referenceNo: 'PO-2025-003',
+// 		date: '2025-01-25',
+// 		quantity: 3,
+// 		totalUnitAdjusted: 3,
+// 		unitPurchasePrice: 900000,
+// 		subtotal: 2700000
+// 	},
+// 	{
+// 		id: '4',
+// 		product: 'Dell XPS 13',
+// 		sku: 'DX13-001',
+// 		supplier: 'Dell Technologies',
+// 		referenceNo: 'PO-2025-004',
+// 		date: '2025-02-01',
+// 		quantity: 8,
+// 		totalUnitAdjusted: 7,
+// 		unitPurchasePrice: 750000,
+// 		subtotal: 5250000
+// 	},
+// 	{
+// 		id: '5',
+// 		product: 'iPad Pro 12.9"',
+// 		sku: 'IPP129-001',
+// 		supplier: 'Apple Inc.',
+// 		referenceNo: 'PO-2025-005',
+// 		date: '2025-02-05',
+// 		quantity: 6,
+// 		totalUnitAdjusted: 6,
+// 		unitPurchasePrice: 600000,
+// 		subtotal: 3600000
+// 	},
+// 	{
+// 		id: '6',
+// 		product: 'Surface Laptop 5',
+// 		sku: 'SL5-001',
+// 		supplier: 'Microsoft Corp.',
+// 		referenceNo: 'PO-2025-006',
+// 		date: '2025-02-10',
+// 		quantity: 4,
+// 		totalUnitAdjusted: 4,
+// 		unitPurchasePrice: 850000,
+// 		subtotal: 3400000
+// 	},
+// 	{
+// 		id: '7',
+// 		product: 'Samsung Galaxy Tab S9',
+// 		sku: 'SGT-S9-001',
+// 		supplier: 'Samsung Electronics',
+// 		referenceNo: 'PO-2025-007',
+// 		date: '2025-02-15',
+// 		quantity: 12,
+// 		totalUnitAdjusted: 11,
+// 		unitPurchasePrice: 320000,
+// 		subtotal: 3520000
+// 	}
+// ];
 
-export default function ProductPurchaseReportTab() {
+interface Props{
+	purchaseData:ProductPurchaseData[],
+}
+export default function ProductPurchaseReportTab(props:Props) {
+	const{purchaseData:mockPurchaseData} = props;
 	const [filters, setFilters] = useState<Filters>({
 		searchProduct: '',
 		supplier: '',

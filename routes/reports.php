@@ -61,8 +61,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         })->name('reports.items-report');
 
         Route::get('/product-purchase', function () {
+            $purchasePaymentData = PurchasePayment::all()->toArray();
             return Inertia::render('reports/index', [
-                'activeTab' => 'product-purchase'
+                'activeTab' => 'product-purchase',
+                'purchasePaymentData' => $purchasePaymentData
             ]);
         })->name('reports.product-purchase');
 
@@ -73,32 +75,48 @@ Route::middleware(['auth', 'verified'])->group(function () {
         })->name('reports.product-sell');
 
         Route::get('/purchase-payment', function () {
+            $purchasePaymentData = App\PurchasePayment::with('purchase')->get()->toArray();
             return Inertia::render('reports/index', [
-                'activeTab' => 'purchase-payment'
+                'activeTab' => 'purchase-payment',
+                'purchasePayment' => $purchasePaymentData,
             ]);
         })->name('reports.purchase-payment');
 
         Route::get('/sell-payment', function () {
+            $salesPaymentData = App\SalePayment::with('sale')->get()->toArray();
             return Inertia::render('reports/index', [
-                'activeTab' => 'sell-payment'
+                'activeTab' => 'sell-payment',
+                'salesPayment' => $salesPaymentData,
             ]);
         })->name('reports.sell-payment');
 
         Route::get('/expense-report', function () {
+            $chartData = App\Expense::selectRaw('DATE(created_at) as date, SUM(amount) as total')
+                ->groupBy('date')
+                ->orderBy('date', 'ASC')
+                ->get()
+                ->toArray();
+            $expenseData = App\Expense::with('category')->get()->toArray();
             return Inertia::render('reports/index', [
-                'activeTab' => 'expense-report'
+                'activeTab' => 'expense-report',
+                'expense' => $expenseData,
+                'chartData' => $chartData,
             ]);
         })->name('reports.expense-report');
 
         Route::get('/register-report', function () {
+            $register = App\CashRegister::with('user')->get()->toArray();
             return Inertia::render('reports/index', [
-                'activeTab' => 'register-report'
+                'activeTab' => 'register-report',
+                'register' => $register,
             ]);
         })->name('reports.register-report');
 
         Route::get('/sales-representative', function () {
+            $salesData = App\Sale::with('user')->get()->toArray();  
             return Inertia::render('reports/index', [
-                'activeTab' => 'sales-representative'
+                'activeTab' => 'sales-representative',
+                'sales' => $salesData,
             ]);
         })->name('reports.sales-representative');
 

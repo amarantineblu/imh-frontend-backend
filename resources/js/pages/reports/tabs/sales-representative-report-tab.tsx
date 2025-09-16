@@ -15,6 +15,7 @@ interface SalesData {
 	totalAmount: number;
 	totalPaid: number;
 	totalRemaining: number;
+	[key: string]: unknown; // Add index signature
 }
 
 interface ExpenseData {
@@ -27,6 +28,7 @@ interface ExpenseData {
 	totalAmount: number;
 	expenseFor: string;
 	expenseNote: string;
+	[key: string]: unknown; // Add index signature
 }
 
 interface Filters {
@@ -37,290 +39,295 @@ interface Filters {
 }
 
 // Mock sales data based on the provided content
-const mockSalesData: SalesData[] = [
-	{
-		id: '1',
-		date: '2025-07-10T14:59:00',
-		invoiceNo: '91341',
-		customerName: 'ALASAN',
-		location: 'IBIYEOMIE MEAT HOUSE',
-		paymentStatus: 'Due',
-		totalAmount: 1800.00,
-		totalPaid: 0.00,
-		totalRemaining: 1800.00
-	},
-	{
-		id: '2',
-		date: '2025-07-10T14:58:00',
-		invoiceNo: '91340',
-		customerName: 'ANGA',
-		location: 'IBIYEOMIE MEAT HOUSE',
-		paymentStatus: 'Due',
-		totalAmount: 400.00,
-		totalPaid: 0.00,
-		totalRemaining: 400.00
-	},
-	{
-		id: '3',
-		date: '2025-07-10T14:54:00',
-		invoiceNo: '91339',
-		customerName: 'SUNNY AUSTIN',
-		location: 'IBIYEOMIE MEAT HOUSE',
-		paymentStatus: 'Due',
-		totalAmount: 250.00,
-		totalPaid: 0.00,
-		totalRemaining: 250.00
-	},
-	{
-		id: '4',
-		date: '2025-07-10T14:50:00',
-		invoiceNo: '91338',
-		customerName: 'ALH YAKUBU',
-		location: 'IBIYEOMIE MEAT HOUSE',
-		paymentStatus: 'Due',
-		totalAmount: 3400.00,
-		totalPaid: 0.00,
-		totalRemaining: 3400.00
-	},
-	{
-		id: '5',
-		date: '2025-07-10T14:45:00',
-		invoiceNo: '91337',
-		customerName: 'OGBO',
-		location: 'IBIYEOMIE MEAT HOUSE',
-		paymentStatus: 'Due',
-		totalAmount: 1600.00,
-		totalPaid: 0.00,
-		totalRemaining: 1600.00
-	},
-	{
-		id: '6',
-		date: '2025-07-10T14:30:00',
-		invoiceNo: '91336',
-		customerName: 'SULEIMAN',
-		location: 'IBIYEOMIE MEAT HOUSE',
-		paymentStatus: 'Due',
-		totalAmount: 1400.00,
-		totalPaid: 0.00,
-		totalRemaining: 1400.00
-	},
-	{
-		id: '7',
-		date: '2025-07-10T14:07:00',
-		invoiceNo: '91335',
-		customerName: 'ANGA',
-		location: 'IBIYEOMIE MEAT HOUSE',
-		paymentStatus: 'Due',
-		totalAmount: 9100.00,
-		totalPaid: 0.00,
-		totalRemaining: 9100.00
-	},
-	{
-		id: '8',
-		date: '2025-07-10T13:45:00',
-		invoiceNo: '91334',
-		customerName: 'Ahmed',
-		location: 'IBIYEOMIE MEAT HOUSE',
-		paymentStatus: 'Due',
-		totalAmount: 99.60,
-		totalPaid: 0.00,
-		totalRemaining: 99.60
-	},
-	{
-		id: '9',
-		date: '2025-07-10T13:27:00',
-		invoiceNo: '91333',
-		customerName: 'IBRAHIM',
-		location: 'IBIYEOMIE MEAT HOUSE',
-		paymentStatus: 'Due',
-		totalAmount: 2000.40,
-		totalPaid: 0.00,
-		totalRemaining: 2000.40
-	},
-	{
-		id: '10',
-		date: '2025-07-10T13:04:00',
-		invoiceNo: '91332',
-		customerName: 'TASIU',
-		location: 'IBIYEOMIE MEAT HOUSE',
-		paymentStatus: 'Due',
-		totalAmount: 1000.00,
-		totalPaid: 0.00,
-		totalRemaining: 1000.00
-	},
-	{
-		id: '11',
-		date: '2025-07-10T12:50:00',
-		invoiceNo: '91331',
-		customerName: '1 MILLION',
-		location: 'IBIYEOMIE MEAT HOUSE',
-		paymentStatus: 'Due',
-		totalAmount: 2600.00,
-		totalPaid: 0.00,
-		totalRemaining: 2600.00
-	},
-	{
-		id: '12',
-		date: '2025-07-10T12:43:00',
-		invoiceNo: '91330',
-		customerName: 'ABBA',
-		location: 'IBIYEOMIE MEAT HOUSE',
-		paymentStatus: 'Due',
-		totalAmount: 700.00,
-		totalPaid: 0.00,
-		totalRemaining: 700.00
-	},
-	{
-		id: '13',
-		date: '2025-07-10T12:40:00',
-		invoiceNo: '91329',
-		customerName: 'MUSTAPHA',
-		location: 'IBIYEOMIE MEAT HOUSE',
-		paymentStatus: 'Due',
-		totalAmount: 650.00,
-		totalPaid: 0.00,
-		totalRemaining: 650.00
-	},
-	{
-		id: '14',
-		date: '2025-07-10T12:24:00',
-		invoiceNo: '91328',
-		customerName: 'OBUMA',
-		location: 'IBIYEOMIE MEAT HOUSE',
-		paymentStatus: 'Due',
-		totalAmount: 200.00,
-		totalPaid: 0.00,
-		totalRemaining: 200.00
-	},
-	{
-		id: '15',
-		date: '2025-07-10T12:19:00',
-		invoiceNo: '91327',
-		customerName: 'IMINABO',
-		location: 'IBIYEOMIE MEAT HOUSE',
-		paymentStatus: 'Due',
-		totalAmount: 3000.00,
-		totalPaid: 0.00,
-		totalRemaining: 3000.00
-	},
-	{
-		id: '16',
-		date: '2025-07-10T11:51:00',
-		invoiceNo: '91326',
-		customerName: 'UZOR',
-		location: 'IBIYEOMIE MEAT HOUSE',
-		paymentStatus: 'Due',
-		totalAmount: 300.00,
-		totalPaid: 0.00,
-		totalRemaining: 300.00
-	},
-	{
-		id: '17',
-		date: '2025-07-10T11:34:00',
-		invoiceNo: '91325',
-		customerName: 'BALA',
-		location: 'IBIYEOMIE MEAT HOUSE',
-		paymentStatus: 'Due',
-		totalAmount: 1000.00,
-		totalPaid: 0.00,
-		totalRemaining: 1000.00
-	},
-	{
-		id: '18',
-		date: '2025-07-10T11:30:00',
-		invoiceNo: '91324',
-		customerName: 'LAMIDO',
-		location: 'IBIYEOMIE MEAT HOUSE',
-		paymentStatus: 'Paid',
-		totalAmount: 400.00,
-		totalPaid: 400.00,
-		totalRemaining: 0.00
-	},
-	{
-		id: '19',
-		date: '2025-07-10T11:26:00',
-		invoiceNo: '91323',
-		customerName: 'SUNNY',
-		location: 'IBIYEOMIE MEAT HOUSE',
-		paymentStatus: 'Due',
-		totalAmount: 3600.00,
-		totalPaid: 0.00,
-		totalRemaining: 3600.00
-	},
-	{
-		id: '20',
-		date: '2025-07-10T10:26:00',
-		invoiceNo: '91322',
-		customerName: 'ABDULAHI',
-		location: 'IBIYEOMIE MEAT HOUSE',
-		paymentStatus: 'Due',
-		totalAmount: 400.00,
-		totalPaid: 0.00,
-		totalRemaining: 400.00
-	},
-	{
-		id: '21',
-		date: '2025-07-10T10:08:00',
-		invoiceNo: '91321',
-		customerName: 'USMAN',
-		location: 'IBIYEOMIE MEAT HOUSE',
-		paymentStatus: 'Due',
-		totalAmount: 400.00,
-		totalPaid: 0.00,
-		totalRemaining: 400.00
-	},
-	{
-		id: '22',
-		date: '2025-07-10T09:47:00',
-		invoiceNo: '91320',
-		customerName: 'MAGAJI',
-		location: 'IBIYEOMIE MEAT HOUSE',
-		paymentStatus: 'Due',
-		totalAmount: 100.00,
-		totalPaid: 0.00,
-		totalRemaining: 100.00
-	},
-	{
-		id: '23',
-		date: '2025-07-10T09:43:00',
-		invoiceNo: '91319',
-		customerName: 'GRACE',
-		location: 'IBIYEOMIE MEAT HOUSE',
-		paymentStatus: 'Due',
-		totalAmount: 300.00,
-		totalPaid: 0.00,
-		totalRemaining: 300.00
-	},
-	{
-		id: '24',
-		date: '2025-07-10T09:42:00',
-		invoiceNo: '91318',
-		customerName: 'GRACE',
-		location: 'IBIYEOMIE MEAT HOUSE',
-		paymentStatus: 'Due',
-		totalAmount: 300.00,
-		totalPaid: 0.00,
-		totalRemaining: 300.00
-	},
-	{
-		id: '25',
-		date: '2025-07-10T09:33:00',
-		invoiceNo: '91317',
-		customerName: 'DANIEL',
-		location: 'IBIYEOMIE MEAT HOUSE',
-		paymentStatus: 'Paid',
-		totalAmount: 1000.00,
-		totalPaid: 1000.00,
-		totalRemaining: 0.00
-	}
-];
+// const mockSalesData: SalesData[] = [
+// 	{
+// 		id: '1',
+// 		date: '2025-07-10T14:59:00',
+// 		invoiceNo: '91341',
+// 		customerName: 'ALASAN',
+// 		location: 'IBIYEOMIE MEAT HOUSE',
+// 		paymentStatus: 'Due',
+// 		totalAmount: 1800.00,
+// 		totalPaid: 0.00,
+// 		totalRemaining: 1800.00
+// 	},
+// 	{
+// 		id: '2',
+// 		date: '2025-07-10T14:58:00',
+// 		invoiceNo: '91340',
+// 		customerName: 'ANGA',
+// 		location: 'IBIYEOMIE MEAT HOUSE',
+// 		paymentStatus: 'Due',
+// 		totalAmount: 400.00,
+// 		totalPaid: 0.00,
+// 		totalRemaining: 400.00
+// 	},
+// 	{
+// 		id: '3',
+// 		date: '2025-07-10T14:54:00',
+// 		invoiceNo: '91339',
+// 		customerName: 'SUNNY AUSTIN',
+// 		location: 'IBIYEOMIE MEAT HOUSE',
+// 		paymentStatus: 'Due',
+// 		totalAmount: 250.00,
+// 		totalPaid: 0.00,
+// 		totalRemaining: 250.00
+// 	},
+// 	{
+// 		id: '4',
+// 		date: '2025-07-10T14:50:00',
+// 		invoiceNo: '91338',
+// 		customerName: 'ALH YAKUBU',
+// 		location: 'IBIYEOMIE MEAT HOUSE',
+// 		paymentStatus: 'Due',
+// 		totalAmount: 3400.00,
+// 		totalPaid: 0.00,
+// 		totalRemaining: 3400.00
+// 	},
+// 	{
+// 		id: '5',
+// 		date: '2025-07-10T14:45:00',
+// 		invoiceNo: '91337',
+// 		customerName: 'OGBO',
+// 		location: 'IBIYEOMIE MEAT HOUSE',
+// 		paymentStatus: 'Due',
+// 		totalAmount: 1600.00,
+// 		totalPaid: 0.00,
+// 		totalRemaining: 1600.00
+// 	},
+// 	{
+// 		id: '6',
+// 		date: '2025-07-10T14:30:00',
+// 		invoiceNo: '91336',
+// 		customerName: 'SULEIMAN',
+// 		location: 'IBIYEOMIE MEAT HOUSE',
+// 		paymentStatus: 'Due',
+// 		totalAmount: 1400.00,
+// 		totalPaid: 0.00,
+// 		totalRemaining: 1400.00
+// 	},
+// 	{
+// 		id: '7',
+// 		date: '2025-07-10T14:07:00',
+// 		invoiceNo: '91335',
+// 		customerName: 'ANGA',
+// 		location: 'IBIYEOMIE MEAT HOUSE',
+// 		paymentStatus: 'Due',
+// 		totalAmount: 9100.00,
+// 		totalPaid: 0.00,
+// 		totalRemaining: 9100.00
+// 	},
+// 	{
+// 		id: '8',
+// 		date: '2025-07-10T13:45:00',
+// 		invoiceNo: '91334',
+// 		customerName: 'Ahmed',
+// 		location: 'IBIYEOMIE MEAT HOUSE',
+// 		paymentStatus: 'Due',
+// 		totalAmount: 99.60,
+// 		totalPaid: 0.00,
+// 		totalRemaining: 99.60
+// 	},
+// 	{
+// 		id: '9',
+// 		date: '2025-07-10T13:27:00',
+// 		invoiceNo: '91333',
+// 		customerName: 'IBRAHIM',
+// 		location: 'IBIYEOMIE MEAT HOUSE',
+// 		paymentStatus: 'Due',
+// 		totalAmount: 2000.40,
+// 		totalPaid: 0.00,
+// 		totalRemaining: 2000.40
+// 	},
+// 	{
+// 		id: '10',
+// 		date: '2025-07-10T13:04:00',
+// 		invoiceNo: '91332',
+// 		customerName: 'TASIU',
+// 		location: 'IBIYEOMIE MEAT HOUSE',
+// 		paymentStatus: 'Due',
+// 		totalAmount: 1000.00,
+// 		totalPaid: 0.00,
+// 		totalRemaining: 1000.00
+// 	},
+// 	{
+// 		id: '11',
+// 		date: '2025-07-10T12:50:00',
+// 		invoiceNo: '91331',
+// 		customerName: '1 MILLION',
+// 		location: 'IBIYEOMIE MEAT HOUSE',
+// 		paymentStatus: 'Due',
+// 		totalAmount: 2600.00,
+// 		totalPaid: 0.00,
+// 		totalRemaining: 2600.00
+// 	},
+// 	{
+// 		id: '12',
+// 		date: '2025-07-10T12:43:00',
+// 		invoiceNo: '91330',
+// 		customerName: 'ABBA',
+// 		location: 'IBIYEOMIE MEAT HOUSE',
+// 		paymentStatus: 'Due',
+// 		totalAmount: 700.00,
+// 		totalPaid: 0.00,
+// 		totalRemaining: 700.00
+// 	},
+// 	{
+// 		id: '13',
+// 		date: '2025-07-10T12:40:00',
+// 		invoiceNo: '91329',
+// 		customerName: 'MUSTAPHA',
+// 		location: 'IBIYEOMIE MEAT HOUSE',
+// 		paymentStatus: 'Due',
+// 		totalAmount: 650.00,
+// 		totalPaid: 0.00,
+// 		totalRemaining: 650.00
+// 	},
+// 	{
+// 		id: '14',
+// 		date: '2025-07-10T12:24:00',
+// 		invoiceNo: '91328',
+// 		customerName: 'OBUMA',
+// 		location: 'IBIYEOMIE MEAT HOUSE',
+// 		paymentStatus: 'Due',
+// 		totalAmount: 200.00,
+// 		totalPaid: 0.00,
+// 		totalRemaining: 200.00
+// 	},
+// 	{
+// 		id: '15',
+// 		date: '2025-07-10T12:19:00',
+// 		invoiceNo: '91327',
+// 		customerName: 'IMINABO',
+// 		location: 'IBIYEOMIE MEAT HOUSE',
+// 		paymentStatus: 'Due',
+// 		totalAmount: 3000.00,
+// 		totalPaid: 0.00,
+// 		totalRemaining: 3000.00
+// 	},
+// 	{
+// 		id: '16',
+// 		date: '2025-07-10T11:51:00',
+// 		invoiceNo: '91326',
+// 		customerName: 'UZOR',
+// 		location: 'IBIYEOMIE MEAT HOUSE',
+// 		paymentStatus: 'Due',
+// 		totalAmount: 300.00,
+// 		totalPaid: 0.00,
+// 		totalRemaining: 300.00
+// 	},
+// 	{
+// 		id: '17',
+// 		date: '2025-07-10T11:34:00',
+// 		invoiceNo: '91325',
+// 		customerName: 'BALA',
+// 		location: 'IBIYEOMIE MEAT HOUSE',
+// 		paymentStatus: 'Due',
+// 		totalAmount: 1000.00,
+// 		totalPaid: 0.00,
+// 		totalRemaining: 1000.00
+// 	},
+// 	{
+// 		id: '18',
+// 		date: '2025-07-10T11:30:00',
+// 		invoiceNo: '91324',
+// 		customerName: 'LAMIDO',
+// 		location: 'IBIYEOMIE MEAT HOUSE',
+// 		paymentStatus: 'Paid',
+// 		totalAmount: 400.00,
+// 		totalPaid: 400.00,
+// 		totalRemaining: 0.00
+// 	},
+// 	{
+// 		id: '19',
+// 		date: '2025-07-10T11:26:00',
+// 		invoiceNo: '91323',
+// 		customerName: 'SUNNY',
+// 		location: 'IBIYEOMIE MEAT HOUSE',
+// 		paymentStatus: 'Due',
+// 		totalAmount: 3600.00,
+// 		totalPaid: 0.00,
+// 		totalRemaining: 3600.00
+// 	},
+// 	{
+// 		id: '20',
+// 		date: '2025-07-10T10:26:00',
+// 		invoiceNo: '91322',
+// 		customerName: 'ABDULAHI',
+// 		location: 'IBIYEOMIE MEAT HOUSE',
+// 		paymentStatus: 'Due',
+// 		totalAmount: 400.00,
+// 		totalPaid: 0.00,
+// 		totalRemaining: 400.00
+// 	},
+// 	{
+// 		id: '21',
+// 		date: '2025-07-10T10:08:00',
+// 		invoiceNo: '91321',
+// 		customerName: 'USMAN',
+// 		location: 'IBIYEOMIE MEAT HOUSE',
+// 		paymentStatus: 'Due',
+// 		totalAmount: 400.00,
+// 		totalPaid: 0.00,
+// 		totalRemaining: 400.00
+// 	},
+// 	{
+// 		id: '22',
+// 		date: '2025-07-10T09:47:00',
+// 		invoiceNo: '91320',
+// 		customerName: 'MAGAJI',
+// 		location: 'IBIYEOMIE MEAT HOUSE',
+// 		paymentStatus: 'Due',
+// 		totalAmount: 100.00,
+// 		totalPaid: 0.00,
+// 		totalRemaining: 100.00
+// 	},
+// 	{
+// 		id: '23',
+// 		date: '2025-07-10T09:43:00',
+// 		invoiceNo: '91319',
+// 		customerName: 'GRACE',
+// 		location: 'IBIYEOMIE MEAT HOUSE',
+// 		paymentStatus: 'Due',
+// 		totalAmount: 300.00,
+// 		totalPaid: 0.00,
+// 		totalRemaining: 300.00
+// 	},
+// 	{
+// 		id: '24',
+// 		date: '2025-07-10T09:42:00',
+// 		invoiceNo: '91318',
+// 		customerName: 'GRACE',
+// 		location: 'IBIYEOMIE MEAT HOUSE',
+// 		paymentStatus: 'Due',
+// 		totalAmount: 300.00,
+// 		totalPaid: 0.00,
+// 		totalRemaining: 300.00
+// 	},
+// 	{
+// 		id: '25',
+// 		date: '2025-07-10T09:33:00',
+// 		invoiceNo: '91317',
+// 		customerName: 'DANIEL',
+// 		location: 'IBIYEOMIE MEAT HOUSE',
+// 		paymentStatus: 'Paid',
+// 		totalAmount: 1000.00,
+// 		totalPaid: 1000.00,
+// 		totalRemaining: 0.00
+// 	}
+// ];
 
 // Mock expense data (empty for demo)
 const mockExpenseData: ExpenseData[] = [
 	// Empty array - no expense data
 ];
 
-export default function SalesRepresentativeReportTab() {
+interface Props{
+	mockSalesData:SalesData[],
+	mockExpenseData:ExpenseData[],
+}
+export default function SalesRepresentativeReportTab(props:Props) {
+	const {mockSalesData,mockExpenseData} = props;
 	const [activeTab, setActiveTab] = useState('sales-added');
 	const [filters, setFilters] = useState<Filters>({
 		user: '',

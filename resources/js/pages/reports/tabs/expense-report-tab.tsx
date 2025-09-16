@@ -29,60 +29,65 @@ const mockChartData: { category: string; amount: number }[] = [
 ];
 
 // Mock data for the table
-const mockExpenseData: ExpenseData[] = [
-	{
-		id: '1',
-		category: 'Office Supplies',
-		totalExpense: 150000.00
-	},
-	{
-		id: '2',
-		category: 'Utilities',
-		totalExpense: 75000.00
-	},
-	{
-		id: '3',
-		category: 'Transportation',
-		totalExpense: 95000.00
-	},
-	{
-		id: '4',
-		category: 'Equipment',
-		totalExpense: 220000.00
-	},
-	{
-		id: '5',
-		category: 'Marketing',
-		totalExpense: 180000.00
-	},
-	{
-		id: '6',
-		category: 'Maintenance',
-		totalExpense: 85000.00
-	},
-	{
-		id: '7',
-		category: 'Staff Welfare',
-		totalExpense: 125000.00
-	},
-	{
-		id: '8',
-		category: 'Professional Services',
-		totalExpense: 65000.00
-	},
-	{
-		id: '9',
-		category: 'Insurance',
-		totalExpense: 45000.00
-	},
-	{
-		id: '10',
-		category: 'Communications',
-		totalExpense: 35000.00
-	}
-];
+// const mockExpenseData: ExpenseData[] = [
+// 	{
+// 		id: '1',
+// 		category: 'Office Supplies',
+// 		totalExpense: 150000.00
+// 	},
+// 	{
+// 		id: '2',
+// 		category: 'Utilities',
+// 		totalExpense: 75000.00
+// 	},
+// 	{
+// 		id: '3',
+// 		category: 'Transportation',
+// 		totalExpense: 95000.00
+// 	},
+// 	{
+// 		id: '4',
+// 		category: 'Equipment',
+// 		totalExpense: 220000.00
+// 	},
+// 	{
+// 		id: '5',
+// 		category: 'Marketing',
+// 		totalExpense: 180000.00
+// 	},
+// 	{
+// 		id: '6',
+// 		category: 'Maintenance',
+// 		totalExpense: 85000.00
+// 	},
+// 	{
+// 		id: '7',
+// 		category: 'Staff Welfare',
+// 		totalExpense: 125000.00
+// 	},
+// 	{
+// 		id: '8',
+// 		category: 'Professional Services',
+// 		totalExpense: 65000.00
+// 	},
+// 	{
+// 		id: '9',
+// 		category: 'Insurance',
+// 		totalExpense: 45000.00
+// 	},
+// 	{
+// 		id: '10',
+// 		category: 'Communications',
+// 		totalExpense: 35000.00
+// 	}
+// ];
 
-export default function ExpenseReportTab() {
+interface Props {
+	expense: ExpenseData[];
+	chartData: { category: string; amount: number }[];
+}
+export default function ExpenseReportTab(props:Props) {
+	const {expense:mockExpenseData,chartData:mockChartData} = props;
 	const [filters, setFilters] = useState<Filters>({
 		businessLocation: '',
 		category: '',

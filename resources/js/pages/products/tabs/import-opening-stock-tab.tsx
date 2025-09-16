@@ -18,47 +18,51 @@ interface StockImportItem extends Record<string, unknown> {
   status: 'Ready' | 'Error';
 }
 
-export default function ImportOpeningStockTab() {
+interface Props{
+  stockImportData: StockImportItem[]
+}
+export default function ImportOpeningStockTab(props:Props) {
   // Stock import preview data
-  const stockImportData: StockImportItem[] = [
-    {
-      product: 'iPhone 14 Pro',
-      sku: 'APL-IP14P-128',
-      current: 0,
-      new: 25,
-      cost: 799.0,
-      total: 19975.0,
-      status: 'Ready',
-    },
-    {
-      product: 'Samsung Galaxy S23',
-      sku: 'SAM-GS23-256',
-      current: 5,
-      new: 30,
-      cost: 649.0,
-      total: 19470.0,
-      status: 'Ready',
-    },
-    {
-      product: 'Wireless Headphones',
-      sku: 'WH-XB900N',
-      current: 0,
-      new: 15,
-      cost: 199.99,
-      total: 2999.85,
-      status: 'Ready',
-    },
-    {
-      product: 'Invalid Product',
-      sku: 'INVALID-SKU',
-      current: 0,
-      new: 10,
-      cost: 0,
-      total: 0,
-      status: 'Error',
-    },
-  ];
+  // const stockImportData: StockImportItem[] = [
+  //   {
+  //     product: 'iPhone 14 Pro',
+  //     sku: 'APL-IP14P-128',
+  //     current: 0,
+  //     new: 25,
+  //     cost: 799.0,
+  //     total: 19975.0,
+  //     status: 'Ready',
+  //   },
+  //   {
+  //     product: 'Samsung Galaxy S23',
+  //     sku: 'SAM-GS23-256',
+  //     current: 5,
+  //     new: 30,
+  //     cost: 649.0,
+  //     total: 19470.0,
+  //     status: 'Ready',
+  //   },
+  //   {
+  //     product: 'Wireless Headphones',
+  //     sku: 'WH-XB900N',
+  //     current: 0,
+  //     new: 15,
+  //     cost: 199.99,
+  //     total: 2999.85,
+  //     status: 'Ready',
+  //   },
+  //   {
+  //     product: 'Invalid Product',
+  //     sku: 'INVALID-SKU',
+  //     current: 0,
+  //     new: 10,
+  //     cost: 0,
+  //     total: 0,
+  //     status: 'Error',
+  //   },
+  // ];
 
+  const {stockImportData} = props;
   // Table actions
   const stockTableActions = useTableActions<StockImportItem>({
     customActions: [

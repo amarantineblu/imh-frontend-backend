@@ -21,11 +21,16 @@ interface Filters {
 }
 
 // Mock data
-const mockPurchasePaymentData: PurchasePaymentData[] = [
-	// Empty array for demo - no purchase payment data
-];
+// const mockPurchasePaymentData: PurchasePaymentData[] = [
+// 	// Empty array for demo - no purchase payment data
+// ];
 
-export default function PurchasePaymentReportTab() {
+interface Props {
+	purchasePayment: PurchasePaymentData[];
+}
+export default function PurchasePaymentReportTab(props:Props) {
+	const { purchasePayment: mockPurchasePaymentData } = props;
+
 	const [filters, setFilters] = useState<Filters>({
 		supplier: '',
 		businessLocation: '',
