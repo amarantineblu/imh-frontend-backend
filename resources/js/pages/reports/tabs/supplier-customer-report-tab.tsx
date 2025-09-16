@@ -1,5 +1,5 @@
 import { DynamicTable } from "@/components/ui/dynamic-table";
-import { supplierCustomerReportData, supplierCustomerReportColumns } from "./supplier-customer-report-tabledata";
+import { fetchSupplierCustomerReportData, supplierCustomerReportColumns } from "./supplier-customer-report-tabledata";
 import React from "react";
 
 export default function SupplierCustomerReportTab() {
@@ -53,7 +53,7 @@ export default function SupplierCustomerReportTab() {
 				</div>
 			</div>
 			<DynamicTable
-				data={supplierCustomerReportData}
+				data={fetchSupplierCustomerReportData}
 				columns={supplierCustomerReportColumns}
 				pageSize={filters.show}
 				enablePagination={true}

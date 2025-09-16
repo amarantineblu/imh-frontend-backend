@@ -1,4 +1,5 @@
 // Table data for demo (replace with real data from API or props)
+
 export const supplierCustomerReportData = [
 	{
 		customerGroup: "Customer Group",

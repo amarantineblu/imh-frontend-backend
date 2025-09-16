@@ -322,12 +322,16 @@ const mockExpenseData: ExpenseData[] = [
 	// Empty array - no expense data
 ];
 
+// interface Props{
+// 	mockSalesData:SalesData[],
+// 	mockExpenseData:ExpenseData[],
+// }
 interface Props{
-	mockSalesData:SalesData[],
-	mockExpenseData:ExpenseData[],
+	sales: SalesData[];
+	expense: ExpenseData[];
 }
 export default function SalesRepresentativeReportTab(props:Props) {
-	const {mockSalesData,mockExpenseData} = props;
+	const { sales: mockSalesData, expense: mockExpenseData } = props;
 	const [activeTab, setActiveTab] = useState('sales-added');
 	const [filters, setFilters] = useState<Filters>({
 		user: '',

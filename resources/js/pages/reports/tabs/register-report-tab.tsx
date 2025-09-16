@@ -352,11 +352,14 @@ interface Filters {
 // 	}
 // ];
 
-interface Props {
-	register: RegisterData[];
+// interface Props {
+// 	register: RegisterData[];
+// }
+interface Props{
+	register: RegisterData[];	
 }
 export default function RegisterReportTab(props: Props) {
-	const { register: mockRegisterData } = props;
+	const mockRegisterData = props.register ?? [];
 	const [filters, setFilters] = useState<Filters>({
 		user: '',
 		status: '',
@@ -556,37 +559,55 @@ export default function RegisterReportTab(props: Props) {
 	];
 
 	// Calculate totals
-	const totals = mockRegisterData.reduce((acc, item) => ({
-		totalCardSlips: acc.totalCardSlips + item.totalCardSlips,
-		totalCheques: acc.totalCheques + item.totalCheques,
-		totalCash: acc.totalCash + item.totalCash,
-		totalBankTransfer: acc.totalBankTransfer + item.totalBankTransfer,
-		totalAdvancePayment: acc.totalAdvancePayment + item.totalAdvancePayment,
-		pos: acc.pos + item.pos,
-		customPayment2: acc.customPayment2 + item.customPayment2,
-		customPayment3: acc.customPayment3 + item.customPayment3,
-		customPayment4: acc.customPayment4 + item.customPayment4,
-		customPayment5: acc.customPayment5 + item.customPayment5,
-		customPayment6: acc.customPayment6 + item.customPayment6,
-		customPayment7: acc.customPayment7 + item.customPayment7,
-		otherPayments: acc.otherPayments + item.otherPayments,
-		total: acc.total + item.total
-	}), {
-		totalCardSlips: 0,
-		totalCheques: 0,
-		totalCash: 0,
-		totalBankTransfer: 0,
-		totalAdvancePayment: 0,
-		pos: 0,
-		customPayment2: 0,
-		customPayment3: 0,
-		customPayment4: 0,
-		customPayment5: 0,
-		customPayment6: 0,
-		customPayment7: 0,
-		otherPayments: 0,
-		total: 0
-	});
+	const totals = Array.isArray(mockRegisterData)
+  ? mockRegisterData.reduce((acc, item) => ({
+      totalCardSlips: acc.totalCardSlips + item.totalCardSlips,
+      totalCheques: acc.totalCheques + item.totalCheques,
+      totalCash: acc.totalCash + item.totalCash,
+      totalBankTransfer: acc.totalBankTransfer + item.totalBankTransfer,
+      totalAdvancePayment: acc.totalAdvancePayment + item.totalAdvancePayment,
+      pos: acc.pos + item.pos,
+      customPayment2: acc.customPayment2 + item.customPayment2,
+      customPayment3: acc.customPayment3 + item.customPayment3,
+      customPayment4: acc.customPayment4 + item.customPayment4,
+      customPayment5: acc.customPayment5 + item.customPayment5,
+      customPayment6: acc.customPayment6 + item.customPayment6,
+      customPayment7: acc.customPayment7 + item.customPayment7,
+      otherPayments: acc.otherPayments + item.otherPayments,
+      total: acc.total + item.total
+    }), {
+      totalCardSlips: 0,
+      totalCheques: 0,
+      totalCash: 0,
+      totalBankTransfer: 0,
+      totalAdvancePayment: 0,
+      pos: 0,
+      customPayment2: 0,
+      customPayment3: 0,
+      customPayment4: 0,
+      customPayment5: 0,
+      customPayment6: 0,
+      customPayment7: 0,
+      otherPayments: 0,
+      total: 0
+    })
+  : {
+      totalCardSlips: 0,
+      totalCheques: 0,
+      totalCash: 0,
+      totalBankTransfer: 0,
+      totalAdvancePayment: 0,
+      pos: 0,
+      customPayment2: 0,
+      customPayment3: 0,
+      customPayment4: 0,
+      customPayment5: 0,
+      customPayment6: 0,
+      customPayment7: 0,
+      otherPayments: 0,
+      total: 0
+    };
+
 
 	return (
 		<div className="p-6 rounded-lg shadow-sm">

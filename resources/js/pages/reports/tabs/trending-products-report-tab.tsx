@@ -3,13 +3,13 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useState } from 'react';
 
-const mockProducts = [
-	{ name: 'Product A', sales: 120 },
-	{ name: 'Product B', sales: 90 },
-	{ name: 'Product C', sales: 80 },
-	{ name: 'Product D', sales: 60 },
-	{ name: 'Product E', sales: 40 },
-];
+// const mockProducts = [
+// 	{ name: 'Product A', sales: 120 },
+// 	{ name: 'Product B', sales: 90 },
+// 	{ name: 'Product C', sales: 80 },
+// 	{ name: 'Product D', sales: 60 },
+// 	{ name: 'Product E', sales: 40 },
+// ];
 
 interface Filters {
 	businessLocation: string;
@@ -21,8 +21,16 @@ interface Filters {
 	numberOfProducts: number;
 	productType: string;
 }
+interface Product {
+	name: string;
+	sales: number;
+}
+interface Props{
+	trendingProducts:Product[],
+}
 
-export default function TrendingProductsReportTab() {
+export default function TrendingProductsReportTab(props:Props) {
+	const {trendingProducts:mockProducts} = props;
 	const [filters, setFilters] = useState<Filters>({
 		businessLocation: '',
 		category: '',

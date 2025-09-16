@@ -6,13 +6,25 @@ use Inertia\Inertia;
 Route::middleware(['auth', 'verified'])->group(function () {
     // Reports routes
     Route::prefix('reports')->group(function () {
+        Route::get('/apis', function(){
+            $customer_supplier_report = App\SupplierCustomerReport::all()->toArray();
+            $data = [
+                'customer_supplier_report' => $customer_supplier_report,
+            ];
+            return response()->json($data);
+
+        });
         Route::get('/', function () {
+            $summaryData = [];
+            $profitLossData = [];   
+            $profitSummary = [];
             return Inertia::render('reports/index', [
                 'activeTab' => 'profit-loss'
             ]);
         })->name('reports.index');
 
         Route::get('/profit-loss', function () {
+            // $summaryData = 
             return Inertia::render('reports/index', [
                 'activeTab' => 'profit-loss'
             ]);
@@ -25,6 +37,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         })->name('reports.purchase-sale');
 
         Route::get('/tax-report', function () {
+            // $input_tax_column = 
             return Inertia::render('reports/index', [
                 'activeTab' => 'tax-report'
             ]);
@@ -32,36 +45,44 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::get('/supplier-customer', function () {
             return Inertia::render('reports/index', [
-                'activeTab' => 'supplier-customer'
+                'activeTab' => 'supplier-customer',
+                
             ]);
         })->name('reports.supplier-customer');
 
         Route::get('/customer-group', function () {
+            // $customer_group_report = 
             return Inertia::render('reports/index', [
                 'activeTab' => 'customer-group'
             ]);
         })->name('reports.customer-group');
 
         Route::get('/stock-report', function () {
+            $stockData = App\Product::with('category', 'brand')->get()->toArray();
             return Inertia::render('reports/index', [
-                'activeTab' => 'stock-report'
+                'activeTab' => 'stock-report',
+                'stockData' => $stockData,
             ]);
         })->name('reports.stock-report');
 
         Route::get('/trending-products', function () {
+            $trendingProducts = App\Product::with('category', 'brand')->get()->toArray();
             return Inertia::render('reports/index', [
-                'activeTab' => 'trending-products'
+                'activeTab' => 'trending-products',
+                'trendingProducts' => $trendingProducts,
             ]);
         })->name('reports.trending-products');
 
         Route::get('/items-report', function () {
+            $items = App\Product::with('category', 'brand')->get()->toArray();
             return Inertia::render('reports/index', [
-                'activeTab' => 'items-report'
+                'activeTab' => 'items-report',
+                'items' => $items,
             ]);
         })->name('reports.items-report');
 
         Route::get('/product-purchase', function () {
-            $purchasePaymentData = PurchasePayment::all()->toArray();
+            $purchasePaymentData = App\PurchasePayment::all()->toArray();
             return Inertia::render('reports/index', [
                 'activeTab' => 'product-purchase',
                 'purchasePaymentData' => $purchasePaymentData
