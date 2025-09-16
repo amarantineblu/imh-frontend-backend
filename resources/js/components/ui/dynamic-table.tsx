@@ -442,7 +442,9 @@ export function DynamicTable<TData extends Record<string, unknown>>({
     }
   }, [rowSelection, onRowSelectionChange, table]);
 
-  const selectedRowsCount = table.getFilteredSelectedRowModel().rows.length;
+  const selectedRowsCount = Array.isArray(table.getFilteredSelectedRowModel()?.rows)
+  ? table.getFilteredSelectedRowModel().rows.length
+  : 0;
   const selectedRowsData = table.getFilteredSelectedRowModel().rows.map(row => row.original);
 
   // Helper function to get alignment classes

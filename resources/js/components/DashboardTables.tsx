@@ -382,6 +382,8 @@ export default function DashboardTables(props:Props) {
           <TabsTrigger value="pending-shipments">Pending Shipments</TabsTrigger>
         </TabsList>
         <TabsContent value="sales-payment">
+        {Array.isArray(purchasePaymentDue) && (
+
           <DynamicTable
             enableRowSelection
             data={salesPaymentDue}
@@ -390,10 +392,10 @@ export default function DashboardTables(props:Props) {
             enableSorting={true}
             enableFiltering={true}
             searchPlaceholder="Search sales payments..."
-          />
+          />)}
         </TabsContent>
         <TabsContent value="purchase-payment">
-          <DynamicTable
+          {/* <DynamicTable
             enableRowSelection
             data={purchasePaymentDue}
             columns={purchasePaymentColumns}
@@ -401,9 +403,22 @@ export default function DashboardTables(props:Props) {
             enableSorting={true}
             enableFiltering={true}
             searchPlaceholder="Search purchase payments..."
-          />
+          /> */}
+          {Array.isArray(purchasePaymentDue) && (
+            <DynamicTable
+              enableRowSelection
+              data={purchasePaymentDue}
+              columns={purchasePaymentColumns}
+              enablePagination={true}
+              enableSorting={true}
+              enableFiltering={true}
+              searchPlaceholder="Search purchase payments..."            />
+            )}
+
         </TabsContent>
         <TabsContent value="stock-alert">
+        {Array.isArray(purchasePaymentDue) && (
+
           <DynamicTable
             enableRowSelection
             data={productStockAlert}
@@ -412,9 +427,11 @@ export default function DashboardTables(props:Props) {
             enableSorting={true}
             enableFiltering={true}
             searchPlaceholder="Search stock alerts..."
-          />
+          />)}
         </TabsContent>
         <TabsContent value="sales-order">
+        {Array.isArray(purchasePaymentDue) && (
+
           <DynamicTable
             enableRowSelection
             data={salesOrder}
@@ -423,7 +440,7 @@ export default function DashboardTables(props:Props) {
             enableSorting={true}
             enableFiltering={true}
             searchPlaceholder="Search sales orders..."
-          />
+          />)}
         </TabsContent>
         <TabsContent value="pending-shipments">
           <DynamicTable
