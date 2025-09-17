@@ -93,26 +93,27 @@ interface Props {
   pendingShipments: PendingShipment[],
 }
 
-export default function DashboardTables(props:Props) {
-  const [salesPaymentDue, setSalesPaymentDue] = useState<SalesPaymentDue[]>([]);
-  const [purchasePaymentDue, setPurchasePaymentDue] = useState<PurchasePaymentDue[]>([]);
-  const [productStockAlert, setProductStockAlert] = useState<ProductStockAlert[]>([]);
-  const [salesOrder, setSalesOrder] = useState<SalesOrder[]>([]);
-  const [pendingShipments, setPendingShipments] = useState<PendingShipment[]>([]);
-  const [loading, setLoading] = useState(true);
-  const { salesPaymentDue: salesPayments, purchasePaymentDue: purchasePayments, productStockAlert: productStockAlerts, salesOrder: salesOrders, pendingShipments: pendingShipmentsProp } = usePage().props;
+export default function DashboardTables() {
+  const {props} = usePage();
+  // console.log('this is the sales order',props.sales_payments);
 
-     useEffect(() => {
+  const [salesPaymentDue, setSalesPaymentDue] = useState<SalesPaymentDue[]>(props.sales_payments as SalesPaymentDue[] || []);
+  const [purchasePaymentDue, setPurchasePaymentDue] = useState<PurchasePaymentDue[]>(props.purchase_payments as PurchasePaymentDue[] || []);
+  const [productStockAlert, setProductStockAlert] = useState<ProductStockAlert[]>(props.product_stock_alerts as ProductStockAlert[] || []);
+  const [salesOrder, setSalesOrder] = useState<SalesOrder[]>(props.sales_order as SalesOrder[] || []);
+  const [pendingShipments, setPendingShipments] = useState<PendingShipment[]>(props.pendingShipments as PendingShipment[] || []);
+  console.log('this is the sales payment', salesPaymentDue);
+    //  useEffect(() => {
         
-           setSalesPaymentDue(salesPayments as SalesPaymentDue[]);
-           setPurchasePaymentDue(purchasePayments as PurchasePaymentDue[]);
-           setProductStockAlert(productStockAlerts as ProductStockAlert[]);
-           setSalesOrder(salesOrders as SalesOrder[]);
-           setPendingShipments(pendingShipments as PendingShipment[]);
-           setLoading(false);
-          // console.log('this is the data', data);
+    //        setSalesPaymentDue(salesPayments as SalesPaymentDue[]);
+    //        setPurchasePaymentDue(purchasePayments as PurchasePaymentDue[]);
+    //        setProductStockAlert(productStockAlerts as ProductStockAlert[]);
+    //        setSalesOrder(salesOrders as SalesOrder[]);
+    //        setPendingShipments(pendingShipments as PendingShipment[]);
+    //        setLoading(false);
+    //       console.log('this is the data', salesPaymentDue);
 
-     }, []);
+    //  }, []);
   // Table actions for sales payment due
   const salesPaymentActions = useTableActions<SalesPaymentDue>({
     customActions: [
@@ -382,7 +383,6 @@ export default function DashboardTables(props:Props) {
           <TabsTrigger value="pending-shipments">Pending Shipments</TabsTrigger>
         </TabsList>
         <TabsContent value="sales-payment">
-        {Array.isArray(purchasePaymentDue) && (
 
           <DynamicTable
             enableRowSelection
@@ -392,7 +392,7 @@ export default function DashboardTables(props:Props) {
             enableSorting={true}
             enableFiltering={true}
             searchPlaceholder="Search sales payments..."
-          />)}
+          />
         </TabsContent>
         <TabsContent value="purchase-payment">
           {/* <DynamicTable
@@ -404,7 +404,6 @@ export default function DashboardTables(props:Props) {
             enableFiltering={true}
             searchPlaceholder="Search purchase payments..."
           /> */}
-          {Array.isArray(purchasePaymentDue) && (
             <DynamicTable
               enableRowSelection
               data={purchasePaymentDue}
@@ -413,12 +412,9 @@ export default function DashboardTables(props:Props) {
               enableSorting={true}
               enableFiltering={true}
               searchPlaceholder="Search purchase payments..."            />
-            )}
 
         </TabsContent>
         <TabsContent value="stock-alert">
-        {Array.isArray(purchasePaymentDue) && (
-
           <DynamicTable
             enableRowSelection
             data={productStockAlert}
@@ -427,11 +423,9 @@ export default function DashboardTables(props:Props) {
             enableSorting={true}
             enableFiltering={true}
             searchPlaceholder="Search stock alerts..."
-          />)}
+          />
         </TabsContent>
         <TabsContent value="sales-order">
-        {Array.isArray(purchasePaymentDue) && (
-
           <DynamicTable
             enableRowSelection
             data={salesOrder}
@@ -440,7 +434,7 @@ export default function DashboardTables(props:Props) {
             enableSorting={true}
             enableFiltering={true}
             searchPlaceholder="Search sales orders..."
-          />)}
+          />
         </TabsContent>
         <TabsContent value="pending-shipments">
           <DynamicTable

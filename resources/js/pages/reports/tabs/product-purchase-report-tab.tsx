@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { DynamicTable, type TableColumn } from '@/components/ui/dynamic-table';
 import { Button } from '@/components/ui/button';
 import { Search } from 'lucide-react';
+import { usePage } from '@inertiajs/react';
 
 interface ProductPurchaseData {
 	id: string;
@@ -118,8 +119,9 @@ interface Filters {
 interface Props{
 	purchaseData:ProductPurchaseData[],
 }
-export default function ProductPurchaseReportTab(props:Props) {
-	const{purchaseData:mockPurchaseData} = props;
+export default function ProductPurchaseReportTab() {
+	const { props } = usePage();
+	const [mockPurchaseData, setMockPurchaseData] = useState<ProductPurchaseData[]>(props.purchaseData as ProductPurchaseData[] || []);
 	const [filters, setFilters] = useState<Filters>({
 		searchProduct: '',
 		supplier: '',

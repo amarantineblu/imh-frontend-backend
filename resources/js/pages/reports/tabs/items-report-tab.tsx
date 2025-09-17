@@ -4,6 +4,7 @@ import { DynamicTable, type TableColumn } from '@/components/ui/dynamic-table';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
+import { usePage } from '@inertiajs/react';
 
 interface ItemReportData {
 	id: string;
@@ -131,8 +132,12 @@ interface Filters {
 interface Props{
 	items:ItemReportData[],
 }
-export default function ItemsReportTab(props:Props) {
-	const{items:mockItemsData} = props;
+export default function ItemsReportTab() {
+	const {props} = usePage();
+	// const [items] = props;
+const[mockItemsData, setMockItemsData] = useState<ItemReportData[]>(props.items as ItemReportData[] || []);
+	// console.log('this is the items', mockItemsData);
+
 	const [filters, setFilters] = useState<Filters>({
 		supplier: '',
 		purchaseDateFrom: '2025-01-01',

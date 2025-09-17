@@ -3,6 +3,8 @@ import { DynamicTable, type TableColumn } from '@/components/ui/dynamic-table';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { useState } from 'react';
+// import { log } from 'console';
+import { usePage } from '@inertiajs/react';
 
 // Interface definitions
 interface SalesData {
@@ -330,8 +332,16 @@ interface Props{
 	sales: SalesData[];
 	expense: ExpenseData[];
 }
-export default function SalesRepresentativeReportTab(props:Props) {
-	const { sales: mockSalesData, expense: mockExpenseData } = props;
+export default function SalesRepresentativeReportTab() {
+	const { props } = usePage();
+	const [mockSalesData, setMockSalesData] = useState<SalesData[]>(props.sales as SalesData[] || []);
+	const [mockExpenseData, setMockExpenseData] = useState<ExpenseData[]>(props.expense as ExpenseData[] || []);
+	//
+	// const { sales: mockSalesData, expense: mockExpenseData } = props;
+	// log(props);
+	// console.log('this is the mock sales Data' ,mockSalesData);
+	// console.log('this is the mock expense Data' ,mockExpenseData);
+	// State for tabs and filters
 	const [activeTab, setActiveTab] = useState('sales-added');
 	const [filters, setFilters] = useState<Filters>({
 		user: '',

@@ -35,6 +35,7 @@ return new class extends Migration
             $table->foreign('currency_id')->references('id')->on('currencies');
             $table->string('logo')->nullable();
             $table->string('sku_prefix')->nullable();
+            $table->text('repair_settings')->nullable();
             $table->boolean('enable_tooltip')->default(1);
             $table->timestamps();
         });

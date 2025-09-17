@@ -4,6 +4,7 @@ import { DynamicTable, type TableColumn } from '@/components/ui/dynamic-table';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useState } from 'react';
+import { usePage } from '@inertiajs/react';
 
 // Interface definitions
 interface SellPaymentData {
@@ -283,8 +284,19 @@ interface Filters {
 interface Props {
 	salesPayment: SellPaymentData[];
 }
-export default function SellPaymentReportTab(props:Props) {
-	const { salesPayment: mockSellPaymentData } = props;
+export default function SellPaymentReportTab() {
+	const { props } = usePage();
+	const { salesPayment } = props;
+
+	const [mockSellPaymentData, setMockSellPaymentData] = useState<SellPaymentData[]>(salesPayment as SellPaymentData[] || []);
+  // console.log(props.salesPayment); // should show your data
+  // console.log(mockSellPaymentData);
+
+	// const { salesPayment: mockSellPaymentData } = props;
+	// console.log('this is the salesPayment', mockSellPaymentData);
+	// console.log('this are the props', props);
+
+	
 	const [filters, setFilters] = useState<Filters>({
 		customer: '',
 		businessLocation: '',

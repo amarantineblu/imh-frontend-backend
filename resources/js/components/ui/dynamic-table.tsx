@@ -104,7 +104,7 @@ export type TableColumn<TData> = DynamicTableColumn<TData> | ActionColumn<TData>
 export interface DynamicTableProps<TData> {
   // accessorKey: any;
   data: TData[] | any;
-  columns: TableColumn<TData>[] | any;
+  columns: TableColumn<TData>[];
   enableRowSelection?: boolean;
   enableMultiRowSelection?: boolean;
   onRowSelectionChange?: (selectedRows: TData[]) => void;
@@ -127,8 +127,8 @@ export interface DynamicTableProps<TData> {
 }
 
 export function DynamicTable<TData extends Record<string, unknown>>({
-  data,
-  columns,
+  data = [],
+  columns = [],
   enableRowSelection = false,
   enableMultiRowSelection = true,
   onRowSelectionChange,

@@ -124,9 +124,9 @@ class BrandsTableSeeder extends Seeder
      'business_id' => 1
     ],
   ];
-    DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+    // DB::statement('SET FOREIGN_KEY_CHECKS=0;');
     DB::table('brands')->truncate();
-    DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+    DB::statement('SET FOREIGN_KEY_CHECKS=0;');
     DB::table('brands')->insert($data);
   }
 }

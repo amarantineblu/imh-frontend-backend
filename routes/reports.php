@@ -90,6 +90,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         })->name('reports.product-purchase');
 
         Route::get('/product-sell', function () {
+            // $detailedData = 
             return Inertia::render('reports/index', [
                 'activeTab' => 'product-sell'
             ]);
@@ -104,6 +105,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         })->name('reports.purchase-payment');
 
         Route::get('/sell-payment', function () {
+            // \Log::info('Sell Payment route hit');
             $salesPaymentData = App\SalePayment::with('sale')->get()->toArray();
             return Inertia::render('reports/index', [
                 'activeTab' => 'sell-payment',

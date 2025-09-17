@@ -1,8 +1,8 @@
 import { Button } from '@/components/ui/button';
 import { DynamicTable, type TableColumn } from '@/components/ui/dynamic-table';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-
+// import { useEffect } from 'react';
 // Interface definitions
 interface ExpenseData {
 	id: string;
@@ -86,8 +86,15 @@ interface Props {
 	expense: ExpenseData[];
 	chartData: { category: string; amount: number }[];
 }
+
 export default function ExpenseReportTab(props:Props) {
-	const {expense:mockExpenseData,chartData:mockChartData} = props;
+	const {expense,chartData} = props;
+	// useEffect(() => {
+	// 	console.log('this is the props' + props);
+	// }
+	// 	,[]);
+	const [mockExpenseData, setMockExpenseData] = useState(props.expense)
+	
 	const [filters, setFilters] = useState<Filters>({
 		businessLocation: '',
 		category: '',
@@ -146,7 +153,7 @@ export default function ExpenseReportTab(props:Props) {
 	];
 
 	// Calculate total amount
-	const totalAmount = mockExpenseData.reduce((sum, item) => sum + item.totalExpense, 0);
+	const totalAmount = (mockExpenseData ?? []).reduce((sum, item) => sum + item.totalExpense, 0);
 
 	return (
 		<div className="p-6 rounded-lg shadow-sm">

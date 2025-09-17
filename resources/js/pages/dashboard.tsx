@@ -120,9 +120,9 @@ interface DashboardProps {
 }
 
 export default function Dashboard(props: DashboardProps) {
-  console.log('Dashboard Props:', props);
+  // console.log('Dashboard Props:', props);
   const {pending_shipments, sales_payments, purchase_payments, product_stock_alerts, sales_orders} = usePage().props as unknown as DashboardProps;
-  
+  // console.log('this is the sales payment', sales_payments);
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState("Today")
 

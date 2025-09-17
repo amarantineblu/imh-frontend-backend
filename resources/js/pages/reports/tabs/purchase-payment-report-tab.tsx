@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { DynamicTable, type TableColumn } from '@/components/ui/dynamic-table';
 import { useState } from 'react';
+import { usePage } from '@inertiajs/react';
 
 // Interface definitions
 interface PurchasePaymentData {
@@ -28,8 +29,10 @@ interface Filters {
 interface Props {
 	purchasePayment: PurchasePaymentData[];
 }
-export default function PurchasePaymentReportTab(props:Props) {
-	const { purchasePayment: mockPurchasePaymentData } = props;
+export default function PurchasePaymentReportTab() {
+	const { props } = usePage();
+	const [mockPurchasePaymentData, setMockPurchasePaymentData] = useState<PurchasePaymentData[]>(props.purchasePayment as PurchasePaymentData[] || []);
+	// const { purchasePayment: mockPurchasePaymentData } = props;
 
 	const [filters, setFilters] = useState<Filters>({
 		supplier: '',
