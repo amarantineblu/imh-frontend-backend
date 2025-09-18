@@ -16,6 +16,13 @@ use League\Flysystem\Filesystem;
 use Spatie\Dropbox\Client as DropboxClient;
 use Spatie\FlysystemDropbox\DropboxAdapter;
 
+use App\Services\SalePaymentsSeederService;
+// use App\Services\SalesPaymentSeederService;
+use Database\Seeders\ProductStockAlertsSeeder;
+use Database\Seeders\PurchasePaymentsSeeder;
+use Database\Seeders\SalesPaymentsSeeder;
+use Database\Seeders\StockReportsSeeder;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -31,6 +38,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        if (app()->runningInConsole() && !app()->runningUnitTests()) {
+            app(SalePaymentsSeederService::class)->run();
+            app(ProductStockAlertsSeeder::class)->run();
+            app(SalesPaymentsSeeder::class)->run();
+            app(PurchasePaymentsSeeder::class)->run();
+            app(StockReportsSeeder::class)->run();
+        }
         ini_set('memory_limit', '-1');
         set_time_limit(0);
 

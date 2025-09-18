@@ -9,6 +9,8 @@ use App\Utils\BusinessUtil;
 use App\Utils\TransactionUtil;
 use App\Utils\Util;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class SalesOrderController extends Controller
 {
@@ -44,6 +46,62 @@ class SalesOrderController extends Controller
             ],
         ];
     }
+
+    public function run()
+    {
+        if (!Schema::hasTable('sale_payments')) {
+            Log::info('Table sale_payments does not exist. Skipping.');
+            return;
+        }
+
+        // Defensive: require source tables
+        if (!Schema::hasTable('transaction_payments') || !Schema::hasTable('transactions')) {
+            Log::info('Source tables transaction_payments or transactions missing. Skipping sale_payments seed.');
+            return;
+        }
+
+        $count = DB::table('sale_payments')->count();
+        if ($count > 0) {
+            Log::info('sale_payments already has data. Skipping.');
+            return;
+        }
+
+        // Try common column names. Adjust the names below if your schema differs.
+        $rows = DB::table('transaction_payments')
+            ->join('transactions', 'transaction_payments.transaction_id', '=', 'transactions.id')
+            ->where(function ($q) {
+                // many projects use type = 'sell' for sales transactions.
+                $q->where('transactions.type', 'sell')
+                  ->orWhere('transactions.type', 'sales')
+                  ->orWhereNull('transactions.type'); // allow if type missing
+            })
+            ->select(
+                'transactions.id as sale_id',
+                'transaction_payments.amount as amount',
+                DB::raw('COALESCE(transaction_payments.payment_date, transaction_payments.created_at, transactions.transaction_date, transactions.created_at) as payment_date')
+            )
+            ->get();
+
+        $inserted = 0;
+        foreach ($rows as $r) {
+            try {
+                DB::table('sale_payments')->insert([
+                    'sale_id' => $r->sale_id,
+                    'amount' => $r->amount,
+                    'payment_date' => $r->payment_date ?? now(),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+                $inserted++;
+            } catch (\Exception $e) {
+                // log and continue
+                Log::error('Failed to insert sale_payment for sale_id ' . $r->sale_id . ': ' . $e->getMessage());
+            }
+        }
+
+        $this->command->info("SalePaymentsSeeder: inserted {$inserted} rows into sale_payments.");
+    }
+
 
     /**
      * Display a listing of the resource.
