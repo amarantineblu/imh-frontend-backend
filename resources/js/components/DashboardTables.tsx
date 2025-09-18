@@ -93,16 +93,21 @@ interface Props {
   pendingShipments: PendingShipment[],
 }
 
-export default function DashboardTables() {
-  const {props} = usePage();
+export default function DashboardTables({
+  salesPaymentDue: initialSalesPaymentDue,
+  purchasePaymentDue: initialPurchasePaymentDue,
+  productStockAlert: initialProductStockAlert,
+  salesOrder: initialSalesOrder,
+  pendingShipments: initialPendingShipments
+}: Props) {
   // console.log('this is the sales order',props.sales_payments);
 
-  const [salesPaymentDue, setSalesPaymentDue] = useState<SalesPaymentDue[]>(props.sales_payments as SalesPaymentDue[] || []);
-  const [purchasePaymentDue, setPurchasePaymentDue] = useState<PurchasePaymentDue[]>(props.purchase_payments as PurchasePaymentDue[] || []);
-  const [productStockAlert, setProductStockAlert] = useState<ProductStockAlert[]>(props.product_stock_alerts as ProductStockAlert[] || []);
-  const [salesOrder, setSalesOrder] = useState<SalesOrder[]>(props.sales_order as SalesOrder[] || []);
-  const [pendingShipments, setPendingShipments] = useState<PendingShipment[]>(props.pendingShipments as PendingShipment[] || []);
-  console.log('this is the sales payment', salesPaymentDue);
+  const [salesPaymentDue, setSalesPaymentDue] = useState<SalesPaymentDue[]>(initialSalesPaymentDue);
+  const [purchasePaymentDue, setPurchasePaymentDue] = useState<PurchasePaymentDue[]>(initialPurchasePaymentDue);
+  const [productStockAlert, setProductStockAlert] = useState<ProductStockAlert[]>(initialProductStockAlert);
+  const [salesOrder, setSalesOrder] = useState<SalesOrder[]>(initialSalesOrder);
+  const [pendingShipments, setPendingShipments] = useState<PendingShipment[]>(initialPendingShipments);
+console.log('this is the sales payment', salesPaymentDue);
     //  useEffect(() => {
         
     //        setSalesPaymentDue(salesPayments as SalesPaymentDue[]);

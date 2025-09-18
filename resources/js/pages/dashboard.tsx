@@ -24,7 +24,7 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-
+import { useState, useEffect } from 'react';
 const breadcrumbs: BreadcrumbItem[] = [
   {
     title: 'Home',
@@ -47,68 +47,99 @@ const filterRange = [
   { key: 'Last financial year', label: 'Last financial year', active: false },
   { key: 'Custom Range', label: 'Custom Range', active: false },
 ];
-const metricsData: IMetricCard[] = [
-  {
-    title: 'Total Sales',
-    value: 10000950,
-    currency: 'NGN',
-    icon: DollarSign,
-    trend: 'up',
-    trendValue: '+12%',
-    color: 'green',
-  },
-  {
-    title: 'Net Sales',
-    value: 7300950,
-    currency: 'NGN',
-    icon: TrendingUp,
-    trend: 'up',
-    trendValue: '+8%',
-    color: 'blue',
-  },
-  {
-    title: 'Invoice Due',
-    value: 175,
-    icon: FileText,
-    color: 'orange',
-  },
-  {
-    title: 'Total Sales Returned',
-    value: 5,
-    icon: AlertCircle,
-    trend: 'down',
-    trendValue: '-2%',
-    color: 'red',
-  },
-  {
-    title: 'Total Purchases',
-    value: 5660,
-    icon: ShoppingCart,
-    color: 'purple',
-  },
-  {
-    title: 'Purchase Due',
-    value: 376,
-    icon: Package,
-    color: 'orange',
-  },
-  {
-    title: 'Total Purchases Returned',
-    value: 62,
-    icon: AlertCircle,
-    trend: 'down',
-    trendValue: '-5%',
-    color: 'red',
-  },
-  {
-    title: 'Expenses',
-    value: 0.0,
-    currency: 'NGN',
-    icon: Users,
-    color: 'gray',
-  },
+// const metricsData: IMetricCard[] = [
+//   {
+//     title: 'Total Sales',
+//     value: 10000950,
+//     currency: 'NGN',
+//     icon: DollarSign,
+//     trend: 'up',
+//     trendValue: '+12%',
+//     color: 'green',
+//   },
+//   {
+//     title: 'Net Sales',
+//     value: 7300950,
+//     currency: 'NGN',
+//     icon: TrendingUp,
+//     trend: 'up',
+//     trendValue: '+8%',
+//     color: 'blue',
+//   },
+//   {
+//     title: 'Invoice Due',
+//     value: 175,
+//     icon: FileText,
+//     color: 'orange',
+//   },
+//   {
+//     title: 'Total Sales Returned',
+//     value: 5,
+//     icon: AlertCircle,
+//     trend: 'down',
+//     trendValue: '-2%',
+//     color: 'red',
+//   },
+//   {
+//     title: 'Total Purchases',
+//     value: 5660,
+//     icon: ShoppingCart,
+//     color: 'purple',
+//   },
+//   {
+//     title: 'Purchase Due',
+//     value: 376,
+//     icon: Package,
+//     color: 'orange',
+//   },
+//   {
+//     title: 'Total Purchases Returned',
+//     value: 62,
+//     icon: AlertCircle,
+//     trend: 'down',
+//     trendValue: '-5%',
+//     color: 'red',
+//   },
+//   {
+//     title: 'Expenses',
+//     value: 0.0,
+//     currency: 'NGN',
+//     icon: Users,
+//     color: 'gray',
+//   },
+// ];
+const initialMetrics: IMetricCard[] = [
+  { title: 'Total Sales', value: 0, currency: 'NGN', icon: DollarSign, trend: undefined, trendValue: undefined, color: 'green' },
+  { title: 'Net Sales', value: 0, currency: 'NGN', icon: TrendingUp, trend: undefined, trendValue: undefined, color: 'blue' },
+  { title: 'Invoice Due', value: 0, icon: FileText, color: 'orange' },
+  { title: 'Total Sales Returned', value: 0, icon: AlertCircle, trend: 'down', trendValue: '-%', color: 'red' },
+  { title: 'Total Purchases', value: 0, icon: ShoppingCart, color: 'purple' },
+  { title: 'Purchase Due', value: 0, icon: Package, color: 'orange' },
+  { title: 'Total Purchases Returned', value: 0, icon: AlertCircle, trend: 'down', trendValue: '-%', color: 'red' },
+  { title: 'Expenses', value: 0.0, currency: 'NGN', icon: Users, color: 'gray' },
 ];
 
+type MetricsApiResponse = {
+  // support both friendly keys and snake_case
+  'Total Sales'?: number;
+  total_sales?: number;
+  'Net Sales'?: number;
+  net_sales?: number;
+  'Invoice Due'?: number;
+  invoice_due?: number;
+  'Total Sales Returned'?: number;
+  total_sales_returned?: number;
+  'Total Purchases'?: number;
+  total_purchases?: number;
+  'Purchase Due'?: number;
+  purchase_due?: number;
+  'Total Purchases Returned'?: number;
+  total_purchases_returned?: number;
+  'Expenses'?: number;
+  expenses?: number;
+  // + any other keys your backend returns
+  [key: string]: any;
+};
 type PendingShipment = any; // TODO: Replace 'any' with the actual type definition
 
 interface DashboardProps {
@@ -120,6 +151,59 @@ interface DashboardProps {
 }
 
 export default function Dashboard(props: DashboardProps) {
+  
+  const [metricsData, setMetricsData] = useState<IMetricCard[]>(initialMetrics);
+  const [metricsLoading, setMetricsLoading] = useState<boolean>(true);
+
+  // mapping from card title => preferred response key (snake_case)
+  const titleToKeyMap: Record<string, string> = {
+    'Total Sales': 'total_sales',
+    'Net Sales': 'net_sales',
+    'Invoice Due': 'invoice_due',
+    'Total Sales Returned': 'total_sales_returned',
+    'Total Purchases': 'total_purchases',
+    'Purchase Due': 'purchase_due',
+    'Total Purchases Returned': 'total_purchases_returned',
+    'Expenses': 'expenses',
+  };
+
+  async function fetchMetrics() {
+    setMetricsLoading(true);
+    try {
+      const res = await fetch('/apis/dashboard-metrics'); // change path if you use a different route
+      if (!res.ok) throw new Error(`Metrics fetch failed: ${res.status}`);
+      const data: MetricsApiResponse = await res.json();
+
+      const getValueForTitle = (title: string): number => {
+        const key = titleToKeyMap[title];
+        // try snake_case key first, then exact title key, then fallback to 0
+        const val = (key && data[key]) ?? data[title] ?? 0;
+        // ensure numeric
+        const n = Number(val);
+        return Number.isFinite(n) ? n : 0;
+      };
+
+      setMetricsData((prev) => prev.map((card) => ({
+        ...card,
+        value: getValueForTitle(card.title),
+      })));
+
+    } catch (err) {
+      // keep existing initial values (0) and log error
+      // optionally show UI message here
+      // console.error(err);
+    } finally {
+      setMetricsLoading(false);
+    }
+  }
+
+  // useEffect(() => {
+  //   fetchMetrics();
+  //   // Optionally poll:
+  //   // const id = setInterval(fetchMetrics, 60_000);
+  //   // return () => clearInterval(id);
+  // }, []);
+
   // console.log('Dashboard Props:', props);
   const {pending_shipments, sales_payments, purchase_payments, product_stock_alerts, sales_orders} = usePage().props as unknown as DashboardProps;
   // console.log('this is the sales payment', sales_payments);

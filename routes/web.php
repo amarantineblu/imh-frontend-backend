@@ -13,14 +13,55 @@ Route::get('/', function () {
 })->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/apis/dashboard', function() {
-    
-      $data = [
-        
-      ];
-      Log::info('Transactions API:', $data);
-      return response()->json($data);
-    });
+  Route::get('dashboard/apis', function()
+  {
+      $totalSales = \DB::table('transactions')
+          ->where('type', 'sell')
+          ->sum('final_total');
+  
+      $netSales = \DB::table('transactions')
+          ->where('type', 'sell')
+          ->where('status', 'final')
+          ->sum('final_total'); // Adjust for returns/discounts as needed
+  
+      $invoiceDue = \DB::table('transactions')
+          ->where('type', 'sell')
+          ->where('payment_status', '!=', 'paid')
+          ->count();
+  
+      $totalSalesReturned = \DB::table('transactions')
+          ->where('type', 'sell_return')
+          ->sum('final_total');
+  
+      $totalPurchases = \DB::table('transactions')
+          ->where('type', 'purchase')
+          ->sum('final_total');
+  
+      $purchaseDue = \DB::table('transactions')
+          ->where('type', 'purchase')
+          ->where('payment_status', '!=', 'paid')
+          ->count();
+  
+      $totalPurchasesReturned = \DB::table('transactions')
+          ->where('type', 'purchase_return')
+          ->sum('final_total');
+  
+      $expenses = \DB::table('transactions')
+          ->where('type', 'expense')
+          ->sum('final_total');
+  
+      return response()->json([
+          'Total Sales' => $totalSales,
+          'Net Sales' => $netSales,
+          'Invoice Due' => $invoiceDue,
+          'Total Sales Returned' => $totalSalesReturned,
+          'Total Purchases' => $totalPurchases,
+          'Purchase Due' => $purchaseDue,
+          'Total Purchases Returned' => $totalPurchasesReturned,
+          'Expenses' => $expenses,
+      ]);
+  })->name('apis');
+
     Route::get('dashboard', function () {
     $salesPayment = SalesPayment::all()->toArray();
       $purchasePayment = PurchasePayment::all()->toArray();

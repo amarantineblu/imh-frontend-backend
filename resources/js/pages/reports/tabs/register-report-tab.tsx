@@ -2,6 +2,7 @@
 import { Button } from '@/components/ui/button';
 import { DynamicTable, type TableColumn } from '@/components/ui/dynamic-table';
 import { useState } from 'react';
+import { usePage } from '@inertiajs/react';
 
 // Interface definitions
 interface RegisterData {
@@ -358,8 +359,10 @@ interface Filters {
 interface Props{
 	register: RegisterData[];	
 }
-export default function RegisterReportTab(props: Props) {
-	const mockRegisterData = props.register ?? [];
+export default function RegisterReportTab() {
+	const {props} = usePage();
+	const [mockRegisterData, setMockRegisterData] = useState<RegisterData[]>(props.register as RegisterData[] || []);
+	// const mockRegisterData = props.register ?? [];
 	const [filters, setFilters] = useState<Filters>({
 		user: '',
 		status: '',
