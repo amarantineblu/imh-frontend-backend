@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Sale;
 use App\System;
 use App\Utils\ModuleUtil;
 use Illuminate\Pagination\Paginator;
@@ -18,10 +19,14 @@ use Spatie\FlysystemDropbox\DropboxAdapter;
 
 use App\Services\SalePaymentsSeederService;
 // use App\Services\SalesPaymentSeederService;
-use Database\Seeders\ProductStockAlertsSeeder;
-use Database\Seeders\PurchasePaymentsSeeder;
-use Database\Seeders\SalesPaymentsSeeder;
-use Database\Seeders\StockReportsSeeder;
+// use App\Services\ProductStockAlertsSeeder;
+// use App\Services\PurchasePaymentsSeeder;
+// use App\Services\SalesPaymentsSeeder;
+// use App\Services\StockReportsSeeder;
+use App\Services\ProductStockAlertsSeederService;
+use App\Services\PurchasePaymentsSeederService;
+use App\Services\SalesPaymentSeederService;
+use App\Services\StockReportsSeederService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -38,13 +43,41 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if (app()->runningInConsole() && !app()->runningUnitTests()) {
-            app(SalePaymentsSeederService::class)->run();
-            app(ProductStockAlertsSeeder::class)->run();
-            app(SalesPaymentsSeeder::class)->run();
-            app(PurchasePaymentsSeeder::class)->run();
-            app(StockReportsSeeder::class)->run();
+        if (!app()->runningUnitTests()) {
+            // Sale Payments Seeder
+            if (!cache()->has('seeded:sale_payments')) {
+                app(SalePaymentsSeederService::class)->run();
+                cache()->forever('seeded:sale_payments', true);
+            }
+        
+            // Sales Payments Seeder
+
+            if (!cache()->has('seeded:sales_payments')) {
+                app(SalesPaymentSeederService::class)->run();
+                cache()->forever('seeded:sales_payments', true);
+            }
+        
+            // Purchase Payments Seeder
+            if (!cache()->has('seeded:purchase_payments')) {
+                app(PurchasePaymentsSeederService::class)->run();
+                cache()->forever('seeded:purchase_payments', true);
+            }
+        
+            // Product Stock Alerts Seeder
+            if (!cache()->has('seeded:product_stock_alerts')) {
+                app(ProductStockAlertsSeederService::class)->run();
+                cache()->forever('seeded:product_stock_alerts', true);
+            }
+        
+            // Stock Reports Seeder
+            if (!cache()->has('seeded:stock_reports')) {
+                app(StockReportsSeederService::class)->run();
+                cache()->forever('seeded:stock_reports', true);
+            }
         }
+        
+        
+
         ini_set('memory_limit', '-1');
         set_time_limit(0);
 

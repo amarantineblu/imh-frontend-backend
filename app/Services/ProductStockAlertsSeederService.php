@@ -1,29 +1,31 @@
 <?php
 
-namespace Database\Seeders;
+namespace App\Services;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+// use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
 
-class ProductStockAlertsSeeder extends Seeder
+class ProductStockAlertsSeederService extends Seeder
 {
     public function run()
     {
+        // Log::info("ProductStockAlertsSeederService::run() called.");
         if (!Schema::hasTable('product_stock_alerts')) {
-            $this->command->info('Table product_stock_alerts does not exist. Skipping.');
+            Log::info('Table product_stock_alerts does not exist. Skipping.');
             return;
         }
 
         // Source: variation_location_details (common in POS bundles)
         if (!Schema::hasTable('variation_location_details')) {
-            $this->command->info('Source table variation_location_details missing. Attempting a fallback using variations or products.');
+            Log::info('Source table variation_location_details missing. Attempting a fallback using variations or products.');
         }
 
         // Skip if already populated
         $count = DB::table('product_stock_alerts')->count();
         if ($count > 0) {
-            $this->command->info('product_stock_alerts already has data. Skipping.');
+            Log::info('product_stock_alerts already has data. Skipping.');
             return;
         }
 
@@ -55,11 +57,11 @@ class ProductStockAlertsSeeder extends Seeder
                     ]);
                     $inserted++;
                 } catch (\Exception $e) {
-                    $this->command->error('product_stock_alert insert error: ' . $e->getMessage());
+                    Log::error('product_stock_alert insert error: ' . $e->getMessage());
                 }
             }
 
-            $this->command->info("ProductStockAlertsSeeder: inserted {$inserted} rows.");
+            // Log::info("ProductStockAlertsSeeder: inserted {$inserted} rows.");
             return;
         }
 
@@ -82,6 +84,6 @@ class ProductStockAlertsSeeder extends Seeder
                 'updated_at' => now(),
             ]
         ]);
-        $this->command->info('ProductStockAlertsSeeder: inserted 2 placeholder rows (fallback).');
+        // Log::info('ProductStockAlertsSeeder: inserted 2 placeholder rows (fallback).');
     }
 }

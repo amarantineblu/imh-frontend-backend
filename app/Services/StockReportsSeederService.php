@@ -1,28 +1,28 @@
 <?php
 
-namespace Database\Seeders;
+namespace App\Services;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class StockReportsSeeder extends Seeder
+class StockReportsSeederService extends Seeder
 {
     public function run()
     {
         if (!Schema::hasTable('stock_reports')) {
-            $this->command->info('Table stock_reports does not exist. Skipping.');
+            Log::info('Table stock_reports does not exist. Skipping.');
             return;
         }
 
         if (!Schema::hasTable('variation_location_details')) {
-            $this->command->info('Source table variation_location_details missing. Skipping stock_reports seed.');
+            Log::info('Source table variation_location_details missing. Skipping stock_reports seed.');
             return;
         }
 
         $count = DB::table('stock_reports')->count();
         if ($count > 0) {
-            $this->command->info('stock_reports already has data. Skipping.');
+            Log::info('stock_reports already has data. Skipping.');
             return;
         }
 
@@ -30,7 +30,7 @@ class StockReportsSeeder extends Seeder
         $rows = DB::table('variation_location_details as vld')
             ->leftJoin('variations as v', 'vld.variation_id', '=', 'v.id')
             ->leftJoin('products as p', 'v.product_id', '=', 'p.id')
-            ->leftJoin('product_variation as pv', function ($join) {
+            ->leftJoin('product_variations as pv', function ($join) {
                 $join->on('pv.variation_id', '=', 'v.id');
             }) // optional
             ->leftJoin('business_locations as bl', 'vld.location_id', '=', 'bl.id')
@@ -73,10 +73,10 @@ class StockReportsSeeder extends Seeder
                 ]);
                 $inserted++;
             } catch (\Exception $e) {
-                $this->command->error('stock_reports insert failed: ' . $e->getMessage());
+                Log::error('stock_reports insert failed: ' . $e->getMessage());
             }
         }
 
-        $this->command->info("StockReportsSeeder: inserted {$inserted} rows into stock_reports.");
+        // Log::info("StockReportsSeeder: inserted {$inserted} rows into stock_reports.");
     }
 }

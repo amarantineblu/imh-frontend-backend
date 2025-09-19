@@ -1,25 +1,25 @@
 <?php
 
-namespace Database\Seeders;
+namespace App\Services;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class PurchasePaymentsSeeder extends Seeder
+class PurchasePaymentsSeederService extends Seeder
 {
     public function run()
     {
         if (!Schema::hasTable('purchase_payments')) {
-            $this->command->info('Table purchase_payments missing. Skipping.');
+            Log::info('Table purchase_payments missing. Skipping.');
             return;
         }
         if (!Schema::hasTable('transaction_payments') || !Schema::hasTable('transactions')) {
-            $this->command->info('Source tables missing. Skipping purchase_payments.');
+            Log::info('Source tables missing. Skipping purchase_payments.');
             return;
         }
         if (DB::table('purchase_payments')->count() > 0) {
-            $this->command->info('purchase_payments already populated. Skipping.');
+            Log::info('purchase_payments already populated. Skipping.');
             return;
         }
 
@@ -43,6 +43,6 @@ class PurchasePaymentsSeeder extends Seeder
                 'updated_at' => now(),
             ]);
         }
-        $this->command->info('PurchasePaymentsSeeder: done.');
+        // Log::info('PurchasePaymentsSeeder: done.');
     }
 }

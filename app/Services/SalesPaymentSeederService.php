@@ -1,28 +1,28 @@
 <?php
 
-namespace Database\Seeders;
+namespace App\Services;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class SalesPaymentsSeeder extends Seeder
+class SalesPaymentSeederService extends Seeder
 {
     public function run()
     {
         if (!Schema::hasTable('sales_payments')) {
-            $this->command->info('Table sales_payments does not exist. Skipping.');
+            Log::info('Table sales_payments does not exist. Skipping.');
             return;
         }
 
         if (!Schema::hasTable('transaction_payments') || !Schema::hasTable('transactions')) {
-            $this->command->info('Source tables transaction_payments or transactions missing. Skipping sales_payments seed.');
+            Log::info('Source tables transaction_payments or transactions missing. Skipping sales_payments seed.');
             return;
         }
 
         $count = DB::table('sales_payments')->count();
         if ($count > 0) {
-            $this->command->info('sales_payments already has data. Skipping.');
+            Log::info('sales_payments already has data. Skipping.');
             return;
         }
 
@@ -62,10 +62,10 @@ class SalesPaymentsSeeder extends Seeder
                 ]);
                 $inserted++;
             } catch (\Exception $e) {
-                $this->command->error('sales_payments insert failed: ' . $e->getMessage());
+                Log::error('sales_payments insert failed: ' . $e->getMessage());
             }
         }
 
-        $this->command->info("SalesPaymentsSeeder: inserted {$inserted} rows into sales_payments.");
+        // Log::info("SalesPaymentsSeeder: inserted {$inserted} rows into sales_payments.");
     }
 }

@@ -33,7 +33,8 @@ return new class extends Migration
             $table->string('bank_account_number')->nullable();
 
             $table->string('note')->nullable();
-
+            $table->string('payment_date')->nullable();
+            // $table->
             $table->timestamps();
         });
     }

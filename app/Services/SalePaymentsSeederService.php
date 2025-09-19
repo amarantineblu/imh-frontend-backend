@@ -4,7 +4,7 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\Log;
+// use Illuminate\Support\Facades\Log;
 
 class SalePaymentsSeederService
 {
@@ -56,6 +56,6 @@ class SalePaymentsSeederService
             }
         }
 
-        Log::info("SalePaymentsSeeder: inserted {$inserted} rows into sale_payments.");
+        // Log::info("SalePaymentsSeeder: inserted {$inserted} rows into sale_payments.");
     }
 }
